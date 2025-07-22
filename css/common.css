@@ -7,10 +7,6 @@ html {
     font-family: 'Noto Sans KR';
 }
 
-body.preload {
-    visibility: hidden;
-}
-
 .snap-container {
     height: 100vh;
     overflow-y: scroll;
@@ -60,37 +56,37 @@ body.preload {
 }
 
 .introBg {
-    --bg-img: url("../img/introBg.png");
+    --bg-img: url("../img/introBg.webp");
     color: #fff;
 }
 
 .missionBg {
-    --bg-img: url("../img/missionBg.png");
+    --bg-img: url("../img/missionBg.webp");
     color: #010101;
 }
 
 .competitiveBg {
-    --bg-img: url("../img/competitiveBg.png");
+    --bg-img: url("../img/competitiveBg.webp");
     color: #010101;
 }
 
 .consultBg {
-    --bg-img: url("../img/consultBg.png");
+    --bg-img: url("../img/consultBg.webp");
     color: #fff;
 }
 
 .logisticBg {
-    --bg-img: url("../img/logisticBg.png");
+    --bg-img: url("../img/logisticBg.webp");
     color: #fff;
 }
 
 .factoryBg {
-    --bg-img: url("../img/factoryBg.png");
+    --bg-img: url("../img/factoryBg.webp");
     color: #fff;
 }
 
 .maintenanceBg {
-    --bg-img: url("../img/maintenanceBg.png");
+    --bg-img: url("../img/maintenanceBg.webp");
     color: #fff;
 }
 
