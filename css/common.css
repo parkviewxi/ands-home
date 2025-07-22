@@ -7,6 +7,10 @@ html {
     font-family: 'Noto Sans KR';
 }
 
+body.preload {
+    visibility: hidden;
+}
+
 .snap-container {
     height: 100vh;
     overflow-y: scroll;

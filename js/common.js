@@ -1,3 +1,7 @@
+window.addEventListener("load", () => {
+    document.body.classList.remove("preload");
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".snap-container");
     const sections = document.querySelectorAll(".snap-child");
