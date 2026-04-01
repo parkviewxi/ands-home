@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SQX Logistics — 물류솔루션 | 앤드스퀘어</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="./css/sqx-common.css"/>
+  <style>
+    :root {
+      --accent: #3b82f6; --accent-em-start: #60a5fa; --accent-em-mid: #22d3ee;
+      --accent-glow: rgba(59,130,246,0.12);
+      --accent-dim: rgba(59,130,246,0.08);
+    }
+    .nav-product-tag { background: rgba(59,130,246,0.1); color: #60a5fa; border-color: rgba(59,130,246,0.3); }
+
+    /* Route map mockup */
+    .route-map { position:relative; height:170px; background:radial-gradient(ellipse at center,rgba(30,64,175,0.08) 0%,transparent 70%); border-radius:6px; overflow:hidden; }
+    .port-dot { position:absolute; width:8px; height:8px; border-radius:50%; border:1.5px solid; }
+    .port-label { position:absolute; font-size:7.5px; font-family:'Outfit',sans-serif; white-space:nowrap; }
+
+    /* 3D Warehouse mock */
+    .warehouse-3d { background:#0a0f1a; border-radius:6px; padding:10px; position:relative; overflow:hidden; height:160px; }
+    .rack-row { display:flex; gap:4px; margin-bottom:4px; }
+    .rack { display:flex; flex-direction:column; gap:2px; }
+    .rack-cell { width:18px; height:10px; border-radius:2px; border:1px solid; }
+
+    /* Shipment tracker */
+    .track-timeline { display:flex; flex-direction:column; gap:0; }
+    .track-step { display:flex; gap:10px; position:relative; }
+    .track-step::before { content:''; position:absolute; left:7px; top:16px; width:1px; height:calc(100% - 8px); background:rgba(255,255,255,0.1); }
+    .track-step:last-child::before { display:none; }
+    .track-dot { width:15px; height:15px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:7px; border:1.5px solid; }
+    .track-content { padding-bottom:10px; }
+    .track-title { font-size:9px; color:rgba(255,255,255,0.7); margin-bottom:2px; }
+    .track-meta { font-size:7.5px; color:rgba(255,255,255,0.3); }
+
+    /* ATS flight card */
+    .flight-card { background:var(--slate-800); border-radius:5px; padding:8px 10px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center; }
+    .flight-route { display:flex; align-items:center; gap:6px; }
+    .airport-code { font-family:'Outfit',sans-serif; font-size:14px; font-weight:800; color:#fff; }
+    .flight-line { flex:1; height:1px; background:rgba(255,255,255,0.1); position:relative; }
+    .flight-line::before { content:'✈'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:9px; color:#60a5fa; }
+    .flight-info { font-size:8px; color:rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="./index.html" class="nav-back">ANDSQUARE</a>
+    <span class="nav-sep">/</span>
+    <a href="./nf1.html" class="nav-back">NF1 Solutions</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-product-tag">SQX Logistics</span>
+  </div>
+  <a href="./nf1.html" class="nav-home">← 솔루션 목록</a>
+</nav>
+
+<div class="product-hero">
+  <div class="product-hero-shot" style="--hero-shot:url('../img/hero-logistics.png')"></div>
+  <div class="product-hero-orb" style="background:conic-gradient(from 200deg,rgba(59,130,246,0.28) 0%,rgba(96,165,250,0.22) 35%,rgba(6,182,212,0.2) 65%,rgba(59,130,246,0.28) 100%);"></div><div class="product-hero-orb-ring"></div><div class="product-hero-inner">
+    <div class="product-hero-text">
+      <div class="product-eyebrow">SQX Logistics — 통합 물류 플랫폼</div>
+      <h1>포워딩부터 항공까지<br><em>물류 전 영역 커버</em></h1>
+      <p>해상 포워딩(FMS), 창고 관리(WMS), 운송 관리(TMS), 항공 운송(ATS)까지<br>
+        엔터프라이즈급 물류의 모든 영역을 단일 플랫폼으로 통합합니다.</p>
+    </div>
+    <div class="product-hero-badge">
+      <div class="badge-icon">🚢</div>
+      <div>
+        <div class="badge-label">Solution Coverage</div>
+        <div class="badge-value">FMS · WMS · TMS · ATS</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-section">
+  <div class="section-inner">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('fms',this)">FMS 해상포워딩</button>
+      <button class="tab-btn" onclick="switchTab('wms',this)">WMS 창고관리</button>
+      <button class="tab-btn" onclick="switchTab('tms',this)">TMS 운송관리</button>
+      <button class="tab-btn" onclick="switchTab('ats',this)">ATS 항공운송</button>
+    </nav>
+
+    <!-- FMS 해상 포워딩 -->
+    <div class="tab-panel active" id="tab-fms">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">FMS — 해상 포워딩 관리</span>
+        </div>
+        <div class="screen-body">
+          <!-- KPI -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
+            <div class="kpi-mini">
+              <div class="kpi-l">진행 주문</div>
+              <div class="kpi-v" style="--c:#60a5fa;">247</div>
+              <div class="kpi-d">+12 이번주</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">항해중 BL</div>
+              <div class="kpi-v" style="--c:#4ade80;">83</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">도착 예정 (7일)</div>
+              <div class="kpi-v" style="--c:#fbbf24;">31</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">정시 도착률</div>
+              <div class="kpi-v" style="--c:#4ade80;">94%</div>
+            </div>
+          </div>
+          <!-- World Route Map -->
+          <div class="route-map" style="height:232px;background:#010d1e;border-radius:6px;overflow:hidden;">
+            <svg width="100%" height="100%" viewBox="0 0 520 232" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <radialGradient id="ogrd" cx="45%" cy="50%" r="65%">
+                  <stop offset="0%" stop-color="#021535"/>
+                  <stop offset="100%" stop-color="#010b1d"/>
+                </radialGradient>
+                <filter id="ptglow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="2.5" result="b"/>
+                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <!-- Ocean -->
+              <rect width="520" height="232" fill="url(#ogrd)"/>
+              <!-- Grid (lat/lon) -->
+              <line x1="0" y1="23" x2="520" y2="23" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="0" y1="62" x2="520" y2="62" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="0" y1="101" x2="520" y2="101" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="0" y1="140" x2="520" y2="140" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="0" y1="179" x2="520" y2="179" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="0" y1="218" x2="520" y2="218" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="17"  y1="0" x2="17"  y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="88"  y1="0" x2="88"  y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="159" y1="0" x2="159" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="230" y1="0" x2="230" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="301" y1="0" x2="301" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="372" y1="0" x2="372" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+              <line x1="444" y1="0" x2="444" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
+
+              <!-- === CONTINENTS === -->
+              <!-- Western Europe -->
+              <path d="M 3,0 L 36,0 L 38,12 L 35,22 L 22,28 L 17,36 L 10,42 L 4,38 L 0,28 L 0,14 Z
+                       M 36,22 L 53,17 L 62,24 L 63,38 L 56,52 L 45,56 L 37,48 L 33,34 Z
+                       M 45,56 L 55,58 L 63,70 L 57,83 L 48,85 L 40,76 L 38,62 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.22)" stroke-width="0.5"/>
+              <!-- Iberian Peninsula -->
+              <path d="M 4,62 L 23,56 L 33,66 L 29,81 L 18,85 L 5,81 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
+              <!-- North Africa -->
+              <path d="M 0,84 L 52,82 L 82,82 L 118,81 L 140,80 L 148,85 L 150,102
+                       L 142,115 L 125,119 L 95,121 L 62,119 L 32,115 L 10,112 L 0,110 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
+              <!-- Egypt / Sinai -->
+              <path d="M 116,80 L 142,80 L 142,104 L 132,112 L 116,110 L 110,96 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.15)" stroke-width="0.4"/>
+              <!-- Arabian Peninsula -->
+              <path d="M 142,80 L 162,77 L 188,77 L 208,82 L 225,92 L 230,110
+                       L 226,132 L 215,155 L 200,168 L 184,170 L 168,160
+                       L 154,142 L 148,120 L 145,100 L 142,88 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
+              <!-- Horn of Africa / Somalia -->
+              <path d="M 148,120 L 164,117 L 177,124 L 174,144 L 164,168 L 151,170
+                       L 142,160 L 140,138 L 143,122 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.18)" stroke-width="0.4"/>
+              <!-- Indian Subcontinent -->
+              <path d="M 258,93 L 282,88 L 308,91 L 323,110 L 325,132 L 314,160
+                       L 296,181 L 281,184 L 265,174 L 252,153 L 248,128 L 250,106 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
+              <!-- Sri Lanka -->
+              <path d="M 280,187 L 289,187 L 291,198 L 283,203 L 276,196 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.14)" stroke-width="0.4"/>
+              <!-- Indochina (Myanmar/Thailand/Vietnam) -->
+              <path d="M 330,104 L 360,99 L 377,113 L 382,134 L 374,155
+                       L 360,162 L 344,156 L 330,138 L 325,118 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.18)" stroke-width="0.4"/>
+              <!-- Malay Peninsula -->
+              <path d="M 360,160 L 378,153 L 384,167 L 382,188 L 371,198 L 358,195
+                       L 350,180 L 352,163 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.18)" stroke-width="0.4"/>
+              <!-- Sumatra -->
+              <path d="M 356,200 L 390,203 L 415,211 L 420,222 L 396,228 L 364,225
+                       L 347,212 L 350,201 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.14)" stroke-width="0.4"/>
+              <!-- China + east coast -->
+              <path d="M 383,54 L 422,49 L 450,51 L 466,60 L 477,72 L 480,90
+                       L 473,107 L 456,117 L 432,120 L 408,114 L 390,101 L 380,82 L 378,65 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
+              <!-- Korean Peninsula (accent) -->
+              <path d="M 458,79 L 471,75 L 479,83 L 477,97 L 465,104 L 454,100
+                       L 449,90 L 451,81 Z"
+                    fill="#0e2a56" stroke="rgba(96,165,250,0.48)" stroke-width="1"/>
+              <!-- Japan (Honshu + Kyushu) -->
+              <path d="M 476,70 L 487,65 L 500,61 L 510,68 L 507,80 L 494,86 L 481,80 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.14)" stroke-width="0.4"/>
+              <path d="M 476,90 L 486,86 L 493,94 L 488,102 L 478,100 Z"
+                    fill="#0d2242" stroke="rgba(59,130,246,0.14)" stroke-width="0.4"/>
+
+              <!-- === SHIPPING ROUTE: Busan → Singapore → Indian Ocean → Suez → Rotterdam === -->
+              <!-- Glow (wide soft) -->
+              <path d="M 468,93 C 461,116 438,178 382,214
+                       C 350,228 295,230 248,222
+                       C 210,215 182,198 165,170
+                       C 149,143 145,118 134,108
+                       C 118,86 72,50 32,30"
+                    stroke="rgba(59,130,246,0.18)" stroke-width="11" fill="none"/>
+              <!-- Main dashed route -->
+              <path d="M 468,93 C 461,116 438,178 382,214
+                       C 350,228 295,230 248,222
+                       C 210,215 182,198 165,170
+                       C 149,143 145,118 134,108
+                       C 118,86 72,50 32,30"
+                    stroke="#3b82f6" stroke-width="1.8" fill="none"
+                    stroke-dasharray="5,3" opacity="0.9"
+                    style="filter:drop-shadow(0 0 3px rgba(59,130,246,0.55))"/>
+
+              <!-- Ships on route -->
+              <text x="380" y="217" font-size="10" fill="#60a5fa" text-anchor="middle">🚢</text>
+              <text x="200" y="204" font-size="8"  fill="rgba(96,165,250,0.62)" text-anchor="middle">🚢</text>
+
+              <!-- Suez Canal marker -->
+              <circle cx="134" cy="108" r="3" fill="#fbbf24" opacity="0.88"
+                      style="filter:drop-shadow(0 0 3px rgba(251,191,36,0.5))"/>
+              <text x="140" y="104" font-size="6.5" fill="rgba(251,191,36,0.75)">Suez</text>
+
+              <!-- === PORT DOTS === -->
+              <!-- Rotterdam -->
+              <circle cx="32" cy="30" r="5" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5" filter="url(#ptglow)"/>
+              <text x="40" y="27" font-size="8" fill="#93c5fd" font-weight="bold">로테르담 (RTM)</text>
+              <!-- Hamburg -->
+              <circle cx="53" cy="23" r="3.5" fill="#fbbf24" stroke="#fde68a" stroke-width="1" filter="url(#ptglow)"/>
+              <text x="60" y="20" font-size="6.5" fill="#fde68a">함부르크</text>
+              <!-- Singapore -->
+              <circle cx="374" cy="212" r="5" fill="#22d3ee" stroke="#a5f3fc" stroke-width="1.5" filter="url(#ptglow)"/>
+              <text x="367" y="207" font-size="8" fill="#a5f3fc" font-weight="bold" text-anchor="end">싱가포르 (SIN)</text>
+              <!-- Busan -->
+              <circle cx="468" cy="93" r="5" fill="#4ade80" stroke="#86efac" stroke-width="1.5" filter="url(#ptglow)"/>
+              <text x="462" y="86" font-size="8" fill="#86efac" font-weight="bold" text-anchor="end">부산 (PUS)</text>
+
+              <!-- Ocean name labels -->
+              <text x="210" y="172" font-size="8" fill="rgba(148,163,184,0.15)" text-anchor="middle"
+                    font-style="italic" letter-spacing="1.5">INDIAN OCEAN</text>
+              <text x="148" y="134" font-size="6.5" fill="rgba(148,163,184,0.12)" text-anchor="middle" font-style="italic">Arabian Sea</text>
+              <text x="416" y="160" font-size="6.5" fill="rgba(148,163,246,0.12)" text-anchor="middle" font-style="italic">South China Sea</text>
+              <text x="62" y="63" font-size="6"   fill="rgba(148,163,184,0.10)" text-anchor="middle" font-style="italic">Mediterranean</text>
+            </svg>
+          </div>
+          <!-- BL list -->
+          <div style="margin-top:6px;">
+            <div class="mock-grid">
+              <div class="mock-grid-head" style="grid-template-columns:1.5fr 1fr 1fr 60px 60px;">
+                <span>BL번호</span><span>출발지</span><span>도착지</span><span>ETD</span><span>상태</span>
+              </div>
+              <div class="mock-grid-row" style="grid-template-columns:1.5fr 1fr 1fr 60px 60px;">
+                <span class="mono">ANBL25030012</span><span>부산</span><span>로테르담</span>
+                <span>03/28</span><span><span class="badge-chip b">항해중</span></span>
+              </div>
+              <div class="mock-grid-row" style="grid-template-columns:1.5fr 1fr 1fr 60px 60px;">
+                <span class="mono">ANBL25030018</span><span>인천</span><span>함부르크</span>
+                <span>04/03</span><span><span class="badge-chip y">접수</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">FMS</div>
+        <div class="panel-title">해상 포워딩<br>엔드투엔드 관리</div>
+        <div class="panel-text">
+          주문 접수부터 BL 발행, 컨테이너 배정, 선적 확정, 도착지 서류까지
+          해상 포워딩의 전 과정을 디지털화합니다.
+        </div>
+        <ul class="feature-bullets">
+          <li>수출입 주문 통합 관리 — 화주·포워더·선사 연동</li>
+          <li>BL·HBL·MBL 발행 및 전자 문서화</li>
+          <li>컨테이너 배정 및 적재 계획 (CLP)</li>
+          <li>실시간 항로 추적 — 선박 위치 지도 표시</li>
+          <li>운임 산출 및 청구서 자동 생성</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- WMS 창고관리 -->
+    <div class="tab-panel" id="tab-wms">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">WMS — 창고 관리</span>
+        </div>
+        <div class="screen-body">
+          <!-- KPI -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
+            <div class="kpi-mini">
+              <div class="kpi-l">재고 SKU</div>
+              <div class="kpi-v" style="--c:#60a5fa;">1,842</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">창고 점유율</div>
+              <div class="kpi-v" style="--c:#fbbf24;">73%</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">오늘 입고</div>
+              <div class="kpi-v" style="--c:#4ade80;">48</div>
+              <div class="kpi-d">파렛트</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">오늘 출고</div>
+              <div class="kpi-v" style="--c:#f87171;">31</div>
+              <div class="kpi-d">파렛트</div>
+            </div>
+          </div>
+          <!-- 3D Warehouse visualization -->
+          <div class="warehouse-3d">
+            <div class="mock-section-label" style="margin-bottom:6px;">창고 레이아웃 — Zone A (3층)</div>
+            <!-- Rack visualization -->
+            <div style="display:flex;gap:8px;align-items:flex-end;">
+              <div>
+                <div style="font-size:7px;color:rgba(255,255,255,0.2);margin-bottom:3px;text-align:center;">3F</div>
+                <div class="rack-row">
+                  <div class="rack">
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.4);border-color:rgba(59,130,246,0.6);"></div>
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.3);border-color:rgba(59,130,246,0.5);"></div>
+                    <div class="rack-cell" style="background:rgba(74,222,128,0.3);border-color:rgba(74,222,128,0.5);"></div>
+                  </div>
+                  <div class="rack">
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.5);border-color:rgba(59,130,246,0.7);"></div>
+                    <div class="rack-cell" style="background:rgba(251,191,36,0.4);border-color:rgba(251,191,36,0.6);"></div>
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.2);border-color:rgba(59,130,246,0.4);"></div>
+                  </div>
+                  <div class="rack">
+                    <div class="rack-cell" style="background:rgba(248,113,113,0.3);border-color:rgba(248,113,113,0.5);"></div>
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.4);border-color:rgba(59,130,246,0.6);"></div>
+                    <div class="rack-cell" style="background:rgba(74,222,128,0.4);border-color:rgba(74,222,128,0.6);"></div>
+                  </div>
+                  <div class="rack">
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.15);border-color:rgba(255,255,255,0.1);"></div>
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.4);border-color:rgba(59,130,246,0.6);"></div>
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.5);border-color:rgba(59,130,246,0.7);"></div>
+                  </div>
+                  <div class="rack">
+                    <div class="rack-cell" style="background:rgba(74,222,128,0.3);border-color:rgba(74,222,128,0.5);"></div>
+                    <div class="rack-cell" style="background:rgba(74,222,128,0.4);border-color:rgba(74,222,128,0.6);"></div>
+                    <div class="rack-cell" style="background:rgba(59,130,246,0.3);border-color:rgba(59,130,246,0.5);"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Legend -->
+              <div style="display:flex;flex-direction:column;gap:4px;margin-left:8px;">
+                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
+                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(59,130,246,0.4);border:1px solid rgba(59,130,246,0.6);"></div>일반재고
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
+                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(74,222,128,0.4);border:1px solid rgba(74,222,128,0.6);"></div>냉장
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
+                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(251,191,36,0.4);border:1px solid rgba(251,191,36,0.6);"></div>위험물
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
+                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(248,113,113,0.3);border:1px solid rgba(248,113,113,0.5);"></div>불량
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
+                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(59,130,246,0.1);border:1px solid rgba(255,255,255,0.1);"></div>공 위치
+                </div>
+              </div>
+              <!-- Stats -->
+              <div style="margin-left:auto;display:flex;flex-direction:column;gap:5px;">
+                <div style="background:rgba(255,255,255,0.04);border-radius:4px;padding:5px 8px;text-align:right;">
+                  <div style="font-size:7px;color:rgba(255,255,255,0.3);font-family:'Outfit',sans-serif;">Zone A 점유</div>
+                  <div style="font-size:14px;font-weight:700;color:#60a5fa;font-family:'Outfit',sans-serif;">73%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.04);border-radius:4px;padding:5px 8px;text-align:right;">
+                  <div style="font-size:7px;color:rgba(255,255,255,0.3);font-family:'Outfit',sans-serif;">가용 위치</div>
+                  <div style="font-size:14px;font-weight:700;color:#4ade80;font-family:'Outfit',sans-serif;">142</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Inbound queue -->
+          <div style="margin-top:6px;">
+            <div class="mock-section-label">입고 예정 (오늘)</div>
+            <div class="mock-grid" style="margin-top:4px;">
+              <div class="mock-grid-head" style="grid-template-columns:1fr 80px 60px 60px 50px;">
+                <span>화물명</span><span>화주</span><span>수량</span><span>도착예정</span><span>상태</span>
+              </div>
+              <div class="mock-grid-row" style="grid-template-columns:1fr 80px 60px 60px 50px;">
+                <span>전자부품 A-Class 박스</span><span>삼성 SDI</span><span>240 BOX</span><span>14:30</span>
+                <span><span class="badge-chip b">접수</span></span>
+              </div>
+              <div class="mock-grid-row" style="grid-template-columns:1fr 80px 60px 60px 50px;">
+                <span>냉장 식품류 (냉동)</span><span>CJ 프레시</span><span>18 파렛</span><span>16:00</span>
+                <span><span class="badge-chip g">완료</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">WMS</div>
+        <div class="panel-title">스마트 창고<br>실시간 관리</div>
+        <div class="panel-text">
+          창고 내 모든 재고를 위치 기반으로 관리합니다. 입고·출고·재고 조정·재고 실사까지
+          창고 운영의 전 과정을 디지털화하세요.
+        </div>
+        <ul class="feature-bullets">
+          <li>위치 기반 재고 관리 — 랙·존·층 단위 추적</li>
+          <li>입출고 예약 및 도크 배정 스케줄링</li>
+          <li>FIFO/FEFO/LIFO 출고 전략 지원</li>
+          <li>창고 레이아웃 시각화 — 점유율·가용 위치</li>
+          <li>바코드·QR 스캔 연동 — 모바일 앱 지원</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TMS 운송관리 -->
+    <div class="tab-panel" id="tab-tms">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">TMS — 운송 관리</span>
+        </div>
+        <div class="screen-body">
+          <!-- KPI -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
+            <div class="kpi-mini">
+              <div class="kpi-l">오늘 배차</div>
+              <div class="kpi-v" style="--c:#60a5fa;">34</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">운행중</div>
+              <div class="kpi-v" style="--c:#4ade80;">21</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">배송완료</div>
+              <div class="kpi-v" style="--c:#fbbf24;">13</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">정시 배송률</div>
+              <div class="kpi-v" style="--c:#4ade80;">96%</div>
+            </div>
+          </div>
+          <!-- Order grid -->
+          <div class="mock-section-label">배차 현황</div>
+          <div class="mock-grid" style="margin-top:4px;">
+            <div class="mock-grid-head" style="grid-template-columns:1.2fr 80px 80px 60px 55px 50px;">
+              <span>운송 번호</span><span>출발지</span><span>도착지</span><span>차량</span><span>기사</span><span>상태</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:1.2fr 80px 80px 60px 55px 50px;">
+              <span class="mono">TMS250401001</span><span>인천 창고</span><span>강남 물류센터</span>
+              <span style="font-size:8px;">5톤 윙바디</span><span style="font-size:8px;">김철수</span>
+              <span><span class="badge-chip b">운행중</span></span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:1.2fr 80px 80px 60px 55px 50px;">
+              <span class="mono">TMS250401002</span><span>부산 항구</span><span>경기 허브</span>
+              <span style="font-size:8px;">11톤 탑차</span><span style="font-size:8px;">이영호</span>
+              <span><span class="badge-chip g">완료</span></span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:1.2fr 80px 80px 60px 55px 50px;">
+              <span class="mono">TMS250401003</span><span>평택 창고</span><span>서울 배송센터</span>
+              <span style="font-size:8px;">1톤 트럭</span><span style="font-size:8px;">박민수</span>
+              <span><span class="badge-chip y">대기</span></span>
+            </div>
+          </div>
+          <!-- Shipment tracking -->
+          <div style="margin-top:8px;">
+            <div class="mock-section-label">실시간 화물 추적 — TMS250401001</div>
+            <div class="track-timeline" style="margin-top:6px;padding-left:4px;">
+              <div class="track-step">
+                <div class="track-dot" style="background:rgba(74,222,128,0.2);border-color:#4ade80;color:#4ade80;">✓</div>
+                <div class="track-content">
+                  <div class="track-title">인천 창고 출발</div>
+                  <div class="track-meta">09:15 · 인천시 남동구</div>
+                </div>
+              </div>
+              <div class="track-step">
+                <div class="track-dot" style="background:rgba(59,130,246,0.3);border-color:#60a5fa;color:#60a5fa;">●</div>
+                <div class="track-content">
+                  <div class="track-title" style="color:#60a5fa;">서울 외곽순환 진입 (현재)</div>
+                  <div class="track-meta">11:42 · 서울 강서구 · 잔여 23km</div>
+                </div>
+              </div>
+              <div class="track-step">
+                <div class="track-dot" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.2);">○</div>
+                <div class="track-content">
+                  <div class="track-title" style="opacity:.4;">강남 물류센터 도착 예정</div>
+                  <div class="track-meta">13:00 예정</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">TMS</div>
+        <div class="panel-title">운송 배차부터<br>실시간 추적까지</div>
+        <div class="panel-text">
+          운송 주문 접수, 차량·기사 배차, 경로 최적화, 실시간 위치 추적,
+          배송 완료 확인까지 육상 운송 전 과정을 커버합니다.
+        </div>
+        <ul class="feature-bullets">
+          <li>자동 배차 — 차량 유형·적재량·거리 최적화</li>
+          <li>GPS 실시간 추적 — 화물 위치 가시성</li>
+          <li>경로 최적화 — 다중 배송지 순서 계산</li>
+          <li>드라이버 앱 연동 — POD 전자서명 수집</li>
+          <li>운임 자동 산출 — 거리·중량·유류비 반영</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ATS 항공운송 -->
+    <div class="tab-panel" id="tab-ats">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">ATS — 항공 운송 관리</span>
+        </div>
+        <div class="screen-body">
+          <!-- KPI -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
+            <div class="kpi-mini">
+              <div class="kpi-l">진행 AWB</div>
+              <div class="kpi-v" style="--c:#60a5fa;">58</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">운항중</div>
+              <div class="kpi-v" style="--c:#4ade80;">12</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">통관 중</div>
+              <div class="kpi-v" style="--c:#fbbf24;">9</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">평균 Transit</div>
+              <div class="kpi-v" style="--c:#4ade80;">2.1d</div>
+            </div>
+          </div>
+          <!-- Flight cards -->
+          <div class="mock-section-label">항공편 현황</div>
+          <div style="margin-top:4px;">
+            <div class="flight-card">
+              <div class="flight-route" style="flex:1;gap:8px;">
+                <div style="text-align:center;">
+                  <div class="airport-code" style="font-size:13px;">ICN</div>
+                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">09:30</div>
+                </div>
+                <div class="flight-line" style="flex:1;margin:0 6px;"></div>
+                <div style="text-align:center;">
+                  <div class="airport-code" style="font-size:13px;">FRA</div>
+                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">14:45</div>
+                </div>
+              </div>
+              <div style="margin-left:16px;text-align:right;">
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">KE 905</div>
+                <div style="font-size:7.5px;color:rgba(255,255,255,0.3);">AWB: 180-12345678</div>
+                <span class="badge-chip b">운항중</span>
+              </div>
+            </div>
+            <div class="flight-card">
+              <div class="flight-route" style="flex:1;gap:8px;">
+                <div style="text-align:center;">
+                  <div class="airport-code" style="font-size:13px;">GMP</div>
+                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">11:00</div>
+                </div>
+                <div class="flight-line" style="flex:1;margin:0 6px;"></div>
+                <div style="text-align:center;">
+                  <div class="airport-code" style="font-size:13px;">NRT</div>
+                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">13:10</div>
+                </div>
+              </div>
+              <div style="margin-left:16px;text-align:right;">
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">OZ 101</div>
+                <div style="font-size:7.5px;color:rgba(255,255,255,0.3);">AWB: 988-87654321</div>
+                <span class="badge-chip g">도착완료</span>
+              </div>
+            </div>
+            <div class="flight-card">
+              <div class="flight-route" style="flex:1;gap:8px;">
+                <div style="text-align:center;">
+                  <div class="airport-code" style="font-size:13px;">ICN</div>
+                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">23:55</div>
+                </div>
+                <div class="flight-line" style="flex:1;margin:0 6px;"></div>
+                <div style="text-align:center;">
+                  <div class="airport-code" style="font-size:13px;">LAX</div>
+                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">19:40</div>
+                </div>
+              </div>
+              <div style="margin-left:16px;text-align:right;">
+                <div style="font-size:8px;color:rgba(255,255,255,0.5);">KE 017</div>
+                <div style="font-size:7.5px;color:rgba(255,255,255,0.3);">AWB: 180-99012345</div>
+                <span class="badge-chip y">예약확정</span>
+              </div>
+            </div>
+          </div>
+          <!-- Customs status -->
+          <div style="margin-top:6px;background:var(--slate-800);border-radius:5px;padding:8px;">
+            <div class="mock-section-label" style="margin-bottom:4px;">통관 현황</div>
+            <div style="display:flex;gap:6px;">
+              <div style="flex:1;text-align:center;padding:5px;background:rgba(74,222,128,0.08);border-radius:4px;">
+                <div style="font-size:14px;font-weight:700;color:#4ade80;font-family:'Outfit',sans-serif;">34</div>
+                <div style="font-size:7px;color:rgba(255,255,255,0.3);">통관완료</div>
+              </div>
+              <div style="flex:1;text-align:center;padding:5px;background:rgba(251,191,36,0.08);border-radius:4px;">
+                <div style="font-size:14px;font-weight:700;color:#fbbf24;font-family:'Outfit',sans-serif;">9</div>
+                <div style="font-size:7px;color:rgba(255,255,255,0.3);">심사중</div>
+              </div>
+              <div style="flex:1;text-align:center;padding:5px;background:rgba(248,113,113,0.08);border-radius:4px;">
+                <div style="font-size:14px;font-weight:700;color:#f87171;font-family:'Outfit',sans-serif;">2</div>
+                <div style="font-size:7px;color:rgba(255,255,255,0.3);">보류</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">ATS</div>
+        <div class="panel-title">항공 화물<br>전 과정 관리</div>
+        <div class="panel-text">
+          AWB 발행부터 항공편 예약, 운항 추적, 통관 관리, 도착지 배송까지
+          항공 화물 포워딩의 전 과정을 디지털화합니다.
+        </div>
+        <ul class="feature-bullets">
+          <li>HAWB·MAWB 발행 및 전자 문서화</li>
+          <li>항공편 예약 및 ULD 배정 관리</li>
+          <li>실시간 항공편 상태 추적 — API 연동</li>
+          <li>수출입 통관 진행 현황 관리</li>
+          <li>위험물(DG) 신고 및 특수화물 처리</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="sqx-footer">
+  <div class="footer-inner">
+    <span>COPYRIGHT © ANDSQUARE INC. ALL RIGHTS RESERVED.</span>
+    <a href="./nf1.html">← 솔루션 목록으로</a>
+  </div>
+</footer>
+
+<script src="./js/sqx-common.js"></script>
+</body>
+</html>

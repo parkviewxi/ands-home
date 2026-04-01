@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SQX PM — Project Manager | 앤드스퀘어</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="./css/sqx-common.css"/>
+  <style>
+    :root {
+      --accent: #4ade80; --accent-em-start: #4ade80; --accent-em-mid: #22d3ee;
+      --accent-glow: rgba(74,222,128,0.12);
+      --accent-dim: rgba(74,222,128,0.08);
+    }
+    .nav-product-tag { background: rgba(74,222,128,0.1); color: #4ade80; border-color: rgba(74,222,128,0.3); }
+
+    /* Kanban */
+    .kanban { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+    .kanban-col { background:rgba(255,255,255,0.03); border-radius:5px; padding:6px; }
+    .kanban-head { font-size:8px; color:rgba(255,255,255,0.3); font-family:'Outfit',sans-serif; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; display:flex; justify-content:space-between; }
+    .kanban-card { background:var(--slate-800); border-radius:4px; padding:6px; margin-bottom:4px; border-left:2px solid; }
+    .kanban-card-title { font-size:8.5px; color:rgba(255,255,255,0.7); margin-bottom:3px; line-height:1.4; }
+    .kanban-card-meta { display:flex; gap:4px; align-items:center; }
+
+    /* Timeline / Gantt */
+    .gantt { background:var(--slate-800); border-radius:6px; overflow:hidden; }
+    .gantt-row { display:grid; grid-template-columns:90px 1fr; border-bottom:1px solid rgba(255,255,255,0.04); }
+    .gantt-label { padding:5px 8px; font-size:8.5px; color:rgba(255,255,255,0.5); border-right:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; }
+    .gantt-track { padding:4px 6px; position:relative; display:flex; align-items:center; }
+    .gantt-bar { height:12px; border-radius:3px; position:absolute; }
+
+    /* Progress ring */
+    .progress-ring { display:flex; align-items:center; gap:8px; }
+    .ring-wrap { position:relative; width:48px; height:48px; flex-shrink:0; }
+    .ring-text { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:9px; font-family:'Outfit',sans-serif; font-weight:700; color:#fff; }
+
+    /* ITSM ticket */
+    .itsm-ticket { background:var(--slate-800); border-radius:5px; padding:7px 10px; margin-bottom:4px; display:flex; align-items:flex-start; gap:8px; border-left:2px solid; }
+    .ticket-icon { font-size:14px; flex-shrink:0; }
+    .ticket-title { font-size:9px; color:rgba(255,255,255,0.7); line-height:1.4; margin-bottom:2px; }
+    .ticket-meta { display:flex; gap:4px; flex-wrap:wrap; }
+
+    /* Dashboard donut */
+    .donut-group { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+    .donut-item { text-align:center; }
+    .donut-label { font-size:8px; color:rgba(255,255,255,0.35); margin-top:4px; font-family:'Outfit',sans-serif; }
+    .donut-val { font-size:11px; font-weight:700; font-family:'Outfit',sans-serif; color:#fff; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="./index.html" class="nav-back">ANDSQUARE</a>
+    <span class="nav-sep">/</span>
+    <a href="./nf1.html" class="nav-back">NF1 Solutions</a>
+    <span class="nav-sep">/</span>
+    <span class="nav-product-tag">SQX PM</span>
+  </div>
+  <a href="./nf1.html" class="nav-home">← 솔루션 목록</a>
+</nav>
+
+<div class="product-hero">
+  <div class="product-hero-shot" style="--hero-shot:url('../img/hero-pm.png')"></div>
+  <div class="product-hero-orb" style="background:conic-gradient(from 200deg,rgba(74,222,128,0.25) 0%,rgba(34,211,238,0.2) 35%,rgba(96,165,250,0.15) 65%,rgba(74,222,128,0.25) 100%);"></div><div class="product-hero-orb-ring"></div><div class="product-hero-inner">
+    <div class="product-hero-text">
+      <div class="product-eyebrow">SQX PM — Project Manager</div>
+      <h1>프로젝트·이슈를<br><em>하나로 통합</em></h1>
+      <p>소프트웨어 개발부터 운영 서비스 요청까지, 프로젝트의 모든 생명주기를<br>
+        단일 플랫폼에서 관리합니다. SPM, 이슈관리, ITSM, 진행 대시보드.</p>
+    </div>
+    <div class="product-hero-badge">
+      <div class="badge-icon">📋</div>
+      <div>
+        <div class="badge-label">Management Scope</div>
+        <div class="badge-value">SPM + ITSM + Dashboard</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-section">
+  <div class="section-inner">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('spm',this)">프로젝트 관리</button>
+      <button class="tab-btn" onclick="switchTab('issue',this)">이슈 관리</button>
+      <button class="tab-btn" onclick="switchTab('itsm',this)">ITSM</button>
+      <button class="tab-btn" onclick="switchTab('dash',this)">진행 대시보드</button>
+    </nav>
+
+    <!-- 프로젝트 관리 (SPM) -->
+    <div class="tab-panel active" id="tab-spm">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">SQX PM — 프로젝트 관리</span>
+        </div>
+        <div class="screen-body">
+          <!-- Project header -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#fff;">NF1 차세대 물류시스템 구축</div>
+              <div style="font-size:8px;color:rgba(255,255,255,0.3);margin-top:2px;">2025.01 — 2025.12 &nbsp;·&nbsp; 스프린트 8 / 24</div>
+            </div>
+            <div style="display:flex;gap:4px;">
+              <div style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);border-radius:4px;padding:3px 8px;font-size:8px;color:#4ade80;">진행중</div>
+              <div style="background:rgba(255,255,255,0.06);border-radius:4px;padding:3px 8px;font-size:8px;color:rgba(255,255,255,0.4);">칸반 뷰</div>
+            </div>
+          </div>
+          <!-- Kanban board -->
+          <div class="kanban">
+            <div class="kanban-col">
+              <div class="kanban-head"><span>백로그</span><span style="color:#4ade80;">12</span></div>
+              <div class="kanban-card" style="border-color:rgba(255,255,255,0.15);">
+                <div class="kanban-card-title">창고 입고 예약 화면 개발</div>
+                <div class="kanban-card-meta"><span class="badge-chip b">FE</span><span style="font-size:7px;color:rgba(255,255,255,0.25);">WMS-142</span></div>
+              </div>
+              <div class="kanban-card" style="border-color:rgba(255,255,255,0.15);">
+                <div class="kanban-card-title">운임 정산 API 설계</div>
+                <div class="kanban-card-meta"><span class="badge-chip y">BE</span><span style="font-size:7px;color:rgba(255,255,255,0.25);">FMS-089</span></div>
+              </div>
+            </div>
+            <div class="kanban-col">
+              <div class="kanban-head"><span>진행중</span><span style="color:#fbbf24;">5</span></div>
+              <div class="kanban-card" style="border-color:#fbbf24;">
+                <div class="kanban-card-title">BL 등록 화면 플로팅 라벨 적용</div>
+                <div class="kanban-card-meta"><span class="badge-chip b">FE</span><span style="font-size:7px;color:#fbbf24;">FMS-112</span></div>
+              </div>
+              <div class="kanban-card" style="border-color:#fbbf24;">
+                <div class="kanban-card-title">다국어 ko/en 키 추가</div>
+                <div class="kanban-card-meta"><span class="badge-chip g">공통</span></div>
+              </div>
+            </div>
+            <div class="kanban-col">
+              <div class="kanban-head"><span>검토</span><span style="color:#60a5fa;">3</span></div>
+              <div class="kanban-card" style="border-color:#60a5fa;">
+                <div class="kanban-card-title">주문 그리드 Tabulator 마이그레이션</div>
+                <div class="kanban-card-meta"><span class="badge-chip b">FE</span></div>
+              </div>
+            </div>
+            <div class="kanban-col">
+              <div class="kanban-head"><span>완료</span><span style="color:#4ade80;">28</span></div>
+              <div class="kanban-card" style="border-color:#4ade80;opacity:.7;">
+                <div class="kanban-card-title">로그인 JWT httpOnly Cookie 전환</div>
+                <div class="kanban-card-meta"><span class="badge-chip g">완료</span></div>
+              </div>
+              <div class="kanban-card" style="border-color:#4ade80;opacity:.7;">
+                <div class="kanban-card-title">FastAPI Pydantic 스키마 정의</div>
+                <div class="kanban-card-meta"><span class="badge-chip g">완료</span></div>
+              </div>
+            </div>
+          </div>
+          <!-- Gantt mini -->
+          <div style="margin-top:8px;">
+            <div class="mock-section-label">스프린트 타임라인</div>
+            <div class="gantt" style="margin-top:4px;">
+              <div class="gantt-row">
+                <div class="gantt-label">FMS 포워딩</div>
+                <div class="gantt-track" style="background:rgba(255,255,255,0.01);">
+                  <div class="gantt-bar" style="left:6px;width:55%;background:rgba(74,222,128,0.5);"></div>
+                </div>
+              </div>
+              <div class="gantt-row">
+                <div class="gantt-label">WMS 창고</div>
+                <div class="gantt-track">
+                  <div class="gantt-bar" style="left:36%;width:30%;background:rgba(251,191,36,0.4);"></div>
+                </div>
+              </div>
+              <div class="gantt-row">
+                <div class="gantt-label">TMS 운송</div>
+                <div class="gantt-track">
+                  <div class="gantt-bar" style="left:55%;width:20%;background:rgba(96,165,250,0.35);"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">SPM</div>
+        <div class="panel-title">스프린트 기반<br>프로젝트 관리</div>
+        <div class="panel-text">
+          칸반 보드와 간트 차트로 프로젝트 전체를 한눈에 파악합니다.
+          스프린트 계획부터 회고까지, 애자일 워크플로우를 지원합니다.
+        </div>
+        <ul class="feature-bullets">
+          <li>칸반 보드 — 드래그&드롭 상태 전환</li>
+          <li>간트 차트 — 스프린트 타임라인 시각화</li>
+          <li>백로그 우선순위 정렬 — 스프린트 플래닝</li>
+          <li>담당자·기간·스토리 포인트 관리</li>
+          <li>스프린트 번다운 차트 자동 생성</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 이슈 관리 -->
+    <div class="tab-panel" id="tab-issue">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">SQX PM — 이슈 관리</span>
+        </div>
+        <div class="screen-body">
+          <!-- Search bar -->
+          <div class="mock-search-bar">
+            <div class="mock-input" style="height:24px;display:flex;align-items:center;padding:0 8px;font-size:8px;color:rgba(255,255,255,0.25);">이슈 검색...</div>
+            <div style="display:flex;gap:3px;">
+              <div style="background:rgba(248,113,113,0.15);border-radius:3px;padding:2px 6px;font-size:7.5px;color:#f87171;">버그</div>
+              <div style="background:rgba(96,165,250,0.15);border-radius:3px;padding:2px 6px;font-size:7.5px;color:#60a5fa;">개선</div>
+              <div style="background:rgba(74,222,128,0.15);border-radius:3px;padding:2px 6px;font-size:7.5px;color:#4ade80;">기능</div>
+            </div>
+          </div>
+          <!-- Issue list -->
+          <div class="mock-grid">
+            <div class="mock-grid-head" style="grid-template-columns:16px 1.8fr 60px 55px 55px 50px;">
+              <span></span><span>이슈</span><span>유형</span><span>우선순위</span><span>상태</span><span>담당자</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:16px 1.8fr 60px 55px 55px 50px;">
+              <span style="color:#f87171;font-size:10px;">●</span>
+              <span>BL 저장 시 house_cd null 오류 발생</span>
+              <span><span class="badge-chip r">버그</span></span>
+              <span style="color:#f87171;font-size:8px;">🔴 긴급</span>
+              <span><span class="badge-chip y">진행중</span></span>
+              <span style="font-size:8px;">이민준</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:16px 1.8fr 60px 55px 55px 50px;">
+              <span style="color:#60a5fa;font-size:10px;">●</span>
+              <span>주문 그리드 다중선택 CTRL+클릭 지원</span>
+              <span><span class="badge-chip b">개선</span></span>
+              <span style="color:#fbbf24;font-size:8px;">🟡 높음</span>
+              <span><span class="badge-chip g">완료</span></span>
+              <span style="font-size:8px;">박준혁</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:16px 1.8fr 60px 55px 55px 50px;">
+              <span style="color:#4ade80;font-size:10px;">●</span>
+              <span>WMS 입고예약 화면 신규 개발</span>
+              <span><span class="badge-chip g">기능</span></span>
+              <span style="color:#60a5fa;font-size:8px;">🔵 보통</span>
+              <span><span class="badge-chip b">검토</span></span>
+              <span style="font-size:8px;">김수연</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:16px 1.8fr 60px 55px 55px 50px;">
+              <span style="color:rgba(255,255,255,0.2);font-size:10px;">●</span>
+              <span>다국어 en.ts 미번역 키 보완</span>
+              <span><span class="badge-chip b">개선</span></span>
+              <span style="color:rgba(255,255,255,0.3);font-size:8px;">⚪ 낮음</span>
+              <span><span class="badge-chip" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.4);">대기</span></span>
+              <span style="font-size:8px;">이민준</span>
+            </div>
+          </div>
+          <!-- Issue detail panel -->
+          <div style="margin-top:8px;background:rgba(30,64,175,0.08);border:1px solid rgba(30,64,175,0.2);border-radius:5px;padding:8px;">
+            <div style="font-size:9px;font-weight:700;color:#fff;margin-bottom:5px;">BL 저장 시 house_cd null 오류 발생</div>
+            <div style="font-size:8px;color:rgba(255,255,255,0.45);line-height:1.7;">
+              BL 등록 화면에서 신규 저장 시 house_cd가 null로 전달되어 DB constraint 오류 발생.<br/>
+              <span style="color:#4ade80;">재현 경로:</span> FMS → BL관리 → 신규 → 저장
+            </div>
+            <div style="margin-top:5px;display:flex;gap:6px;">
+              <span class="badge-chip r">버그</span>
+              <span style="font-size:7.5px;color:rgba(255,255,255,0.3);">FMS-119 · 2025-03-28 접수</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">Issue Tracker</div>
+        <div class="panel-title">버그부터 기능까지<br>이슈 통합 관리</div>
+        <div class="panel-text">
+          버그·개선·기능요청을 유형별로 분류하고, 우선순위와 담당자를 지정합니다.
+          재현 경로, 스크린샷, 댓글로 완전한 이슈 컨텍스트를 유지합니다.
+        </div>
+        <ul class="feature-bullets">
+          <li>유형 분류 — 버그, 개선, 기능, 기술부채</li>
+          <li>우선순위 매트릭스 — 긴급·높음·보통·낮음</li>
+          <li>담당자 할당 및 알림 — 이메일·슬랙 연동</li>
+          <li>이슈 연결 — 관련 이슈, 부모-자식 관계</li>
+          <li>상태 자동 전환 — PR 머지 시 완료 처리</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ITSM -->
+    <div class="tab-panel" id="tab-itsm">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">SQX PM — ITSM 서비스 관리</span>
+        </div>
+        <div class="screen-body">
+          <!-- KPI row -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;">
+            <div class="kpi-mini">
+              <div class="kpi-l">접수 (오늘)</div>
+              <div class="kpi-v" style="--c:#fff;font-size:16px;">14</div>
+              <div class="kpi-d" style="color:#fbbf24;">+3 전일 대비</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">처리중</div>
+              <div class="kpi-v" style="--c:#fbbf24;font-size:16px;">7</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">완료 (오늘)</div>
+              <div class="kpi-v" style="--c:#4ade80;font-size:16px;">9</div>
+              <div class="kpi-d">처리율 64%</div>
+            </div>
+            <div class="kpi-mini">
+              <div class="kpi-l">평균 처리시간</div>
+              <div class="kpi-v" style="--c:#60a5fa;font-size:16px;">2.3h</div>
+            </div>
+          </div>
+          <!-- ITSM ticket list -->
+          <div class="mock-section-label">서비스 요청 목록</div>
+          <div style="margin-top:4px;">
+            <div class="itsm-ticket" style="border-color:#f87171;">
+              <div class="ticket-icon">🔴</div>
+              <div>
+                <div class="ticket-title">운송비 계산 오류 — 긴급 수정 요청</div>
+                <div class="ticket-meta">
+                  <span class="badge-chip r">장애</span>
+                  <span style="font-size:7.5px;color:rgba(255,255,255,0.3);">신세계 로지스 · 10분 전</span>
+                  <span style="font-size:7.5px;color:#fbbf24;">처리중</span>
+                </div>
+              </div>
+            </div>
+            <div class="itsm-ticket" style="border-color:#fbbf24;">
+              <div class="ticket-icon">🟡</div>
+              <div>
+                <div class="ticket-title">WMS 입고 리포트 엑셀 다운로드 요청</div>
+                <div class="ticket-meta">
+                  <span class="badge-chip y">요청</span>
+                  <span style="font-size:7.5px;color:rgba(255,255,255,0.3);">한진물류 · 1시간 전</span>
+                  <span style="font-size:7.5px;color:rgba(255,255,255,0.4);">대기</span>
+                </div>
+              </div>
+            </div>
+            <div class="itsm-ticket" style="border-color:#4ade80;opacity:.7;">
+              <div class="ticket-icon">✅</div>
+              <div>
+                <div class="ticket-title">포워딩 화면 화주 검색 팝업 오류 수정</div>
+                <div class="ticket-meta">
+                  <span class="badge-chip g">완료</span>
+                  <span style="font-size:7.5px;color:rgba(255,255,255,0.3);">롯데 글로벌 · 3시간 전</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">ITSM</div>
+        <div class="panel-title">운영 서비스 요청<br>체계적 처리</div>
+        <div class="panel-text">
+          고객사의 장애 신고, 기능 요청, 문의를 체계적으로 접수하고 처리합니다.
+          SLA 관리와 처리 이력으로 서비스 품질을 투명하게 유지합니다.
+        </div>
+        <ul class="feature-bullets">
+          <li>티켓 자동 생성 — 이메일·고객 포털 연동</li>
+          <li>SLA 타이머 — 우선순위별 처리 목표시간</li>
+          <li>담당자 자동 배정 — 카테고리별 라우팅</li>
+          <li>처리 이력 추적 — 고객 가시성 제공</li>
+          <li>KPI 대시보드 — 처리율, 평균 처리시간</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 진행 대시보드 -->
+    <div class="tab-panel" id="tab-dash">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">SQX PM — 진행 대시보드</span>
+        </div>
+        <div class="screen-body">
+          <!-- Progress rings -->
+          <div class="donut-group" style="margin-bottom:10px;">
+            <div class="donut-item">
+              <div class="ring-wrap">
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="18" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
+                  <circle cx="24" cy="24" r="18" fill="none" stroke="#4ade80" stroke-width="5"
+                    stroke-dasharray="113" stroke-dashoffset="34" stroke-linecap="round" transform="rotate(-90 24 24)"/>
+                </svg>
+                <div class="ring-text">70%</div>
+              </div>
+              <div class="donut-val">70%</div>
+              <div class="donut-label">전체 진행률</div>
+            </div>
+            <div class="donut-item">
+              <div class="ring-wrap">
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="18" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
+                  <circle cx="24" cy="24" r="18" fill="none" stroke="#60a5fa" stroke-width="5"
+                    stroke-dasharray="113" stroke-dashoffset="56" stroke-linecap="round" transform="rotate(-90 24 24)"/>
+                </svg>
+                <div class="ring-text">50%</div>
+              </div>
+              <div class="donut-val">50%</div>
+              <div class="donut-label">이슈 처리율</div>
+            </div>
+            <div class="donut-item">
+              <div class="ring-wrap">
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="18" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
+                  <circle cx="24" cy="24" r="18" fill="none" stroke="#fbbf24" stroke-width="5"
+                    stroke-dasharray="113" stroke-dashoffset="23" stroke-linecap="round" transform="rotate(-90 24 24)"/>
+                </svg>
+                <div class="ring-text">80%</div>
+              </div>
+              <div class="donut-val">80%</div>
+              <div class="donut-label">ITSM 처리율</div>
+            </div>
+          </div>
+          <!-- Module progress bars -->
+          <div class="mock-section-label">모듈별 진행률</div>
+          <div style="margin-top:6px;display:flex;flex-direction:column;gap:5px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:2px;font-size:8px;color:rgba(255,255,255,0.5);">
+                <span>🚢 FMS 포워딩</span><span style="color:#4ade80;">82%</span>
+              </div>
+              <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:82%;background:linear-gradient(90deg,#4ade80,#06b6d4);border-radius:3px;"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:2px;font-size:8px;color:rgba(255,255,255,0.5);">
+                <span>🏭 WMS 창고</span><span style="color:#60a5fa;">61%</span>
+              </div>
+              <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:61%;background:#60a5fa;border-radius:3px;"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:2px;font-size:8px;color:rgba(255,255,255,0.5);">
+                <span>🚛 TMS 운송</span><span style="color:#fbbf24;">43%</span>
+              </div>
+              <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:43%;background:#fbbf24;border-radius:3px;"></div>
+              </div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:2px;font-size:8px;color:rgba(255,255,255,0.5);">
+                <span>✈️ ATS 항공</span><span style="color:#f87171;">28%</span>
+              </div>
+              <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+                <div style="height:100%;width:28%;background:#f87171;border-radius:3px;"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Activity feed -->
+          <div style="margin-top:8px;">
+            <div class="mock-section-label">최근 활동</div>
+            <div style="margin-top:4px;display:flex;flex-direction:column;gap:3px;">
+              <div style="font-size:8px;color:rgba(255,255,255,0.4);">
+                <span style="color:#4ade80;">●</span> 이민준 &nbsp;<span style="color:rgba(255,255,255,0.25);">FMS-119 이슈를 완료 처리</span> &nbsp;<span style="color:rgba(255,255,255,0.2);">10분 전</span>
+              </div>
+              <div style="font-size:8px;color:rgba(255,255,255,0.4);">
+                <span style="color:#60a5fa;">●</span> 박준혁 &nbsp;<span style="color:rgba(255,255,255,0.25);">WMS 스프린트 9 플래닝 완료</span> &nbsp;<span style="color:rgba(255,255,255,0.2);">1시간 전</span>
+              </div>
+              <div style="font-size:8px;color:rgba(255,255,255,0.4);">
+                <span style="color:#fbbf24;">●</span> 배포 파이프라인 &nbsp;<span style="color:rgba(255,255,255,0.25);">dev 브랜치 배포 성공</span> &nbsp;<span style="color:rgba(255,255,255,0.2);">2시간 전</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">Progress Dashboard</div>
+        <div class="panel-title">프로젝트 상태를<br>실시간으로</div>
+        <div class="panel-text">
+          전체 진행률, 이슈 처리율, ITSM 현황을 한 화면에서 파악합니다.
+          모듈별 진행률과 팀 활동 피드로 프로젝트 건강도를 실시간 모니터링하세요.
+        </div>
+        <ul class="feature-bullets">
+          <li>프로젝트 전체 KPI — 진행률, 처리율, 이슈 현황</li>
+          <li>모듈별 진행 바 — FMS/WMS/TMS/ATS 분리 추적</li>
+          <li>팀 활동 피드 — 이슈, 배포, 플래닝 이벤트</li>
+          <li>번다운 차트 — 스프린트 완료 예측</li>
+          <li>배포 파이프라인 상태 연동 — CI/CD 가시성</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="sqx-footer">
+  <div class="footer-inner">
+    <span>COPYRIGHT © ANDSQUARE INC. ALL RIGHTS RESERVED.</span>
+    <a href="./nf1.html">← 솔루션 목록으로</a>
+  </div>
+</footer>
+
+<script src="./js/sqx-common.js"></script>
+</body>
+</html>

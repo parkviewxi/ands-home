@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NF1 솔루션 포트폴리오 | 앤드스퀘어</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── NF1 Flow Hero ── */
+    .flow-strip {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin: 0 auto 56px; max-width: 900px;
+    }
+    .flow-step {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      flex: 1;
+    }
+    .flow-step-icon {
+      width: 64px; height: 64px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      border: 1px solid rgba(255,255,255,0.12);
+      position: relative; z-index: 1;
+      transition: transform 0.2s;
+    }
+    .flow-step-icon:hover { transform: translateY(-4px); }
+    .flow-step-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .flow-step-sub {
+      font-size: 11px; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.3px; margin-top: -6px;
+    }
+    .flow-arrow {
+      display: flex; align-items: center; padding: 0 6px; margin-bottom: 28px;
+      flex-shrink: 0;
+    }
+    .flow-arrow svg { width: 32px; height: 32px; opacity: 0.35; }
+
+    /* step colors */
+    .fs1 .flow-step-icon { background: rgba(6,182,212,0.15); color: #22d3ee; box-shadow: 0 0 24px rgba(6,182,212,0.15); }
+    .fs1 .flow-step-label { color: #22d3ee; }
+    .fs2 .flow-step-icon { background: rgba(96,165,250,0.15); color: #60a5fa; box-shadow: 0 0 24px rgba(96,165,250,0.12); }
+    .fs2 .flow-step-label { color: #60a5fa; }
+    .fs3 .flow-step-icon { background: rgba(129,140,248,0.15); color: #a5b4fc; box-shadow: 0 0 24px rgba(129,140,248,0.12); }
+    .fs3 .flow-step-label { color: #a5b4fc; }
+    .fs4 .flow-step-icon { background: rgba(74,222,128,0.15); color: #4ade80; box-shadow: 0 0 24px rgba(74,222,128,0.1); }
+    .fs4 .flow-step-label { color: #4ade80; }
+
+    /* unified badge */
+    .unified-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; padding: 10px 20px;
+      margin-bottom: 40px;
+    }
+    .unified-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; }
+    .unified-badge-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.6);
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+    /* deco grid lines */
+    .hero-deco-lines {
+      position: absolute; inset: 0; opacity: 0.025; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-deco-orb1 {
+      position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%);
+      left: -100px; top: 50%; transform: translateY(-50%); pointer-events: none;
+    }
+    .hero-deco-orb2 {
+      position: absolute; width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(96,165,250,0.06) 0%, transparent 70%);
+      right: -80px; bottom: 0; pointer-events: none;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-950: #030812; --blue-900: #080f1e; --blue-800: #1e3a6e;
+      --blue-700: #1e40af; --blue-500: #3b82f6; --cyan-400: #22d3ee;
+      --cyan-500: #06b6d4; --slate-50: #f8fafc; --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0; --slate-500: #64748b; --slate-700: #334155;
+      --slate-800: #1e293b; --slate-900: #0f172a; --brand: #203c97;
+      --text: #1e293b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans KR', sans-serif; color: var(--text); background: #fff; overflow-x: hidden; }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 60px; height: 68px;
+      background: rgba(3,8,18,0.97); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-text { font-family: 'Outfit', sans-serif; font-size: 17px; font-weight: 700; color: #fff; }
+    .nav-sep { color: rgba(255,255,255,0.2); }
+    .nav-product { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; color: var(--cyan-400); }
+    .nav-back { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color .2s; }
+    .nav-back:hover { color: #fff; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(160deg, #030812 0%, #080f1e 55%, #0a1525 100%);
+      padding: 130px 60px 90px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 900px 600px at 60% 40%, rgba(6,182,212,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 500px 500px at 5% 80%, rgba(129,140,248,0.07) 0%, transparent 55%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: 0.022;
+      background-image: linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; text-align: center; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.25); border-radius: 20px; padding: 6px 18px; margin-bottom: 32px; }
+    .hero-eyebrow span { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 700; color: var(--cyan-400); letter-spacing: 2px; text-transform: uppercase; }
+    .hero-dot { width: 6px; height: 6px; background: var(--cyan-400); border-radius: 50%; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero h1 { font-family: 'Outfit', sans-serif; font-size: 72px; font-weight: 800; color: #fff; line-height: 1.08; margin-bottom: 20px; letter-spacing: -2px; }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #c084fc 0%, #60a5fa 45%, #22d3ee 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.8; max-width: 680px; margin: 0 auto 60px; }
+
+    /* SOLUTION CARDS GRID */
+    .cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .sol-card {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 0; padding: 28px 24px; text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; gap: 12px; transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+      position: relative; overflow: hidden;
+    }
+    .sol-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; }
+    .sol-icon { display:flex; align-items:center; height:36px; color:rgba(255,255,255,0.75); }
+    .sol-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(6,182,212,0.4);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(6,182,212,0.15), 0 0 40px rgba(6,182,212,0.05);
+    }
+    .sol-card:hover::before { opacity: 1; background: radial-gradient(ellipse at top, rgba(6,182,212,0.07), transparent 65%); }
+    .sol-icon { font-size: 32px; }
+    .sol-tag { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700; color: var(--cyan-500); letter-spacing: 2px; text-transform: uppercase; }
+    .sol-name { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #fff; line-height: 1.2; }
+    .sol-desc { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.6; flex: 1; }
+    .sol-tabs-preview { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+    .sol-tab-chip { font-size: 10px; color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.06); border-radius: 4px; padding: 2px 6px; white-space: nowrap; }
+    .sol-arrow { font-size: 12px; color: var(--cyan-500); margin-top: 4px; font-family: 'Outfit', sans-serif; font-weight: 600; }
+
+    /* SECTION BASE */
+    section { padding: 96px 60px; }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .section-label { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; color: var(--cyan-500); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
+    .section-title { font-family: 'Outfit', sans-serif; font-size: 38px; font-weight: 800; color: var(--text); line-height: 1.2; margin-bottom: 14px; letter-spacing: -.5px; }
+    .section-title.white { color: #fff; }
+    .section-desc { font-size: 15px; color: var(--slate-500); line-height: 1.8; max-width: 560px; }
+    .section-desc.white { color: rgba(255,255,255,.55); }
+
+    /* FOOTER */
+    footer { background: #303539; color: #818181; padding: 36px 60px; font-family: 'Outfit', sans-serif; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 13px; }
+    .footer-back { color: rgba(255,255,255,.4); text-decoration: none; font-size: 12px; transition: color .2s; }
+    .footer-back:hover { color: #fff; }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="./index.html" class="nav-logo">
+    <span class="nav-logo-text">ANDSQUARE</span>
+    <span class="nav-sep">/</span>
+    <span class="nav-product">NF1 Solutions</span>
+  </a>
+  <a href="./index.html" class="nav-back">← 회사 소개</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-deco-lines"></div>
+  <div class="hero-deco-orb1"></div>
+  <div class="hero-deco-orb2"></div>
+  <div class="hero-inner">
+
+    <!-- Flow strip -->
+    <div class="flow-strip reveal">
+      <div class="flow-step fs1">
+        <div class="flow-step-icon">📋</div>
+        <div class="flow-step-label">분석</div>
+        <div class="flow-step-sub">Analysis</div>
+      </div>
+      <div class="flow-arrow">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 16h20M20 10l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="flow-step fs2">
+        <div class="flow-step-icon">✏️</div>
+        <div class="flow-step-label">설계</div>
+        <div class="flow-step-sub">Design</div>
+      </div>
+      <div class="flow-arrow">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 16h20M20 10l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="flow-step fs3">
+        <div class="flow-step-icon">⚙️</div>
+        <div class="flow-step-label">구현</div>
+        <div class="flow-step-sub">Implementation</div>
+      </div>
+      <div class="flow-arrow">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 16h20M20 10l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="flow-step fs4">
+        <div class="flow-step-icon">🔧</div>
+        <div class="flow-step-label">운영·유지보수</div>
+        <div class="flow-step-sub">Operations & Maintenance</div>
+      </div>
+    </div>
+
+    <h1 class="reveal" style="margin-bottom:14px;">시스템 라이프 사이클을<br><em>책임지는 차세대 플랫폼</em></h1>
+    <p class="hero-sub reveal">
+      분석부터 설계·구현·운영까지, 소프트웨어 전 생명주기를 단일 플랫폼으로 통합합니다.<br>
+      최신 오픈소스 기반 엔터프라이즈급 물류·운영 시스템 — NF1의 5개 제품군을 소개합니다.
+    </p>
+    <div class="cards-grid reveal">
+
+      <a href="./sqx-nf1.html" class="sol-card">
+        <div class="sol-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="11" height="11"/><rect x="18" y="3" width="11" height="11"/><rect x="3" y="18" width="11" height="11"/><rect x="18" y="18" width="11" height="11"/></svg></div>
+        <div class="sol-tag">SQX NF1</div>
+        <div class="sol-name">NF1<br>Framework</div>
+        <div class="sol-desc">차세대 시스템의 공통 프레임워크. 대시보드, 회원·권한·메뉴 관리 기반 제공</div>
+        <div class="sol-tabs-preview">
+          <span class="sol-tab-chip">Dashboard</span>
+          <span class="sol-tab-chip">회원관리</span>
+          <span class="sol-tab-chip">권한관리</span>
+          <span class="sol-tab-chip">메뉴관리</span>
+          <span class="sol-tab-chip">시스템설정</span>
+        </div>
+        <div class="sol-arrow">자세히 보기 →</div>
+      </a>
+
+      <a href="./sqx-manager.html" class="sol-card">
+        <div class="sol-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="26" height="17" rx="1"/><line x1="3" y1="10" x2="29" y2="10"/><line x1="12" y1="28" x2="20" y2="28"/><line x1="16" y1="21" x2="16" y2="28"/><circle cx="7" cy="7" r="1" fill="currentColor" stroke="none"/><circle cx="11" cy="7" r="1" fill="currentColor" stroke="none"/><line x1="8" y1="15" x2="11" y2="15"/><line x1="14" y1="15" x2="25" y2="15"/></svg></div>
+        <div class="sol-tag">SQX Manager</div>
+        <div class="sol-name">Operations<br>Manager</div>
+        <div class="sol-desc">운영 인프라 통합 관리. Docker, 서버·API 모니터링, 로그 분석까지</div>
+        <div class="sol-tabs-preview">
+          <span class="sol-tab-chip">Docker</span>
+          <span class="sol-tab-chip">서버모니터링</span>
+          <span class="sol-tab-chip">API매니저</span>
+          <span class="sol-tab-chip">Backsight</span>
+          <span class="sol-tab-chip">N8N</span>
+        </div>
+        <div class="sol-arrow">자세히 보기 →</div>
+      </a>
+
+      <a href="./sqx-erd.html" class="sol-card">
+        <div class="sol-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="14" cy="8" rx="10" ry="4"/><path d="M4 8v5c0 2.21 4.48 4 10 4s10-1.79 10-4V8"/><path d="M4 13v5c0 2.21 4.48 4 10 4"/><path d="M20 22l6 6"/><circle cx="20" cy="20" r="4"/></svg></div>
+        <div class="sol-tag">SQX ERD</div>
+        <div class="sol-name">Schema<br>Lens</div>
+        <div class="sol-desc">AI 기반 인터랙티브 ERD 뷰어. DB 구조를 그리고 AI에게 묻는다</div>
+        <div class="sol-tabs-preview">
+          <span class="sol-tab-chip">ERD 뷰어</span>
+          <span class="sol-tab-chip">AI 분석</span>
+          <span class="sol-tab-chip">FK 탐색</span>
+          <span class="sol-tab-chip">스냅샷</span>
+          <span class="sol-tab-chip">DDL</span>
+        </div>
+        <div class="sol-arrow">자세히 보기 →</div>
+      </a>
+
+      <a href="./sqx-pm.html" class="sol-card">
+        <div class="sol-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="20" height="26" rx="1"/><line x1="11" y1="12" x2="21" y2="12"/><line x1="11" y1="17" x2="21" y2="17"/><line x1="11" y1="22" x2="17" y2="22"/><rect x="10" y="1" width="12" height="5" rx="1"/></svg></div>
+        <div class="sol-tag">SQX PM</div>
+        <div class="sol-name">Project<br>Manager</div>
+        <div class="sol-desc">소프트웨어 프로젝트·이슈 통합 관리. SPM, ITSM, 진행현황 대시보드</div>
+        <div class="sol-tabs-preview">
+          <span class="sol-tab-chip">프로젝트관리</span>
+          <span class="sol-tab-chip">이슈관리</span>
+          <span class="sol-tab-chip">ITSM</span>
+          <span class="sol-tab-chip">진행대시보드</span>
+        </div>
+        <div class="sol-arrow">자세히 보기 →</div>
+      </a>
+
+      <a href="./sqx-logistics.html" class="sol-card">
+        <div class="sol-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="24" height="14" rx="1"/><line x1="4" y1="15" x2="28" y2="15"/><line x1="16" y1="8" x2="16" y2="22"/><path d="M2 26c4 3 10 3 14 0s10-3 14 0"/><line x1="4" y1="8" x2="4" y2="5"/><line x1="4" y1="5" x2="16" y2="5"/></svg></div>
+        <div class="sol-tag">SQX Logistics</div>
+        <div class="sol-name">물류<br>솔루션</div>
+        <div class="sol-desc">포워딩·창고·운송·항공 전 물류 영역을 커버하는 통합 물류 플랫폼</div>
+        <div class="sol-tabs-preview">
+          <span class="sol-tab-chip">FMS</span>
+          <span class="sol-tab-chip">WMS</span>
+          <span class="sol-tab-chip">TMS</span>
+          <span class="sol-tab-chip">ATS</span>
+        </div>
+        <div class="sol-arrow">자세히 보기 →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">COPYRIGHT © ANDSQUARE INC. ALL RIGHTS RESERVED.</span>
+    <a href="./index.html" class="footer-back">← 홈으로</a>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('visible'); }), {threshold:.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

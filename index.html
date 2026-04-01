@@ -9,8 +9,186 @@
             rel="stylesheet">
         <link rel="stylesheet" href="./css/common.css"/>
         <script type="text/javascript" src="./js/common.js"></script>
+        <style>
+          /* ── Floating Solution Button ── */
+          .float-sol-btn {
+            position: fixed;
+            right: 32px; bottom: 36px;
+            z-index: 9999;
+            display: flex; align-items: center; gap: 8px;
+            background: #06b6d4;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px; font-weight: 700;
+            padding: 13px 22px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(6,182,212,0.45), 0 2px 8px rgba(0,0,0,0.25);
+            letter-spacing: 0.3px;
+            transition: all 0.22s;
+          }
+          .float-sol-btn:hover {
+            background: #22d3ee;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(6,182,212,0.55);
+          }
+          .float-sol-btn .f-icon { font-size: 16px; }
+          .float-sol-btn .f-pulse {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: #fff; opacity: 0.9;
+            animation: fpulse 1.8s infinite;
+          }
+          @keyframes fpulse { 0%,100%{opacity:.9;transform:scale(1)} 50%{opacity:.4;transform:scale(0.7)} }
+
+          /* ── CI Section: split layout ── */
+          .ci-section {
+            --bg-img: none !important;
+            background: none !important;
+            position: relative;
+            overflow: hidden;
+            padding: 0 !important;
+          }
+          /* Two-tone background: left dark / right white */
+          .ci-section::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to right, #0d1e3d 50%, #f8fafc 50%);
+            z-index: 0;
+          }
+          .ci-section .section-inner {
+            align-items: stretch;
+            position: relative;
+            z-index: 1;
+            gap: 0;
+            padding: 0;
+            width: 100%; min-width: 100%;
+          }
+
+          /* Left dark panel */
+          .ci-left {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; gap: 24px;
+            padding: 60px 64px;
+            background: linear-gradient(135deg, #0a1628 0%, #0f1f3d 100%);
+            position: relative; overflow: hidden;
+          }
+          .ci-left::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 600px 400px at 80% 30%, rgba(6,182,212,0.08) 0%, transparent 65%);
+            pointer-events: none;
+          }
+          .ci-headline {
+            font-family: 'Outfit', sans-serif;
+            font-size: 10px; font-weight: 700;
+            color: #06b6d4; letter-spacing: 2.5px; text-transform: uppercase;
+            margin-bottom: 2px;
+          }
+          .ci-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 34px; font-weight: 800;
+            color: #fff; line-height: 1.2;
+            letter-spacing: -0.5px; margin: 0 0 4px;
+          }
+          .ci-desc {
+            font-size: 14px; color: rgba(255,255,255,0.52);
+            line-height: 1.85; margin: 0;
+          }
+          /* Info grid */
+          .ci-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+          .ci-info-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 9px; padding: 12px 16px;
+          }
+          .ci-info-label {
+            font-family: 'Outfit', sans-serif;
+            font-size: 9px; font-weight: 700; color: #06b6d4;
+            letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;
+          }
+          .ci-info-value { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+          /* Methodology */
+          .ci-method-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 10px; font-weight: 700;
+            color: #06b6d4; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
+          }
+          .ci-method-items { display: flex; flex-direction: column; gap: 7px; }
+          .ci-method-item {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(6,182,212,0.06);
+            border: 1px solid rgba(6,182,212,0.14);
+            border-radius: 8px; padding: 10px 14px;
+          }
+          .ci-method-icon {
+            width: 26px; height: 26px; border-radius: 6px;
+            background: rgba(6,182,212,0.15);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; flex-shrink: 0;
+          }
+          .ci-method-text { font-size: 12px; color: rgba(255,255,255,0.72); line-height: 1.5; }
+
+          /* Right white panel */
+          .ci-right {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; gap: 22px;
+            padding: 60px 64px;
+            background: #f8fafc;
+          }
+          .ci-right-eyebrow {
+            font-family: 'Outfit', sans-serif;
+            font-size: 10px; font-weight: 700; color: #1e40af;
+            letter-spacing: 2.5px; text-transform: uppercase;
+          }
+          .ci-right-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px; font-weight: 800; color: #0f172a;
+            letter-spacing: -0.3px; margin: 0;
+          }
+          .ci-logo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+          .ci-logo-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px; padding: 20px;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+          }
+          .ci-logo-lang {
+            font-family: 'Outfit', sans-serif;
+            font-size: 9px; font-weight: 700; color: #94a3b8;
+            letter-spacing: 1.5px; text-transform: uppercase; align-self: flex-start;
+          }
+          .ci-logo-card img { width: 72%; height: auto; }
+          /* CI meaning list */
+          .ci-meaning-list { display: flex; flex-direction: column; gap: 8px; }
+          .ci-meaning-item {
+            display: flex; align-items: flex-start; gap: 9px;
+            font-size: 12px; color: #475569; line-height: 1.65;
+          }
+          .ci-meaning-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #06b6d4; flex-shrink: 0; margin-top: 5px;
+          }
+
+          @media screen and (max-width: 1600px) {
+            .ci-left, .ci-right { padding: 44px 40px; }
+            .ci-title { font-size: 24px; }
+            .ci-desc { font-size: 12px; }
+            .ci-right-title { font-size: 22px; }
+            .ci-meaning-item { font-size: 11px; }
+            .ci-logo-card { padding: 14px; }
+            .float-sol-btn { font-size: 12px; padding: 11px 18px; right: 20px; bottom: 24px; }
+          }
+        </style>
     </head>
     <body>
+        <!-- Floating Solution Button -->
+        <a href="./nf1.html" class="float-sol-btn">
+            <span class="f-pulse"></span>
+            <span class="f-icon">🚀</span>
+            NF1 솔루션 보기 →
+        </a>
+
         <div class="snap-container">
             <!-- 인트로 섹션 -->
             <section class="content-section snap-child section-bg introBg">
@@ -37,64 +215,105 @@
             </section>
 
             <!-- CI 소개 섹션 -->
-            <section class="content-section snap-child section-bg noneBg">
-                <div class="section-inner position-relative">
-                    <!-- 왼쪽 회사 정보 영역 -->
-                    <div class="section-text">
-                        <h2 class="contants-title-30">앤드스퀘어는</h2>
-                        <p class="contants-desc-28">
-                            앤드스퀘어 주식회사는 해당 분야의 25년 이상 경력을<br>
-                            가진 전문가로 구성되어, 시스템 구축을 위한<br>
-                            보다 효율적이고 합리적인 방법론을 제시하며,<br>
-                            고객사의 Needs 충족 및 경쟁력 확보에 중점을 두는<br>
-                            믿음직한 IT 파트너입니다.
-                        </p>
+            <section class="content-section snap-child section-bg ci-section">
+                <div class="section-inner">
 
-                        <div class="company-info">
-                            <h3>회사 정보</h3>
-                            <ul class="custom-list">
-                                <li>법인명: 앤드스퀘어 주식회사</li>
-                                <li>자본금: 5천만원</li>
-                                <li>대표자: 최호열</li>
-                                <li>설립일: 2024년 3월 4일</li>
-                            </ul>
+                    <!-- 왼쪽 회사 정보 -->
+                    <div class="section-text ci-left">
+                        <div>
+                            <div class="ci-headline">About AnDsquare</div>
+                            <h2 class="ci-title">앤드스퀘어는</h2>
+                            <p class="ci-desc">
+                                해당 분야의 25년 이상 경력을 가진 전문가로 구성되어,<br>
+                                시스템 구축을 위한 보다 효율적이고 합리적인 방법론을 제시하며,<br>
+                                고객사의 Needs 충족 및 경쟁력 확보에 중점을 두는<br>
+                                믿음직한 IT 파트너입니다.
+                            </p>
                         </div>
 
-                        <div class="company-info">
-                            <h3>회사 정보</h3>
-                            <ul class="custom-list">
-                                <li>주소: 경기도 화성시 동탄대로 677-5 비전IT타워 512호</li>
-                                <li>대표메일: cps23.earth@andsquare.co.kr</li>
-                                <li>임직원수: 5명</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- 구분선 -->
-                    <div class="divide-vertical-line"></div>
-
-                    <!-- 오른쪽 CI 정보 영역 -->
-                    <div class="section-image section-image-leftAlign">
-
-                        <div class="aboutCI-Wrap">
-                            <h2 class="contants-title-30">About CI</h2>
-
-                            <div class="aboutCI-logo-Wrap">
-                                <p>영문 CI</p>
-                                <img src="./img/aboutCiEn.png" alt="영문 CI 이미지">
-                                <div class="divide-line"></div>
-                                <p>국문 CI</p>
-                                <img src="./img/aboutCiKr.png" alt="한글 CI 이미지">
+                        <!-- 회사 정보 카드 그리드 -->
+                        <div>
+                            <div class="ci-method-title">회사 정보</div>
+                            <div class="ci-info-grid">
+                                <div class="ci-info-card">
+                                    <div class="ci-info-label">법인명</div>
+                                    <div class="ci-info-value">앤드스퀘어 주식회사</div>
+                                </div>
+                                <div class="ci-info-card">
+                                    <div class="ci-info-label">설립일</div>
+                                    <div class="ci-info-value">2024년 3월 4일</div>
+                                </div>
+                                <div class="ci-info-card" style="grid-column:1/-1;">
+                                    <div class="ci-info-label">주소</div>
+                                    <div class="ci-info-value">경기도 화성시 동탄대로 677-5 비전IT타워 512호</div>
+                                </div>
+                                <div class="ci-info-card" style="grid-column:1/-1;">
+                                    <div class="ci-info-label">대표메일</div>
+                                    <div class="ci-info-value">cps23.earth@andsquare.co.kr</div>
+                                </div>
                             </div>
+                        </div>
 
-                            <ul class="custom-list paddingLR10">
-                                <li>영문 ‘A’는 Analysis의 약자로 고객의 요구사항을 정의하고 업무를 분석한다는 의미</li>
-                                <li>영문 ‘D’는 Design의 약자로 분석된 내용을 바탕으로 시스템을 설계한다는 의미</li>
-                                <li>‘푸른색의 사각형’은 분석과 설계의 장소(스퀘어)를 의미</li>
-                                <li>사각형의 열린 형태는 스퀘어의 유무형을 막론한 확장성과 협력의 상징함</li>
-                            </ul>
+                        <!-- 방법론 -->
+                        <div>
+                            <div class="ci-method-title">앤드스퀘어 방법론</div>
+                            <div class="ci-method-items">
+                                <div class="ci-method-item">
+                                    <div class="ci-method-icon">🔗</div>
+                                    <div class="ci-method-text">분석 · 설계 · 구현을 일원화하는 단일 방법론 제시</div>
+                                </div>
+                                <div class="ci-method-item">
+                                    <div class="ci-method-icon">⚡</div>
+                                    <div class="ci-method-text">최신 오픈소스 기반 엔터프라이즈급 시스템 구현</div>
+                                </div>
+                                <div class="ci-method-item">
+                                    <div class="ci-method-icon">🏗️</div>
+                                    <div class="ci-method-text">고객의 기술적 부채를 근본적으로 해소하는 아키텍처</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 오른쪽 CI 정보 (white panel) -->
+                    <div class="section-image ci-right">
+                        <div>
+                            <div class="ci-right-eyebrow">Corporate Identity</div>
+                            <h2 class="ci-right-title">About CI</h2>
+                        </div>
+
+                        <!-- CI 로고 2열 -->
+                        <div class="ci-logo-row">
+                            <div class="ci-logo-card">
+                                <div class="ci-logo-lang">영문 CI</div>
+                                <img src="./img/aboutCiEn.png" alt="영문 CI 이미지"/>
+                            </div>
+                            <div class="ci-logo-card">
+                                <div class="ci-logo-lang">국문 CI</div>
+                                <img src="./img/aboutCiKr.png" alt="한글 CI 이미지"/>
+                            </div>
+                        </div>
+
+                        <!-- CI 의미 -->
+                        <div class="ci-meaning-list">
+                            <div class="ci-meaning-item">
+                                <div class="ci-meaning-dot"></div>
+                                영문 <strong style="color:#1e40af;margin:0 3px;">’A’</strong>는 Analysis의 약자로 고객의 요구사항을 정의하고 업무를 분석한다는 의미
+                            </div>
+                            <div class="ci-meaning-item">
+                                <div class="ci-meaning-dot"></div>
+                                영문 <strong style="color:#1e40af;margin:0 3px;">’D’</strong>는 Design의 약자로 분석된 내용을 바탕으로 시스템을 설계한다는 의미
+                            </div>
+                            <div class="ci-meaning-item">
+                                <div class="ci-meaning-dot" style="background:#3b82f6;"></div>
+                                <strong style="color:#1d4ed8;margin-right:4px;">’푸른색의 사각형’</strong>은 분석과 설계의 장소(스퀘어)를 의미
+                            </div>
+                            <div class="ci-meaning-item">
+                                <div class="ci-meaning-dot" style="background:#6366f1;"></div>
+                                사각형의 열린 형태는 스퀘어의 유무형을 막론한 확장성과 협력의 상징
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -261,6 +480,10 @@
                         <p class="contants-desc-32 marginBottom0 marginTop0">
                             현업 전문가와의 파트너쉽을 기반으로 항만의 물류 프로세스 혁신
                         </p>
+
+                        <a href="./nf1.html" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:14px 28px;background:#06b6d4;color:#fff;text-decoration:none;border-radius:8px;font-size:18px;font-weight:700;font-family:'Outfit',sans-serif;letter-spacing:0.5px;transition:background 0.2s;" onmouseover="this.style.background='#22d3ee'" onmouseout="this.style.background='#06b6d4'">
+                            NF1 솔루션 자세히 보기 →
+                        </a>
                     </div>
                 </div>
             </section>

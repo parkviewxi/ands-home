@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SQX Manager — Operations | 앤드스퀘어</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="./css/sqx-common.css"/>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <a href="./nf1.html" class="nav-back">← NF1 솔루션</a>
+    <span class="nav-sep">|</span>
+    <span class="nav-product-tag" style="background:rgba(251,146,60,0.12);color:#fb923c;border-color:rgba(251,146,60,0.3)">SQX Manager</span>
+  </div>
+  <a href="./index.html" class="nav-home">ANDSQUARE</a>
+</nav>
+
+<div class="product-hero" style="--accent:#fb923c;--accent-glow:rgba(251,146,60,0.1)">
+  <div class="product-hero-shot" style="--hero-shot:url('../img/hero-manager.png')"></div>
+  <div class="product-hero-orb" style="background:conic-gradient(from 200deg,rgba(251,146,60,0.25) 0%,rgba(251,191,36,0.2) 30%,rgba(248,113,113,0.15) 60%,rgba(251,146,60,0.25) 100%);"></div><div class="product-hero-orb-ring"></div><div class="product-hero-inner">
+    <div class="product-hero-text">
+      <div class="product-eyebrow">SQX Manager · Operations</div>
+      <h1>인프라·운영을<br><em>일원화된 임베디드 콘솔에서</em></h1>
+      <p>Docker 컨테이너부터 DB 쿼리 분석, API 상태 모니터링, 실시간 로그 스트림까지. 운영팀이 필요한 모든 도구를 통합 콘솔로 제공합니다.</p>
+    </div>
+    <div class="product-hero-badge">
+      <div class="badge-icon">📡</div>
+      <div class="badge-text">
+        <div class="badge-label">Monitoring</div>
+        <div class="badge-value">Real-time DevOps</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="tab-section">
+  <div class="section-inner">
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('deploy',this)">🐳 Docker 배포</button>
+      <button class="tab-btn" onclick="switchTab('server',this)">📊 서버모니터링</button>
+      <button class="tab-btn" onclick="switchTab('api',this)">🔌 API 매니저</button>
+      <button class="tab-btn" onclick="switchTab('backsight',this)">👁️ Backsight 로그</button>
+      <button class="tab-btn" onclick="switchTab('n8n',this)">⚡ N8N 자동화</button>
+    </nav>
+
+    <!-- Docker -->
+    <div class="tab-panel active" id="tab-deploy">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">Docker Control — deploydashboard</span>
+        </div>
+        <div class="screen-body" style="padding:12px;">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;">
+            <div class="kpi-mini" style="--c:#22d3ee"><div class="kpi-l">Environment</div><div class="kpi-v" style="font-size:14px">DEV</div></div>
+            <div class="kpi-mini" style="--c:#4ade80"><div class="kpi-l">API Server</div><div class="kpi-v" style="font-size:14px">ONLINE</div></div>
+            <div class="kpi-mini" style="--c:#4ade80"><div class="kpi-l">Containers</div><div class="kpi-v" style="font-size:14px">3 / 3</div></div>
+          </div>
+          <div class="mock-grid">
+            <div class="mock-grid-head" style="grid-template-columns:1fr 100px 80px 60px">
+              <span>Container</span><span>Image</span><span>Uptime</span><span>Status</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:1fr 100px 80px 60px">
+              <span style="color:#fb923c;font-weight:700">BE nf-backend-dev</span>
+              <span class="mono" style="font-size:8px">...ecr.aws</span><span>50s</span>
+              <span><span class="badge-chip g">RUNNING</span></span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:1fr 100px 80px 60px">
+              <span style="color:#22d3ee;font-weight:700">FE nf-web-dev</span>
+              <span class="mono" style="font-size:8px">...ecr.aws</span><span>41h</span>
+              <span><span class="badge-chip g">RUNNING</span></span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:1fr 100px 80px 60px">
+              <span style="color:rgba(255,255,255,0.6)">nginx nf-nginx-dev</span>
+              <span class="mono" style="font-size:8px">nginx:alpine</span><span>13d</span>
+              <span><span class="badge-chip g">RUNNING</span></span>
+            </div>
+          </div>
+          <div style="margin-top:8px;">
+            <div class="mock-section-label" style="margin-bottom:4px;">GitHub Actions — 최근 배포</div>
+            <div class="mock-grid">
+              <div class="mock-grid-row" style="grid-template-columns:1fr 60px 60px 60px">
+                <span style="font-size:8px;color:rgba(255,255,255,0.6)">fix: [sl0101001q][deploy] 테이블 클릭 단일 선택</span>
+                <span><span class="badge-chip b">FE</span></span><span><span class="badge-chip g">✓</span></span><span><span class="badge-chip g">✓</span></span>
+              </div>
+              <div class="mock-grid-row" style="grid-template-columns:1fr 60px 60px 60px">
+                <span style="font-size:8px;color:rgba(255,255,255,0.6)">fix: [servermonitoring][deploy] gstack 리뷰 버그</span>
+                <span><span class="badge-chip b">FE</span></span><span><span class="badge-chip g">✓</span></span><span><span class="badge-chip g">✓</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">Deploy Dashboard</div>
+        <h3 class="panel-title">Docker 컨테이너<br>+ CI/CD 실시간 확인</h3>
+        <p class="panel-text">AWS ECR 기반 Docker 컨테이너 상태와 GitHub Actions 배포 이력을 한 화면에서 모니터링합니다. FE/BE 배포를 별도로 확인 가능합니다.</p>
+        <ul class="feature-bullets">
+          <li>컨테이너 상태·업타임 실시간 모니터링</li>
+          <li>GitHub Actions FE/BE 배포 이력 분리</li>
+          <li>커밋별 배포 성공/실패 즉시 확인</li>
+          <li>Job별 로그 슬라이드 패널</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 서버모니터링 -->
+    <div class="tab-panel" id="tab-server">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">Server Monitoring — DB Query 탭</span>
+        </div>
+        <div class="screen-body" style="padding:12px;">
+          <div style="display:flex;gap:4px;margin-bottom:8px;">
+            <span style="padding:3px 10px;background:rgba(255,255,255,0.07);border-radius:4px;font-size:9px;color:rgba(255,255,255,0.4);font-family:Outfit">System</span>
+            <span style="padding:3px 10px;background:var(--cyan-500);border-radius:4px;font-size:9px;color:#fff;font-family:Outfit">DB Query</span>
+            <span style="padding:3px 10px;background:rgba(255,255,255,0.07);border-radius:4px;font-size:9px;color:rgba(255,255,255,0.4);font-family:Outfit">Sessions</span>
+          </div>
+          <div style="height:72px;background:var(--slate-800);border-radius:6px;overflow:hidden;margin-bottom:8px;position:relative;">
+            <svg width="100%" height="100%" viewBox="0 0 400 72" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="ga" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#06b6d4" stop-opacity=".3"/>
+                  <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,65 L40,55 L80,58 L120,35 L160,48 L200,18 L240,32 L280,12 L320,28 L360,8 L400,5 L400,72 L0,72 Z" fill="url(#ga)"/>
+              <path d="M0,65 L40,55 L80,58 L120,35 L160,48 L200,18 L240,32 L280,12 L320,28 L360,8 L400,5" fill="none" stroke="#06b6d4" stroke-width="1.5"/>
+              <rect x="180" y="0" width="80" height="72" fill="rgba(251,191,36,0.06)"/>
+              <line x1="180" y1="0" x2="180" y2="72" stroke="rgba(251,191,36,0.35)" stroke-width="1" stroke-dasharray="2,2"/>
+              <line x1="260" y1="0" x2="260" y2="72" stroke="rgba(251,191,36,0.35)" stroke-width="1" stroke-dasharray="2,2"/>
+            </svg>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:rgba(255,255,255,0.3);width:12px;text-align:center;font-family:Outfit">1</span>
+              <div style="flex:1;height:11px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;"><div style="width:92%;height:100%;background:linear-gradient(90deg,#ef4444,#f97316);border-radius:3px"></div></div>
+              <span style="font-size:8px;color:#ef4444;width:44px;text-align:right;font-family:Outfit">482ms</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:rgba(255,255,255,0.3);width:12px;text-align:center;font-family:Outfit">2</span>
+              <div style="flex:1;height:11px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;"><div style="width:68%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:3px"></div></div>
+              <span style="font-size:8px;color:#f59e0b;width:44px;text-align:right;font-family:Outfit">358ms</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:9px;color:rgba(255,255,255,0.3);width:12px;text-align:center;font-family:Outfit">3</span>
+              <div style="flex:1;height:11px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;"><div style="width:48%;height:100%;background:#3b82f6;border-radius:3px"></div></div>
+              <span style="font-size:8px;color:rgba(255,255,255,0.5);width:44px;text-align:right;font-family:Outfit">274ms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">DB Query Monitoring</div>
+        <h3 class="panel-title">느린 쿼리를<br>드래그 한 번으로</h3>
+        <p class="panel-text">pg_stat_statements 기반 실시간 쿼리 분석. 그래프에서 구간을 드래그하면 해당 시점의 Top 10 슬로우 쿼리를 즉시 확인합니다.</p>
+        <ul class="feature-bullets">
+          <li>10초 간격 자동 수집, 10분 링버퍼</li>
+          <li>JENNIFER식 드래그 구간 선택</li>
+          <li>평균·표준편차·버퍼히트율·임시블록 4지표</li>
+          <li>CPU·메모리·디스크 시스템 지표 통합</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- API 매니저 -->
+    <div class="tab-panel" id="tab-api">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">API 인터페이스 모니터링 — if0101001q</span>
+        </div>
+        <div class="screen-body" style="padding:12px;">
+          <div class="mock-grid">
+            <div class="mock-grid-head" style="grid-template-columns:80px 1fr 60px 80px 80px">
+              <span>Method</span><span>Endpoint</span><span>Status</span><span>응답시간</span><span>마지막호출</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:80px 1fr 60px 80px 80px">
+              <span><span class="badge-chip g" style="font-size:8px">GET</span></span>
+              <span class="mono" style="font-size:8px">/api/tms/orders</span>
+              <span><span class="badge-chip g">200</span></span><span>42ms</span><span style="font-size:8px">방금</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:80px 1fr 60px 80px 80px">
+              <span><span class="badge-chip b" style="font-size:8px">POST</span></span>
+              <span class="mono" style="font-size:8px">/api/tms/orders</span>
+              <span><span class="badge-chip g">201</span></span><span>128ms</span><span style="font-size:8px">1분 전</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:80px 1fr 60px 80px 80px">
+              <span><span class="badge-chip r" style="font-size:8px">DEL</span></span>
+              <span class="mono" style="font-size:8px">/api/wms/bins/123</span>
+              <span><span class="badge-chip r">500</span></span><span>2,340ms</span><span style="font-size:8px">5분 전</span>
+            </div>
+            <div class="mock-grid-row" style="grid-template-columns:80px 1fr 60px 80px 80px">
+              <span><span class="badge-chip g" style="font-size:8px">GET</span></span>
+              <span class="mono" style="font-size:8px">/api/bi/dashboard</span>
+              <span><span class="badge-chip g">200</span></span><span>87ms</span><span style="font-size:8px">방금</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">API Manager</div>
+        <h3 class="panel-title">API 응답 상태<br>실시간 모니터링</h3>
+        <p class="panel-text">FastAPI 백엔드의 모든 엔드포인트 호출 현황을 실시간으로 추적합니다. 오류 발생 시 즉시 알림하고 응답 지연 패턴을 분석합니다.</p>
+        <ul class="feature-bullets">
+          <li>엔드포인트별 응답시간 추적</li>
+          <li>4xx/5xx 에러 즉시 감지</li>
+          <li>REST 원칙 (GET/POST/DELETE) 준수 확인</li>
+          <li>JWT 인증 상태 점검</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Backsight -->
+    <div class="tab-panel" id="tab-backsight">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">Backsight — 실시간 로그 스트림</span>
+        </div>
+        <div class="screen-body" style="padding:10px;">
+          <div style="display:flex;gap:4px;margin-bottom:8px;">
+            <span style="padding:2px 8px;background:rgba(74,222,128,0.15);border-radius:3px;font-size:8px;color:#4ade80;font-family:Outfit">INFO</span>
+            <span style="padding:2px 8px;background:rgba(251,191,36,0.15);border-radius:3px;font-size:8px;color:#fbbf24;font-family:Outfit">WARN</span>
+            <span style="padding:2px 8px;background:rgba(239,68,68,0.15);border-radius:3px;font-size:8px;color:#f87171;font-family:Outfit">ERROR</span>
+            <span style="padding:2px 8px;background:rgba(255,255,255,0.07);border-radius:3px;font-size:8px;color:rgba(255,255,255,0.3);font-family:Outfit">DEBUG</span>
+            <div style="margin-left:auto;padding:2px 8px;background:rgba(6,182,212,0.15);border-radius:3px;font-size:8px;color:#06b6d4;font-family:Outfit">● LIVE</div>
+          </div>
+          <div class="log-stream">
+            <div><span class="log-ts">10:28:14.231</span><span class="log-info">[INFO ]</span> <span class="t-white">OrderService - 주문 접수 완료 ORD-240305</span></div>
+            <div><span class="log-ts">10:28:14.198</span><span class="log-info">[INFO ]</span> <span class="t-white">AuthFilter - JWT 인증 성공 user_id=1042</span></div>
+            <div><span class="log-ts">10:28:13.887</span><span class="log-warn">[WARN ]</span> <span style="color:#fbbf24">SlowQuery - 실행시간 2340ms /api/wms/bins/123</span></div>
+            <div><span class="log-ts">10:28:13.441</span><span class="log-error">[ERROR]</span> <span style="color:#f87171">WmsService - BinNotFoundException: bin_id=123 not found</span></div>
+            <div><span class="log-ts">10:28:12.994</span><span class="log-info">[INFO ]</span> <span class="t-white">DispatchService - 배차 완료 dispatch_no=D-2403-0088</span></div>
+            <div><span class="log-ts">10:28:12.102</span><span class="log-debug">[DEBUG]</span> <span style="color:rgba(255,255,255,0.3)">PostgreSQL - SELECT * FROM tms_order WHERE ...</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">Backsight Log Monitoring</div>
+        <h3 class="panel-title">실시간 로그 스트림<br>+ AI 원인 분석</h3>
+        <p class="panel-text">서버 로그를 실시간으로 스트리밍하며 ERROR/WARN 레벨을 즉시 감지합니다. AI에게 에러 원인과 해결방법을 바로 물어볼 수 있습니다.</p>
+        <ul class="feature-bullets">
+          <li>INFO/WARN/ERROR/DEBUG 레벨 필터</li>
+          <li>실시간 스트리밍 자동 스크롤</li>
+          <li>AI 에러 분석 패널 내장</li>
+          <li>다크모드 터미널 UI</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- N8N -->
+    <div class="tab-panel" id="tab-n8n">
+      <div class="panel-screen">
+        <div class="screen-bar">
+          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="screen-title">N8N 워크플로우 자동화</span>
+        </div>
+        <div class="screen-body" style="padding:12px;background:#1a1a2e;min-height:220px;position:relative;">
+          <!-- N8N workflow nodes mock -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:0;padding:40px 20px;">
+            <div style="background:#1e3a8a;border:2px solid #3b82f6;border-radius:8px;padding:10px 14px;font-size:9px;color:#fff;font-family:Outfit;text-align:center;min-width:80px;">
+              <div style="font-size:16px;margin-bottom:3px">📧</div>Webhook<br>트리거
+            </div>
+            <div style="width:40px;height:2px;background:rgba(255,255,255,0.2);position:relative;"><div style="position:absolute;right:-5px;top:-3px;color:rgba(255,255,255,0.4);font-size:10px">›</div></div>
+            <div style="background:#065f46;border:2px solid #10b981;border-radius:8px;padding:10px 14px;font-size:9px;color:#fff;font-family:Outfit;text-align:center;min-width:80px;">
+              <div style="font-size:16px;margin-bottom:3px">🔍</div>조건<br>분기
+            </div>
+            <div style="width:40px;height:2px;background:rgba(255,255,255,0.2);position:relative;"><div style="position:absolute;right:-5px;top:-3px;color:rgba(255,255,255,0.4);font-size:10px">›</div></div>
+            <div style="background:#7c2d12;border:2px solid #f97316;border-radius:8px;padding:10px 14px;font-size:9px;color:#fff;font-family:Outfit;text-align:center;min-width:80px;">
+              <div style="font-size:16px;margin-bottom:3px">📨</div>Slack<br>알림
+            </div>
+            <div style="width:40px;height:2px;background:rgba(255,255,255,0.2);position:relative;"><div style="position:absolute;right:-5px;top:-3px;color:rgba(255,255,255,0.4);font-size:10px">›</div></div>
+            <div style="background:#4c1d95;border:2px solid #8b5cf6;border-radius:8px;padding:10px 14px;font-size:9px;color:#fff;font-family:Outfit;text-align:center;min-width:80px;">
+              <div style="font-size:16px;margin-bottom:3px">📝</div>DB<br>기록
+            </div>
+          </div>
+          <div style="text-align:center;font-size:8px;color:rgba(255,255,255,0.2);font-family:Outfit;margin-top:8px">sqx.kr:444 에서 N8N 임베드 운영</div>
+        </div>
+      </div>
+      <div class="panel-desc">
+        <div class="panel-tag">N8N Workflow Automation</div>
+        <h3 class="panel-title">코드 없이 만드는<br>업무 자동화 플로우</h3>
+        <p class="panel-text">N8N 비주얼 워크플로우 빌더를 시스템에 임베드하여 제공합니다. 주문 접수 알림, 이상 감지 경보, 정기 보고서 발송 등을 코드 없이 구성합니다.</p>
+        <ul class="feature-bullets">
+          <li>드래그 앤 드롭 플로우 구성</li>
+          <li>Webhook·Slack·Email·DB 연동</li>
+          <li>스케줄 기반 자동 실행</li>
+          <li>시스템 내 임베드로 단일 로그인</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="sqx-footer">
+  <div class="footer-inner">
+    <span>COPYRIGHT © ANDSQUARE INC. ALL RIGHTS RESERVED.</span>
+    <a href="./nf1.html">← NF1 솔루션 목록</a>
+  </div>
+</footer>
+<script src="./js/sqx-common.js"></script>
+</body>
+</html>
