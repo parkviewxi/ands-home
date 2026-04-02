@@ -93,13 +93,11 @@ body { font-family:'Noto Sans KR',sans-serif; color:var(--text); background:#fff
   overflow:hidden;
   pointer-events:none;
 }
-.product-hero-shot::before {
-  content:'';
+.product-hero-shot img {
   position:absolute; inset:0;
-  background-image: var(--hero-shot, none);
-  background-size: cover;
-  background-position: center center;
-  filter: brightness(0.17) saturate(0.22) contrast(1.45);
+  width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  filter: brightness(0.28) saturate(0.2) contrast(1.3);
   -webkit-mask-image: radial-gradient(ellipse 88% 78% at 62% 50%, black 20%, rgba(0,0,0,0.55) 50%, transparent 82%);
   mask-image: radial-gradient(ellipse 88% 78% at 62% 50%, black 20%, rgba(0,0,0,0.55) 50%, transparent 82%);
 }
