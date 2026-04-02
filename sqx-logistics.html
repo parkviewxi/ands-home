@@ -63,7 +63,7 @@
     <div class="product-hero-text">
       <div class="product-eyebrow">SQX Logistics — 통합 물류 플랫폼</div>
       <h1>포워딩부터 항공까지<br><em>물류 전 영역 커버</em></h1>
-      <p>해상 포워딩(FMS), 창고 관리(WMS), 운송 관리(TMS), 항공 운송(ATS)까지<br>
+      <p>창고 관리(WMS), 포워딩(FMS), 운송 관리(TMS), 선적 검수(ATS)까지<br>
         엔터프라이즈급 물류의 모든 영역을 단일 플랫폼으로 통합합니다.</p>
     </div>
     <div class="product-hero-badge">
@@ -79,14 +79,14 @@
 <div class="tab-section">
   <div class="section-inner">
     <nav class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('fms',this)">FMS 해상포워딩</button>
-      <button class="tab-btn" onclick="switchTab('wms',this)">WMS 창고관리</button>
+      <button class="tab-btn active" onclick="switchTab('wms',this)">WMS 창고관리</button>
+      <button class="tab-btn" onclick="switchTab('fms',this)">FMS 포워딩</button>
       <button class="tab-btn" onclick="switchTab('tms',this)">TMS 운송관리</button>
-      <button class="tab-btn" onclick="switchTab('ats',this)">ATS 항공운송</button>
+      <button class="tab-btn" onclick="switchTab('ats',this)">ATS 선적검수</button>
     </nav>
 
-    <!-- FMS 해상 포워딩 -->
-    <div class="tab-panel active" id="tab-fms">
+    <!-- FMS 포워딩 -->
+    <div class="tab-panel" id="tab-fms">
       <div class="panel-screen">
         <div class="screen-bar">
           <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
@@ -270,10 +270,10 @@
       </div>
       <div class="panel-desc">
         <div class="panel-tag">FMS</div>
-        <div class="panel-title">해상 포워딩<br>엔드투엔드 관리</div>
+        <div class="panel-title">포워딩<br>엔드투엔드 관리</div>
         <div class="panel-text">
           주문 접수부터 BL 발행, 컨테이너 배정, 선적 확정, 도착지 서류까지
-          해상 포워딩의 전 과정을 디지털화합니다.
+          포워딩의 전 과정을 디지털화합니다.
         </div>
         <ul class="feature-bullets">
           <li>수출입 주문 통합 관리 — 화주·포워더·선사 연동</li>
@@ -286,7 +286,7 @@
     </div>
 
     <!-- WMS 창고관리 -->
-    <div class="tab-panel" id="tab-wms">
+    <div class="tab-panel active" id="tab-wms">
       <div class="panel-screen">
         <div class="screen-bar">
           <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
@@ -511,106 +511,69 @@
       </div>
     </div>
 
-    <!-- ATS 항공운송 -->
+    <!-- ATS 선적검수 -->
     <div class="tab-panel" id="tab-ats">
       <div class="panel-screen">
         <div class="screen-bar">
           <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">ATS — 항공 운송 관리</span>
+          <span class="screen-title">ATS — 선적 검수 관리</span>
         </div>
         <div class="screen-body">
           <!-- KPI -->
           <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
             <div class="kpi-mini">
-              <div class="kpi-l">진행 AWB</div>
-              <div class="kpi-v" style="--c:#60a5fa;">58</div>
+              <div class="kpi-l">금일 검수</div>
+              <div class="kpi-v" style="--c:#60a5fa;">142</div>
             </div>
             <div class="kpi-mini">
-              <div class="kpi-l">운항중</div>
-              <div class="kpi-v" style="--c:#4ade80;">12</div>
+              <div class="kpi-l">합격</div>
+              <div class="kpi-v" style="--c:#4ade80;">138</div>
             </div>
             <div class="kpi-mini">
-              <div class="kpi-l">통관 중</div>
-              <div class="kpi-v" style="--c:#fbbf24;">9</div>
+              <div class="kpi-l">불합격</div>
+              <div class="kpi-v" style="--c:#f87171;">4</div>
             </div>
             <div class="kpi-mini">
-              <div class="kpi-l">평균 Transit</div>
-              <div class="kpi-v" style="--c:#4ade80;">2.1d</div>
+              <div class="kpi-l">합격률</div>
+              <div class="kpi-v" style="--c:#4ade80;">97.2%</div>
             </div>
           </div>
-          <!-- Flight cards -->
-          <div class="mock-section-label">항공편 현황</div>
+          <!-- 검수 목록 -->
+          <div class="mock-section-label">화물 선적 검수 목록</div>
           <div style="margin-top:4px;">
-            <div class="flight-card">
-              <div class="flight-route" style="flex:1;gap:8px;">
-                <div style="text-align:center;">
-                  <div class="airport-code" style="font-size:13px;">ICN</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">09:30</div>
-                </div>
-                <div class="flight-line" style="flex:1;margin:0 6px;"></div>
-                <div style="text-align:center;">
-                  <div class="airport-code" style="font-size:13px;">FRA</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">14:45</div>
-                </div>
+            <div class="mock-grid">
+              <div class="mock-grid-head" style="grid-template-columns:1.2fr 1.4fr 1fr 0.8fr 0.7fr;">
+                <span>선박명</span><span>화물명</span><span>컨테이너</span><span>검수자</span><span>결과</span>
               </div>
-              <div style="margin-left:16px;text-align:right;">
-                <div style="font-size:8px;color:rgba(255,255,255,0.5);">KE 905</div>
-                <div style="font-size:7.5px;color:rgba(255,255,255,0.3);">AWB: 180-12345678</div>
-                <span class="badge-chip b">운항중</span>
+              <div class="mock-grid-row" style="grid-template-columns:1.2fr 1.4fr 1fr 0.8fr 0.7fr;">
+                <span class="mono">EVER GIVEN</span><span>전자부품 (FCL)</span><span>TCKU382941</span>
+                <span>김검수</span><span><span class="badge-chip g">합격</span></span>
               </div>
-            </div>
-            <div class="flight-card">
-              <div class="flight-route" style="flex:1;gap:8px;">
-                <div style="text-align:center;">
-                  <div class="airport-code" style="font-size:13px;">GMP</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">11:00</div>
-                </div>
-                <div class="flight-line" style="flex:1;margin:0 6px;"></div>
-                <div style="text-align:center;">
-                  <div class="airport-code" style="font-size:13px;">NRT</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">13:10</div>
-                </div>
+              <div class="mock-grid-row" style="grid-template-columns:1.2fr 1.4fr 1fr 0.8fr 0.7fr;">
+                <span class="mono">MSC OSCAR</span><span>냉동식품 (RF)</span><span>MSCU719283</span>
+                <span>이검수</span><span><span class="badge-chip r">불합격</span></span>
               </div>
-              <div style="margin-left:16px;text-align:right;">
-                <div style="font-size:8px;color:rgba(255,255,255,0.5);">OZ 101</div>
-                <div style="font-size:7.5px;color:rgba(255,255,255,0.3);">AWB: 988-87654321</div>
-                <span class="badge-chip g">도착완료</span>
-              </div>
-            </div>
-            <div class="flight-card">
-              <div class="flight-route" style="flex:1;gap:8px;">
-                <div style="text-align:center;">
-                  <div class="airport-code" style="font-size:13px;">ICN</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">23:55</div>
-                </div>
-                <div class="flight-line" style="flex:1;margin:0 6px;"></div>
-                <div style="text-align:center;">
-                  <div class="airport-code" style="font-size:13px;">LAX</div>
-                  <div style="font-size:7px;color:rgba(255,255,255,0.3);">19:40</div>
-                </div>
-              </div>
-              <div style="margin-left:16px;text-align:right;">
-                <div style="font-size:8px;color:rgba(255,255,255,0.5);">KE 017</div>
-                <div style="font-size:7.5px;color:rgba(255,255,255,0.3);">AWB: 180-99012345</div>
-                <span class="badge-chip y">예약확정</span>
+              <div class="mock-grid-row" style="grid-template-columns:1.2fr 1.4fr 1fr 0.8fr 0.7fr;">
+                <span class="mono">HMM ALGECIRAS</span><span>화학원료 (DG)</span><span>HMMU554821</span>
+                <span>박검수</span><span><span class="badge-chip b">검수중</span></span>
               </div>
             </div>
           </div>
-          <!-- Customs status -->
+          <!-- 불합격 처리 현황 -->
           <div style="margin-top:6px;background:var(--slate-800);border-radius:5px;padding:8px;">
-            <div class="mock-section-label" style="margin-bottom:4px;">통관 현황</div>
+            <div class="mock-section-label" style="margin-bottom:4px;">불합격 처리 현황</div>
             <div style="display:flex;gap:6px;">
-              <div style="flex:1;text-align:center;padding:5px;background:rgba(74,222,128,0.08);border-radius:4px;">
-                <div style="font-size:14px;font-weight:700;color:#4ade80;font-family:'Outfit',sans-serif;">34</div>
-                <div style="font-size:7px;color:rgba(255,255,255,0.3);">통관완료</div>
+              <div style="flex:1;text-align:center;padding:5px;background:rgba(248,113,113,0.08);border-radius:4px;">
+                <div style="font-size:14px;font-weight:700;color:#f87171;font-family:'Outfit',sans-serif;">4</div>
+                <div style="font-size:7px;color:rgba(255,255,255,0.3);">불합격</div>
               </div>
               <div style="flex:1;text-align:center;padding:5px;background:rgba(251,191,36,0.08);border-radius:4px;">
-                <div style="font-size:14px;font-weight:700;color:#fbbf24;font-family:'Outfit',sans-serif;">9</div>
-                <div style="font-size:7px;color:rgba(255,255,255,0.3);">심사중</div>
+                <div style="font-size:14px;font-weight:700;color:#fbbf24;font-family:'Outfit',sans-serif;">2</div>
+                <div style="font-size:7px;color:rgba(255,255,255,0.3);">반품처리중</div>
               </div>
-              <div style="flex:1;text-align:center;padding:5px;background:rgba(248,113,113,0.08);border-radius:4px;">
-                <div style="font-size:14px;font-weight:700;color:#f87171;font-family:'Outfit',sans-serif;">2</div>
-                <div style="font-size:7px;color:rgba(255,255,255,0.3);">보류</div>
+              <div style="flex:1;text-align:center;padding:5px;background:rgba(74,222,128,0.08);border-radius:4px;">
+                <div style="font-size:14px;font-weight:700;color:#4ade80;font-family:'Outfit',sans-serif;">2</div>
+                <div style="font-size:7px;color:rgba(255,255,255,0.3);">재검수완료</div>
               </div>
             </div>
           </div>
@@ -618,17 +581,17 @@
       </div>
       <div class="panel-desc">
         <div class="panel-tag">ATS</div>
-        <div class="panel-title">항공 화물<br>전 과정 관리</div>
+        <div class="panel-title">항만 화물<br>선적 검수 관리</div>
         <div class="panel-text">
-          AWB 발행부터 항공편 예약, 운항 추적, 통관 관리, 도착지 배송까지
-          항공 화물 포워딩의 전 과정을 디지털화합니다.
+          항만에서 선박에 선적되는 화물의 검수 작업을 디지털화합니다.
+          검수 결과 기록, 불합격 처리, 선적 확인서 발행까지 일원화합니다.
         </div>
         <ul class="feature-bullets">
-          <li>HAWB·MAWB 발행 및 전자 문서화</li>
-          <li>항공편 예약 및 ULD 배정 관리</li>
-          <li>실시간 항공편 상태 추적 — API 연동</li>
-          <li>수출입 통관 진행 현황 관리</li>
-          <li>위험물(DG) 신고 및 특수화물 처리</li>
+          <li>화물 선적 검수 체크리스트 관리</li>
+          <li>불합격 화물 반품·재처리 워크플로우</li>
+          <li>선적 확인서(Shipping Order) 자동 발행</li>
+          <li>검수자별 실적 및 이력 관리</li>
+          <li>바코드·QR 스캔 연동 — 모바일 앱 지원</li>
         </ul>
       </div>
     </div>
