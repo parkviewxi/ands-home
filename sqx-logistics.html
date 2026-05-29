@@ -42,6 +42,29 @@
     .flight-line { flex:1; height:1px; background:rgba(255,255,255,0.1); position:relative; }
     .flight-line::before { content:'✈'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:9px; color:#60a5fa; }
     .flight-info { font-size:8px; color:rgba(255,255,255,0.4); }
+
+    @media screen and (max-width: 768px) {
+      .route-map {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+      .route-map svg {
+        width: 520px !important;
+        height: 232px !important;
+      }
+      .warehouse-3d {
+        height: auto !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+      .warehouse-3d > div {
+        min-width: 480px !important;
+      }
+      .screen-body div[style*="grid-template-columns:repeat(4,1fr)"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+    }
   </style>
 </head>
 <body>

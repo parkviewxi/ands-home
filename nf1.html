@@ -185,6 +185,113 @@
     /* Reveal */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
     .reveal.visible { opacity: 1; transform: none; }
+
+    @media screen and (max-width: 1024px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        padding: 0 16px !important;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      /* NAV */
+      .nav {
+        padding: 0 16px !important;
+        height: 56px !important;
+      }
+      .nav-logo-text {
+        font-size: 14px !important;
+      }
+      .nav-product {
+        font-size: 13px !important;
+      }
+      .nav-back {
+        font-size: 12px !important;
+      }
+
+      /* HERO */
+      .hero {
+        padding: 88px 16px 40px !important;
+        min-height: auto !important;
+      }
+      .hero h1 {
+        font-size: 32px !important;
+        line-height: 1.25 !important;
+        letter-spacing: -1px !important;
+      }
+      .hero-sub {
+        font-size: 13px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 36px !important;
+      }
+
+      /* FLOW STRIP */
+      .flow-strip {
+        flex-direction: column !important;
+        gap: 12px !important;
+        margin-bottom: 32px !important;
+      }
+      .flow-arrow {
+        transform: rotate(90deg) !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+      }
+      .flow-step-icon {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 20px !important;
+      }
+      .flow-step-label {
+        font-size: 12px !important;
+      }
+      .flow-step-sub {
+        font-size: 10px !important;
+      }
+
+      /* CARDS GRID */
+      .cards-grid {
+        grid-template-columns: 1fr !important;
+        padding: 0 !important;
+        gap: 12px !important;
+      }
+      .sol-card {
+        padding: 20px 16px !important;
+        border-radius: 8px !important;
+      }
+      .sol-name {
+        font-size: 16px !important;
+      }
+      .sol-desc {
+        font-size: 11px !important;
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 48px 16px !important;
+      }
+      .section-title {
+        font-size: 24px !important;
+        margin-bottom: 10px !important;
+      }
+      .section-desc {
+        font-size: 13px !important;
+        line-height: 1.6 !important;
+      }
+
+      /* FOOTER */
+      footer {
+        padding: 24px 16px !important;
+      }
+      .footer-inner {
+        flex-direction: column !important;
+        gap: 12px !important;
+        text-align: center !important;
+      }
+      .footer-copy {
+        font-size: 11px !important;
+      }
+    }
   </style>
 </head>
 <body>

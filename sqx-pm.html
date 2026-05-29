@@ -45,6 +45,28 @@
     .donut-item { text-align:center; }
     .donut-label { font-size:8px; color:rgba(255,255,255,0.35); margin-top:4px; font-family:'Outfit',sans-serif; }
     .donut-val { font-size:11px; font-weight:700; font-family:'Outfit',sans-serif; color:#fff; }
+
+    @media screen and (max-width: 768px) {
+      .kanban {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+      .gantt {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+      .gantt-row {
+        min-width: 480px !important;
+      }
+      .donut-group {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      .screen-body div[style*="grid-template-columns:repeat(4,1fr)"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+    }
   </style>
 </head>
 <body>

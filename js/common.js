@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Wheel
     container.addEventListener("wheel", (e) => {
+        if (window.innerWidth <= 768) return;
         e.preventDefault();
         if (isScrolling) 
             return;
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Keydown
     document.addEventListener("keydown", (e) => {
+        if (window.innerWidth <= 768) return;
         if (isScrolling) 
             return;
         
@@ -53,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     .add("section-visible");
             }
         });
-    }, {threshold: 0.6});
+    }, {threshold: 0.15});
 
     observedSections.forEach((section) => observer.observe(section));
 });

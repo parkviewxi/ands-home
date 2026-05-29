@@ -48,6 +48,31 @@
     .snap-mini-tbl { display:flex; flex-direction:column; gap:2px; }
     .snap-row { display:flex; gap:4px; font-size:7.5px; color:rgba(255,255,255,0.4); }
     .snap-col { width:6px; height:6px; border-radius:1px; background:rgba(6,182,212,0.4); flex-shrink:0; margin-top:1px; }
+
+    @media screen and (max-width: 768px) {
+      .erd-canvas {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+      .erd-canvas svg {
+        width: 520px !important;
+        height: 220px !important;
+      }
+      .erd-canvas .erd-tbl {
+        position: absolute !important; /* Retain absolute positioning inside scroll container */
+      }
+      #tab-ai .screen-body {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      .snap-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .ddl-block {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
   </style>
 </head>
 <body>
