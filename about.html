@@ -26,7 +26,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
-      <svg viewBox="0 0 176 34" role="img" aria-hidden="true" focusable="false"><path d="M2 32V2h172" fill="none" stroke="#3aa0ff" stroke-width="3" stroke-linecap="square"/><text x="14" y="26.5" font-family="Pretendard, system-ui, sans-serif" font-size="21" font-weight="700" letter-spacing="-0.4" fill="currentColor">AnD square</text></svg>
+      <svg class="ci-mark-svg" viewBox="0 0 330 72" role="img" aria-hidden="true" focusable="false"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="currentColor">AnD square</text></svg>
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
     <nav class="nav" id="site-nav" aria-label="주 메뉴">
@@ -34,9 +34,7 @@
       <a href="business.html" data-nav="business">사업영역</a>
       <a href="sqx.html" data-nav="solution">솔루션</a>
       <a href="projects.html" data-nav="projects">수행실적</a>
-      <a href="contact.html" data-nav="contact">문의</a>
     </nav>
-    <a class="btn btn-primary header-cta" href="contact.html">문의하기</a>
   </div>
 </header>
 <main id="main">
@@ -91,21 +89,26 @@
 
 <section class="section">
   <div class="wrap">
-    <div class="ci-block">
-      <div class="ci-mark">
-        <svg viewBox="0 0 176 34" role="img" aria-label="AnD square 워드마크"><path d="M2 32V2h172" fill="none" stroke="#3aa0ff" stroke-width="3" stroke-linecap="square"/><text x="14" y="26.5" font-family="Pretendard, system-ui, sans-serif" font-size="21" font-weight="700" letter-spacing="-0.4" fill="#fff">AnD square</text></svg>
-        <span class="en">Analysis and Design square</span>
-      </div>
-      <div>
-        <h2 class="mb-12">CI</h2>
-        <p class="muted">회사 이름에 일하는 방식을 담았습니다. 분석과 설계가 만나는 자리(square)에서 시스템이 시작됩니다.</p>
-        <div class="ci-legend">
-          <div><b>A</b><p><strong>Analysis</strong>고객 업무를 정확하게 분석합니다.</p></div>
-          <div><b>D</b><p><strong>Design</strong>분석을 바탕으로 효율적인 시스템을 설계합니다.</p></div>
-          <div><span class="sq"></span><p><strong>Square</strong>분석과 설계가 이루어지는 공간. 열린 형태는 확장성과 협업을 뜻합니다.</p></div>
-        </div>
-      </div>
+    <div class="section-head">
+      <h2>CI</h2>
+      <p class="lead">회사 이름에 일하는 방식을 담았습니다. 분석(Analysis)과 설계(Design)가 이루어지는 장소, 스퀘어입니다.</p>
     </div>
+    <div class="ci-cards">
+      <figure class="ci-card">
+        <figcaption>영문 CI</figcaption>
+        <svg viewBox="0 0 330 72" role="img" aria-label="AnD square 영문 CI"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="#111">AnD square</text></svg>
+      </figure>
+      <figure class="ci-card">
+        <figcaption>국문 CI</figcaption>
+        <svg viewBox="0 0 330 72" role="img" aria-label="앤드 스퀘어 국문 CI"><text x="165" y="56" text-anchor="middle" font-family="Pretendard, system-ui, sans-serif" font-size="52" font-weight="700" letter-spacing="-1" fill="#111">앤드 스퀘어</text></svg>
+      </figure>
+    </div>
+    <ul class="ci-legend-list">
+      <li>영문 <strong>'A'</strong>는 Analysis의 약자로 고객의 요구사항을 정의하고 업무를 분석한다는 의미</li>
+      <li>영문 <strong>'D'</strong>는 Design의 약자로 분석된 내용을 바탕으로 시스템을 설계한다는 의미</li>
+      <li><strong>'푸른색의 사각형'</strong>은 분석과 설계의 장소(스퀘어)를 의미</li>
+      <li>사각형의 열린 형태는 스퀘어의 유무형을 막론한 확장성과 협력의 상징</li>
+    </ul>
   </div>
 </section>
 
@@ -151,13 +154,10 @@
   </div>
 </section>
 
-<section class="cta">
+<section class="section-tight section-gray">
   <div class="wrap">
-    <div>
-      <h2>오시는 길</h2>
-      <p>경기도 화성시 동탄대로 677-5 비전IT타워 512호</p>
-    </div>
-    <a class="btn btn-light" href="contact.html">문의 · 찾아오시는 길</a>
+    <h2 class="h2-sm mb-12">오시는 길</h2>
+    <p class="muted">경기도 화성시 동탄대로 677-5 비전IT타워 512호 · 대표메일 <a class="link" href="mailto:andiworks26@andsquare.co.kr">andiworks26@andsquare.co.kr</a></p>
   </div>
 </section>
 </main>
@@ -166,7 +166,7 @@
     <div class="footer-grid">
       <div>
         <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
-          <svg viewBox="0 0 176 34" role="img" aria-hidden="true" focusable="false"><path d="M2 32V2h172" fill="none" stroke="#3aa0ff" stroke-width="3" stroke-linecap="square"/><text x="14" y="26.5" font-family="Pretendard, system-ui, sans-serif" font-size="21" font-weight="700" letter-spacing="-0.4" fill="currentColor">AnD square</text></svg>
+          <svg class="ci-mark-svg" viewBox="0 0 330 72" role="img" aria-hidden="true" focusable="false"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="currentColor">AnD square</text></svg>
         </a>
         <p class="footer-addr">앤드스퀘어 주식회사<br>경기도 화성시 동탄대로 677-5 비전IT타워 512호<br>사업자등록번호 165-86-03313<br>대표메일 <a href="mailto:andiworks26@andsquare.co.kr">andiworks26@andsquare.co.kr</a></p>
       </div>
@@ -177,7 +177,6 @@
           <li><a href="about.html#history">연혁</a></li>
           <li><a href="business.html">사업영역</a></li>
           <li><a href="projects.html">수행실적</a></li>
-          <li><a href="contact.html">문의</a></li>
         </ul>
       </div>
       <div>
