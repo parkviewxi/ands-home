@@ -1,310 +1,190 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SQX NF1 — Framework | 앤드스퀘어</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="./css/sqx-common.css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>SQX NF1 프레임워크 | 앤드스퀘어</title>
+<meta name="description" content="SQX NF1은 멀티테넌트 SaaS 아키텍처 기반의 풀스택 공통 프레임워크입니다. 대시보드, 회원사·사용자, 역할·권한, 메뉴, 공통코드·채번을 기본 제공합니다.">
+<link rel="canonical" href="https://www.andsquare.co.kr/sqx-nf1.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="앤드스퀘어">
+<meta property="og:title" content="SQX NF1 프레임워크 | 앤드스퀘어">
+<meta property="og:description" content="SQX NF1은 멀티테넌트 SaaS 아키텍처 기반의 풀스택 공통 프레임워크입니다. 대시보드, 회원사·사용자, 역할·권한, 메뉴, 공통코드·채번을 기본 제공합니다.">
+<meta property="og:image" content="https://www.andsquare.co.kr/img/hero-nf1.webp">
+<meta property="og:url" content="https://www.andsquare.co.kr/sqx-nf1.html">
+<meta name="theme-color" content="#0d1e3d">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/woff2/Pretendard-Bold.subset.0.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/pretendard.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="js/site.js" defer></script>
 </head>
-<body>
-<nav class="nav">
-  <div class="nav-left">
-    <a href="./nf1.html" class="nav-back">← NF1 솔루션</a>
-    <span class="nav-sep">|</span>
-    <span class="nav-product-tag" style="background:rgba(99,102,241,0.15);color:#818cf8;border-color:rgba(99,102,241,0.3)">SQX NF1</span>
+<body class="">
+<a class="sr-only" href="#main">본문으로 건너뛰기</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
+      <svg class="ci-mark-svg" viewBox="0 0 330 72" role="img" aria-hidden="true" focusable="false"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="currentColor">AnD square</text></svg>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    <nav class="nav" id="site-nav" aria-label="주 메뉴">
+      <a href="about.html" data-nav="about">회사소개</a>
+      <a href="business.html" data-nav="business">사업영역</a>
+      <a href="sqx.html" data-nav="solution" aria-current="page">솔루션</a>
+      <a href="projects.html" data-nav="projects">수행실적</a>
+    </nav>
   </div>
-  <a href="./index.html" class="nav-home">ANDSQUARE</a>
+</header>
+<main id="main">
+<section class="page-hero product-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a><span>/</span><a href="sqx.html">솔루션</a><span>/</span><span>NF1</span></nav>
+    <div class="product-hero-copy">
+      <span class="kicker">SQX NF1 · 프레임워크</span>
+      <h1>모든 업무 시스템의<br>토대가 되는 공통 프레임워크</h1>
+      <p class="lead">멀티테넌트 SaaS 아키텍처 기반의 풀스택 프레임워크입니다. 회원사·사용자, 역할·권한, 메뉴, 공통코드, 채번처럼 어떤 시스템에나 필요한 기반을 갖추고 있어 업무 기능 개발에만 집중할 수 있습니다.</p>
+      <div class="modules"><span>Next.js</span><span>React</span><span>FastAPI</span><span>PostgreSQL</span><span>JWT 인증</span></div>
+    </div>
+    <figure class="product-hero-screen">
+      <img src="img/hero-nf1.webp" alt="SQX NF1 역할별 메뉴 권한 관리 화면 — 역할 목록과 구독 솔루션별 메뉴 권한 트리" width="1600" height="721" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+<nav class="product-nav" aria-label="솔루션 메뉴">
+  <div class="wrap">
+    <a href="sqx.html">SQX 개요</a>
+    <a href="sqx-nf1.html" aria-current="page">NF1 프레임워크</a>
+    <a href="sqx-manager.html">Manager</a>
+    <a href="sqx-erd.html">ERD</a>
+    <a href="sqx-pm.html">PM</a>
+    <a href="sqx-logistics.html">Logistics</a>
+    <a href="dbsquare.html">DBsquare</a>
+  </div>
 </nav>
 
-<div class="product-hero" style="--accent:#818cf8;--accent-glow:rgba(99,102,241,0.12)">
-  <div class="product-hero-shot"><img src="img/hero-nf1.png" alt=""></div>
-  <div class="product-hero-orb"></div><div class="product-hero-orb-ring"></div><div class="product-hero-inner">
-    <div class="product-hero-text">
-      <div class="product-eyebrow">SQX NF1 · Framework</div>
-      <h1>차세대 시스템의<br><em>공통 프레임워크</em></h1>
-      <p>멀티테넌트 SaaS 아키텍처 기반의 공통 프레임워크. 회원·권한·메뉴 관리부터 채번·공통코드까지, 모든 업무 시스템의 토대가 되는 기반 플랫폼입니다.</p>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>기본 제공 기능</h2>
+      <p class="lead">로그인 후 첫 화면부터 권한별 메뉴, 공통코드까지 — 구축 프로젝트마다 다시 만들던 것들이 처음부터 들어 있습니다.</p>
     </div>
-    <div class="product-hero-badge">
-      <div class="badge-icon">🏗️</div>
-      <div class="badge-text">
-        <div class="badge-label">Architecture</div>
-        <div class="badge-value">Multi-tenant SaaS</div>
-      </div>
+    <div class="spec">
+      <div><h3>대시보드</h3><p>경영 현황 KPI와 추이 차트를 역할별로 자동 구성. Recharts 기반 실시간 차트, 한국어·영어 지원.</p></div>
+      <div><h3>회원사 · 사용자 관리</h3><p>멀티테넌트 구조로 회사별 독립 데이터 공간. 회원사 등록·승인·정지 워크플로우, 사용자 계정 일괄 관리, 이력 보존.</p></div>
+      <div><h3>역할 · 권한</h3><p>역할 단위로 메뉴·기능별 조회·수정·삭제 권한을 설정. 사용자-역할 다대다, 솔루션 단위 역할 분리, JWT 기반 인증.</p></div>
+      <div><h3>메뉴 관리</h3><p>트리 구조 메뉴를 DB에서 동적으로 로드. 배포 없이 추가·수정·순서 변경, 역할별 노출 메뉴 자동 필터, 다국어 메뉴명.</p></div>
+      <div><h3>공통코드 · 채번</h3><p>전사 공통 코드와 자동 채번 규칙(접두어·년월일·자릿수·리셋 주기)을 중앙에서 관리. 변경 즉시 전체 시스템 반영.</p></div>
+      <div><h3>시스템 환경설정</h3><p>암호화 정책, 업무 필드 커스터마이징, 시스템 메시지 관리.</p></div>
     </div>
   </div>
-</div>
+</section>
 
-<section class="tab-section">
-  <div class="section-inner">
-    <nav class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('dashboard',this)">📊 대시보드</button>
-      <button class="tab-btn" onclick="switchTab('member',this)">👥 회원관리</button>
-      <button class="tab-btn" onclick="switchTab('role',this)">🔐 권한관리</button>
-      <button class="tab-btn" onclick="switchTab('menu',this)">🗂️ 메뉴관리</button>
-      <button class="tab-btn" onclick="switchTab('config',this)">⚙️ 시스템환경설정</button>
-    </nav>
-
-    <!-- 대시보드 -->
-    <div class="tab-panel active" id="tab-dashboard">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">NF1 — 메인 대시보드</span>
-        </div>
-        <div class="screen-body" style="display:grid;grid-template-columns:200px 1fr;min-height:320px;">
-          <!-- Sidebar -->
-          <div style="background:#0f172a;border-right:1px solid rgba(255,255,255,0.07);padding:16px 0;">
-            <div style="padding:8px 16px;font-size:9px;color:rgba(255,255,255,0.25);font-family:Outfit;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">메뉴</div>
-            <div class="sidebar-item active">📊 대시보드</div>
-            <div class="sidebar-item">📦 TMS</div>
-            <div class="sidebar-item">🏭 WMS</div>
-            <div class="sidebar-item">🚢 포워딩</div>
-            <div class="sidebar-item">👥 회원관리</div>
-            <div class="sidebar-item">⚙️ 시스템</div>
-          </div>
-          <!-- Content -->
-          <div style="padding:16px;background:#0f172a;">
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;">
-              <div class="kpi-mini" style="--c:#06b6d4"><div class="kpi-l">총 매출</div><div class="kpi-v">₩4.2B</div><div class="kpi-d">↑ 12.4%</div></div>
-              <div class="kpi-mini" style="--c:#4ade80"><div class="kpi-l">이익</div><div class="kpi-v">₩840M</div><div class="kpi-d">↑ 8.1%</div></div>
-              <div class="kpi-mini" style="--c:#a78bfa"><div class="kpi-l">선적건수</div><div class="kpi-v">1,284</div><div class="kpi-d">↑ 5.3%</div></div>
-              <div class="kpi-mini" style="--c:#fb923c"><div class="kpi-l">이익률</div><div class="kpi-v">20.0%</div><div class="kpi-d">↑ 1.2%p</div></div>
-            </div>
-            <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;">
-              <div class="mock-chart-card">
-                <div class="mock-chart-label">월별 매출 트렌드</div>
-                <div class="bar-chart-mock">
-                  <div class="b" style="height:55%;background:#1d4ed8"></div><div class="b" style="height:62%;background:#1d4ed8"></div>
-                  <div class="b" style="height:48%;background:#1d4ed8"></div><div class="b" style="height:70%;background:#1d4ed8"></div>
-                  <div class="b" style="height:80%;background:#1d4ed8"></div><div class="b" style="height:72%;background:#1d4ed8"></div>
-                  <div class="b" style="height:85%;background:#06b6d4"></div><div class="b" style="height:90%;background:#06b6d4"></div>
-                  <div class="b" style="height:78%;background:#3b82f6"></div><div class="b" style="height:82%;background:#3b82f6"></div>
-                  <div class="b" style="height:88%;background:#3b82f6"></div><div class="b" style="height:95%;background:#3b82f6"></div>
-                </div>
-              </div>
-              <div class="mock-chart-card">
-                <div class="mock-chart-label">운송모드별</div>
-                <div class="pie-mock-sm"></div>
-                <div style="display:flex;flex-direction:column;gap:3px;margin-top:5px;">
-                  <div class="pie-leg"><div class="pie-d" style="background:#3b82f6"></div>해상 38%</div>
-                  <div class="pie-leg"><div class="pie-d" style="background:#06b6d4"></div>항공 24%</div>
-                  <div class="pie-leg"><div class="pie-d" style="background:#f59e0b"></div>육상 18%</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">Dashboard</div>
-        <h3 class="panel-title">경영 현황을 한눈에</h3>
-        <p class="panel-text">로그인 후 첫 화면에서 매출·이익·선적건수 KPI와 트렌드 차트를 즉시 확인. 권한별로 보이는 메뉴와 데이터가 자동 필터링됩니다.</p>
-        <ul class="feature-bullets">
-          <li>멀티테넌트: 회사별 독립 데이터 공간</li>
-          <li>역할 기반 대시보드 자동 구성</li>
-          <li>Recharts 기반 실시간 차트</li>
-          <li>다국어 지원 (한국어 / 영어)</li>
+<section class="section section-gray">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-body">
+        <h3>멀티테넌트 구조</h3>
+        <p>하나의 설치로 여러 회사가 독립된 데이터 공간을 씁니다. 회원사 코드는 채번 서비스가 자동 생성하고, 모든 테이블은 사업장·회원사 키와 표준 감사(Audit) 컬럼을 가집니다. 삭제는 Soft Delete로 처리해 이력이 남습니다.</p>
+        <ul>
+          <li>사업장(house) · 회원사(company) 2단계 테넌트 키</li>
+          <li>등록·수정 사용자와 시각을 기록하는 표준 감사 컬럼</li>
+          <li>역할별 데이터 자동 필터링</li>
         </ul>
       </div>
-    </div>
-
-    <!-- 회원관리 -->
-    <div class="tab-panel" id="tab-member">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">회원사 관리 — company_mgt</span>
-        </div>
-        <div class="screen-body" style="padding:12px;">
-          <div class="mock-search-bar">
-            <div class="mock-input" style="width:200px"></div>
-            <div class="mock-input" style="width:120px"></div>
-            <div class="mock-btn" style="background:#1e40af"></div>
-          </div>
-          <div class="mock-grid">
-            <div class="mock-grid-head" style="grid-template-columns:80px 1fr 120px 100px 80px 80px">
-              <span>회사코드</span><span>회사명</span><span>사업자번호</span><span>대표자</span><span>상태</span><span>관리</span>
-            </div>
-            <div class="mock-grid-row" style="grid-template-columns:80px 1fr 120px 100px 80px 80px">
-              <span class="mono">C001</span><span>앤드스퀘어(주)</span><span>123-45-67890</span><span>최호열</span>
-              <span><span class="badge-chip g">활성</span></span><span class="link-text">편집</span>
-            </div>
-            <div class="mock-grid-row" style="grid-template-columns:80px 1fr 120px 100px 80px 80px">
-              <span class="mono">C002</span><span>한국물류(주)</span><span>234-56-78901</span><span>홍길동</span>
-              <span><span class="badge-chip g">활성</span></span><span class="link-text">편집</span>
-            </div>
-            <div class="mock-grid-row" style="grid-template-columns:80px 1fr 120px 100px 80px 80px">
-              <span class="mono">C003</span><span>글로벌로지스</span><span>345-67-89012</span><span>김철수</span>
-              <span><span class="badge-chip y">대기</span></span><span class="link-text">편집</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">Member Management</div>
-        <h3 class="panel-title">회원사·사용자<br>통합 관리</h3>
-        <p class="panel-text">멀티테넌트 구조로 여러 회사사가 독립적으로 시스템을 사용합니다. 회원사 등록부터 사용자 계정 관리, 승인 워크플로우까지 지원합니다.</p>
-        <ul class="feature-bullets">
-          <li>회원사 등록 · 승인 · 정지 워크플로우</li>
-          <li>사용자 계정 일괄 관리</li>
-          <li>채번 서비스로 회사코드 자동 생성</li>
-          <li>Soft Delete 기반 이력 보존</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 권한관리 -->
-    <div class="tab-panel" id="tab-role">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">역할·권한 관리 — role_mgt</span>
-        </div>
-        <div class="screen-body" style="padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div>
-            <div class="mock-section-label">역할 목록</div>
-            <div class="mock-list">
-              <div class="mock-list-item selected">👑 SUPER_ADMIN</div>
-              <div class="mock-list-item">🏢 HOUSE_ADMIN</div>
-              <div class="mock-list-item">👤 USER</div>
-              <div class="mock-list-item">👁️ VIEWER</div>
-            </div>
-          </div>
-          <div>
-            <div class="mock-section-label">메뉴 권한 설정 — SUPER_ADMIN</div>
-            <div class="mock-permission-grid">
-              <div class="perm-row"><span>📊 대시보드</span><div class="perm-checks"><span class="pchk on">조회</span><span class="pchk on">수정</span><span class="pchk on">삭제</span></div></div>
-              <div class="perm-row"><span>👥 회원관리</span><div class="perm-checks"><span class="pchk on">조회</span><span class="pchk on">수정</span><span class="pchk on">삭제</span></div></div>
-              <div class="perm-row"><span>📦 TMS</span><div class="perm-checks"><span class="pchk on">조회</span><span class="pchk on">수정</span><span class="pchk off">삭제</span></div></div>
-              <div class="perm-row"><span>⚙️ 시스템</span><div class="perm-checks"><span class="pchk on">조회</span><span class="pchk off">수정</span><span class="pchk off">삭제</span></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">Role & Permission</div>
-        <h3 class="panel-title">세밀한 역할 기반<br>접근 제어</h3>
-        <p class="panel-text">역할(Role) 단위로 메뉴·기능별 조회·수정·삭제 권한을 개별 설정합니다. 사용자에게 복수의 역할 부여가 가능합니다.</p>
-        <ul class="feature-bullets">
-          <li>역할별 메뉴·기능 권한 매핑</li>
-          <li>사용자-역할 다대다 관계 지원</li>
-          <li>솔루션 단위 역할 분리</li>
-          <li>JWT 기반 stateless 인증</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 메뉴관리 -->
-    <div class="tab-panel" id="tab-menu">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">메뉴 관리 — menu_mgt</span>
-        </div>
-        <div class="screen-body" style="padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div>
-            <div class="mock-section-label">메뉴 트리</div>
-            <div class="mock-tree">
-              <div class="tree-item depth0">📁 시스템관리</div>
-              <div class="tree-item depth1">📄 회원관리</div>
-              <div class="tree-item depth1">📄 권한관리</div>
-              <div class="tree-item depth1 selected">📄 메뉴관리</div>
-              <div class="tree-item depth0">📁 TMS</div>
-              <div class="tree-item depth1">📄 주문관리</div>
-              <div class="tree-item depth1">📄 배차관리</div>
-              <div class="tree-item depth0">📁 WMS</div>
-            </div>
-          </div>
-          <div>
-            <div class="mock-section-label">메뉴 상세 — 메뉴관리</div>
-            <div class="mock-form-fields">
-              <div class="form-field"><span class="fl">메뉴 ID</span><div class="fi">menu_mgt</div></div>
-              <div class="form-field"><span class="fl">메뉴명(KO)</span><div class="fi">메뉴관리</div></div>
-              <div class="form-field"><span class="fl">URL</span><div class="fi mono">/system/menu_mgt</div></div>
-              <div class="form-field"><span class="fl">정렬순서</span><div class="fi">3</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">Menu Management</div>
-        <h3 class="panel-title">트리 구조<br>동적 메뉴 관리</h3>
-        <p class="panel-text">메뉴를 트리 구조로 구성하고, DB에서 동적으로 로드합니다. 추가·수정·순서 변경을 관리자가 직접 처리하며 배포 없이 메뉴 구성이 가능합니다.</p>
-        <ul class="feature-bullets">
-          <li>다단계 트리 메뉴 구성</li>
-          <li>URL 기반 화면 매핑</li>
-          <li>역할별 노출 메뉴 자동 필터</li>
-          <li>i18n 다국어 메뉴명 지원</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 시스템환경설정 -->
-    <div class="tab-panel" id="tab-config">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">시스템 환경설정 — system_config_mgt</span>
-        </div>
-        <div class="screen-body" style="padding:12px;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div>
-              <div class="mock-section-label">공통 코드 관리</div>
-              <div class="mock-grid">
-                <div class="mock-grid-head" style="grid-template-columns:80px 1fr 80px">
-                  <span>코드그룹</span><span>코드명</span><span>사용여부</span>
-                </div>
-                <div class="mock-grid-row" style="grid-template-columns:80px 1fr 80px">
-                  <span class="mono">SHIP_MODE</span><span>운송모드</span><span><span class="badge-chip g">Y</span></span>
-                </div>
-                <div class="mock-grid-row" style="grid-template-columns:80px 1fr 80px">
-                  <span class="mono">ORD_STATUS</span><span>주문상태</span><span><span class="badge-chip g">Y</span></span>
-                </div>
-                <div class="mock-grid-row" style="grid-template-columns:80px 1fr 80px">
-                  <span class="mono">CURRENCY</span><span>통화코드</span><span><span class="badge-chip g">Y</span></span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="mock-section-label">채번 규칙 관리</div>
-              <div class="mock-grid">
-                <div class="mock-grid-head" style="grid-template-columns:40px 1fr 60px 60px">
-                  <span>ID</span><span>용도</span><span>Prefix</span><span>자릿수</span>
-                </div>
-                <div class="mock-grid-row" style="grid-template-columns:40px 1fr 60px 60px">
-                  <span class="mono">1</span><span>주문번호</span><span class="mono">ORD</span><span>6</span>
-                </div>
-                <div class="mock-grid-row" style="grid-template-columns:40px 1fr 60px 60px">
-                  <span class="mono">8</span><span>회원사코드</span><span class="mono">C</span><span>4</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">System Configuration</div>
-        <h3 class="panel-title">공통코드·채번<br>중앙 환경설정</h3>
-        <p class="panel-text">전사 공통 코드와 자동 채번 규칙을 중앙에서 관리합니다. 코드 변경이 전체 시스템에 즉시 반영되어 배포 없이 업무 변경에 대응합니다.</p>
-        <ul class="feature-bullets">
-          <li>공통 코드 그룹·상세 관리</li>
-          <li>채번 규칙 (prefix/년월일/자릿수/리셋주기)</li>
-          <li>암호화 정책 관리</li>
-          <li>업무 필드 커스터마이징</li>
-        </ul>
+      <div class="feature-media">
+        <svg viewBox="0 0 560 360" role="img" aria-label="멀티테넌트 구조: 하나의 SQX 설치 아래 여러 회원사가 각자의 데이터 공간과 역할을 가진다" class="diagram" font-family="Pretendard, system-ui, sans-serif">
+          <rect x="40" y="28" width="480" height="60" rx="10" fill="#0d1e3d"/>
+          <text x="280" y="56" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">SQX NF1 (단일 설치)</text>
+          <text x="280" y="76" text-anchor="middle" fill="#9fb3d9" font-size="12">공통 기반 · 인증 · 메뉴 · 공통코드 · 채번</text>
+          <g stroke="#c9d0db" stroke-width="1.5" fill="none"><path d="M120 88v40"/><path d="M280 88v40"/><path d="M440 88v40"/></g>
+          <g fill="#f3f5f8" stroke="#c9d0db">
+            <rect x="48" y="128" width="144" height="190" rx="10"/><rect x="208" y="128" width="144" height="190" rx="10"/><rect x="368" y="128" width="144" height="190" rx="10"/>
+          </g>
+          <g fill="#14213d" font-size="14" font-weight="700" text-anchor="middle">
+            <text x="120" y="156">회원사 A</text><text x="280" y="156">회원사 B</text><text x="440" y="156">회원사 C</text>
+          </g>
+          <g fill="#fff" stroke="#1f5eff">
+            <rect x="62" y="172" width="116" height="30" rx="6"/><rect x="62" y="210" width="116" height="30" rx="6"/><rect x="62" y="248" width="116" height="30" rx="6"/>
+            <rect x="222" y="172" width="116" height="30" rx="6"/><rect x="222" y="210" width="116" height="30" rx="6"/><rect x="222" y="248" width="116" height="30" rx="6"/>
+            <rect x="382" y="172" width="116" height="30" rx="6"/><rect x="382" y="210" width="116" height="30" rx="6"/><rect x="382" y="248" width="116" height="30" rx="6"/>
+          </g>
+          <g fill="#1543c4" font-size="12" text-anchor="middle">
+            <text x="120" y="192">사용자 · 역할</text><text x="120" y="230">업무 데이터</text><text x="120" y="268">메뉴 · 설정</text>
+            <text x="280" y="192">사용자 · 역할</text><text x="280" y="230">업무 데이터</text><text x="280" y="268">메뉴 · 설정</text>
+            <text x="440" y="192">사용자 · 역할</text><text x="440" y="230">업무 데이터</text><text x="440" y="268">메뉴 · 설정</text>
+          </g>
+          <text x="280" y="344" text-anchor="middle" fill="#7b8494" font-size="12">회원사 간 데이터는 테넌트 키로 격리됩니다</text>
+        </svg>
       </div>
     </div>
   </div>
 </section>
 
-<footer class="sqx-footer">
-  <div class="footer-inner">
-    <span>COPYRIGHT © ANDSQUARE INC. ALL RIGHTS RESERVED.</span>
-    <a href="./nf1.html">← NF1 솔루션 목록</a>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>NF1 위에 올라가는 제품</h2>
+      <p class="lead">Manager, ERD, PM, Logistics는 모두 NF1의 회원·권한·메뉴 체계를 그대로 씁니다. 한 번 로그인하면 권한이 있는 제품 메뉴가 함께 보입니다.</p>
+    </div>
+    <div class="product-grid">
+      <a class="product-card" href="sqx-manager.html"><div class="thumb"><img src="img/hero-manager.webp" alt="" width="1600" height="792" loading="lazy"></div><div class="body"><h3>SQX Manager</h3><p>운영 인프라 통합 관리</p></div></a>
+      <a class="product-card" href="sqx-erd.html"><div class="thumb"><img src="img/hero-erd.webp" alt="" width="1600" height="738" loading="lazy"></div><div class="body"><h3>SQX ERD</h3><p>AI 기반 스키마 분석</p></div></a>
+      <a class="product-card" href="sqx-pm.html"><div class="thumb"><img src="img/sqx/spm-dashboard.webp" alt="" width="825" height="595" loading="lazy"></div><div class="body"><h3>SQX PM</h3><p>프로젝트 · ITSM 관리</p></div></a>
+      <a class="product-card" href="sqx-logistics.html"><div class="thumb"><img src="img/hero-logistics-960.webp" alt="" width="960" height="483" loading="lazy"></div><div class="body"><h3>SQX Logistics</h3><p>통합 물류 플랫폼</p></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight contact-note">
+  <div class="wrap">
+    <div class="contact-note-box">
+      <div>
+        <h2>도입 상담과 문의</h2>
+        <p>솔루션 도입, 시스템 구축, 컨설팅 문의는 대표메일로 받습니다. 대상 업무와 현행 시스템 개요를 함께 적어 주시면 바로 답변을 드릴 수 있습니다.</p>
+      </div>
+      <a class="btn btn-primary" href="mailto:andiworks26@andsquare.co.kr?subject=%5B%EB%AC%B8%EC%9D%98%5D%20">메일 보내기</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
+          <svg class="ci-mark-svg" viewBox="0 0 330 72" role="img" aria-hidden="true" focusable="false"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="currentColor">AnD square</text></svg>
+        </a>
+        <p class="footer-addr">앤드스퀘어 주식회사<br>경기도 화성시 동탄대로 677-5 비전IT타워 512호<br>사업자등록번호 165-86-03313<br>대표메일 <a href="mailto:andiworks26@andsquare.co.kr">andiworks26@andsquare.co.kr</a></p>
+      </div>
+      <div>
+        <h4>회사</h4>
+        <ul>
+          <li><a href="about.html">회사소개</a></li>
+          <li><a href="about.html#history">연혁</a></li>
+          <li><a href="business.html">사업영역</a></li>
+          <li><a href="projects.html">수행실적</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>솔루션</h4>
+        <ul>
+          <li><a href="sqx.html">SQX 통합 플랫폼</a></li>
+          <li><a href="sqx-nf1.html">SQX NF1 프레임워크</a></li>
+          <li><a href="sqx-manager.html">SQX Manager</a></li>
+          <li><a href="sqx-erd.html">SQX ERD</a></li>
+          <li><a href="sqx-pm.html">SQX PM</a></li>
+          <li><a href="sqx-logistics.html">SQX Logistics</a></li>
+          <li><a href="dbsquare.html">DBsquare</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AnD square Inc. All rights reserved.</span>
+      <span>정보화 컨설팅 · 시스템 구축 · 물류 솔루션</span>
+    </div>
   </div>
 </footer>
-
-<script src="./js/sqx-common.js"></script>
 </body>
 </html>

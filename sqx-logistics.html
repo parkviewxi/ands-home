@@ -1,616 +1,169 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SQX Logistics — 물류솔루션 | 앤드스퀘어</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="./css/sqx-common.css"/>
-  <style>
-    :root {
-      --accent: #3b82f6; --accent-em-start: #60a5fa; --accent-em-mid: #22d3ee;
-      --accent-glow: rgba(59,130,246,0.12);
-      --accent-dim: rgba(59,130,246,0.08);
-    }
-    .nav-product-tag { background: rgba(59,130,246,0.1); color: #60a5fa; border-color: rgba(59,130,246,0.3); }
-
-    /* Route map mockup */
-    .route-map { position:relative; height:170px; background:radial-gradient(ellipse at center,rgba(30,64,175,0.08) 0%,transparent 70%); border-radius:6px; overflow:hidden; }
-    .port-dot { position:absolute; width:8px; height:8px; border-radius:50%; border:1.5px solid; }
-    .port-label { position:absolute; font-size:7.5px; font-family:'Outfit',sans-serif; white-space:nowrap; }
-
-    /* 3D Warehouse mock */
-    .warehouse-3d { background:#0a0f1a; border-radius:6px; padding:10px; position:relative; overflow:hidden; height:160px; }
-    .rack-row { display:flex; gap:4px; margin-bottom:4px; }
-    .rack { display:flex; flex-direction:column; gap:2px; }
-    .rack-cell { width:18px; height:10px; border-radius:2px; border:1px solid; }
-
-    /* Shipment tracker */
-    .track-timeline { display:flex; flex-direction:column; gap:0; }
-    .track-step { display:flex; gap:10px; position:relative; }
-    .track-step::before { content:''; position:absolute; left:7px; top:16px; width:1px; height:calc(100% - 8px); background:rgba(255,255,255,0.1); }
-    .track-step:last-child::before { display:none; }
-    .track-dot { width:15px; height:15px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:7px; border:1.5px solid; }
-    .track-content { padding-bottom:10px; }
-    .track-title { font-size:9px; color:rgba(255,255,255,0.7); margin-bottom:2px; }
-    .track-meta { font-size:7.5px; color:rgba(255,255,255,0.3); }
-
-    /* ATS flight card */
-    .flight-card { background:var(--slate-800); border-radius:5px; padding:8px 10px; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center; }
-    .flight-route { display:flex; align-items:center; gap:6px; }
-    .airport-code { font-family:'Outfit',sans-serif; font-size:14px; font-weight:800; color:#fff; }
-    .flight-line { flex:1; height:1px; background:rgba(255,255,255,0.1); position:relative; }
-    .flight-line::before { content:'✈'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:9px; color:#60a5fa; }
-    .flight-info { font-size:8px; color:rgba(255,255,255,0.4); }
-
-    @media screen and (max-width: 768px) {
-      .route-map {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
-      }
-      .route-map svg {
-        width: 520px !important;
-        height: 232px !important;
-      }
-      .warehouse-3d {
-        height: auto !important;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
-      }
-      .warehouse-3d > div {
-        min-width: 480px !important;
-      }
-      .screen-body div[style*="grid-template-columns:repeat(4,1fr)"] {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8px !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>SQX Logistics 통합 물류 플랫폼 | 앤드스퀘어</title>
+<meta name="description" content="SQX Logistics는 포워딩(FMS)·창고(WMS)·운송(TMS)·선적검수(ATS)를 하나로 묶은 통합 물류 플랫폼입니다. 창고 로케이션 3D 뷰, 바코드·QR 입출고, 모바일 현장 처리.">
+<link rel="canonical" href="https://www.andsquare.co.kr/sqx-logistics.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="앤드스퀘어">
+<meta property="og:title" content="SQX Logistics 통합 물류 플랫폼 | 앤드스퀘어">
+<meta property="og:description" content="SQX Logistics는 포워딩(FMS)·창고(WMS)·운송(TMS)·선적검수(ATS)를 하나로 묶은 통합 물류 플랫폼입니다. 창고 로케이션 3D 뷰, 바코드·QR 입출고, 모바일 현장 처리.">
+<meta property="og:image" content="https://www.andsquare.co.kr/img/hero-logistics-960.webp">
+<meta property="og:url" content="https://www.andsquare.co.kr/sqx-logistics.html">
+<meta name="theme-color" content="#0d1e3d">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/woff2/Pretendard-Bold.subset.0.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/pretendard.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="js/site.js" defer></script>
 </head>
-<body>
-
-<nav class="nav">
-  <div class="nav-left">
-    <a href="./index.html" class="nav-back">ANDSQUARE</a>
-    <span class="nav-sep">/</span>
-    <a href="./nf1.html" class="nav-back">NF1 Solutions</a>
-    <span class="nav-sep">/</span>
-    <span class="nav-product-tag">SQX Logistics</span>
+<body class="">
+<a class="sr-only" href="#main">본문으로 건너뛰기</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
+      <svg class="ci-mark-svg" viewBox="0 0 330 72" role="img" aria-hidden="true" focusable="false"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="currentColor">AnD square</text></svg>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    <nav class="nav" id="site-nav" aria-label="주 메뉴">
+      <a href="about.html" data-nav="about">회사소개</a>
+      <a href="business.html" data-nav="business">사업영역</a>
+      <a href="sqx.html" data-nav="solution" aria-current="page">솔루션</a>
+      <a href="projects.html" data-nav="projects">수행실적</a>
+    </nav>
   </div>
-  <a href="./nf1.html" class="nav-home">← 솔루션 목록</a>
+</header>
+<main id="main">
+<section class="page-hero product-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a><span>/</span><a href="sqx.html">솔루션</a><span>/</span><span>Logistics</span></nav>
+    <div class="product-hero-copy">
+      <span class="kicker">SQX Logistics · 통합 물류 플랫폼</span>
+      <h1>포워딩부터 선적검수까지<br>물류 전 영역을 한 플랫폼에</h1>
+      <p class="lead">창고 관리(WMS), 포워딩(FMS), 운송 관리(TMS), 선적 검수(ATS)를 단일 플랫폼으로 통합했습니다. 클라우드 SaaS로 쓰거나 고객 인프라에 설치할 수 있고, 현장은 바코드·QR 스캔과 모바일로 처리합니다.</p>
+      <div class="modules"><span>FMS 포워딩</span><span>WMS 창고</span><span>TMS 운송</span><span>ATS 선적검수</span><span>3D 로케이션 뷰</span><span>모바일</span></div>
+    </div>
+    <figure class="product-hero-screen">
+      <img src="img/hero-logistics.webp" srcset="img/hero-logistics-960.webp 960w, img/hero-logistics.webp 1920w" sizes="(max-width: 1100px) 100vw, 1040px" alt="SQX Logistics 로케이션 마스터 3D 창고 뷰 — 구역별 랙 점유 상태와 정면도" width="1920" height="967" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+<nav class="product-nav" aria-label="솔루션 메뉴">
+  <div class="wrap">
+    <a href="sqx.html">SQX 개요</a>
+    <a href="sqx-nf1.html">NF1 프레임워크</a>
+    <a href="sqx-manager.html">Manager</a>
+    <a href="sqx-erd.html">ERD</a>
+    <a href="sqx-pm.html">PM</a>
+    <a href="sqx-logistics.html" aria-current="page">Logistics</a>
+    <a href="dbsquare.html">DBsquare</a>
+  </div>
 </nav>
 
-<div class="product-hero">
-  <div class="product-hero-shot"><img src="img/hero-logistics.png" alt=""></div>
-  <div class="product-hero-orb" style="background:conic-gradient(from 200deg,rgba(59,130,246,0.28) 0%,rgba(96,165,250,0.22) 35%,rgba(6,182,212,0.2) 65%,rgba(59,130,246,0.28) 100%);"></div><div class="product-hero-orb-ring"></div><div class="product-hero-inner">
-    <div class="product-hero-text">
-      <div class="product-eyebrow">SQX Logistics — 통합 물류 플랫폼</div>
-      <h1>포워딩부터 항공까지<br><em>물류 전 영역 커버</em></h1>
-      <p>창고 관리(WMS), 포워딩(FMS), 운송 관리(TMS), 선적 검수(ATS)까지<br>
-        엔터프라이즈급 물류의 모든 영역을 단일 플랫폼으로 통합합니다.</p>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>네 가지 모듈</h2>
+      <p class="lead">모듈은 따로 도입할 수 있지만 같은 화주·화물·위치 기준정보를 공유합니다. 포워딩에서 접수한 화물이 창고 입고, 운송 배차, 선적 검수로 그대로 이어집니다.</p>
     </div>
-    <div class="product-hero-badge">
-      <div class="badge-icon">🚢</div>
+    <div class="spec">
+      <div><h3>FMS — 포워딩</h3><p>수출입 주문 접수부터 BL·HBL·MBL 발행, 컨테이너 배정과 적재 계획(CLP), 선적 확정, 도착지 서류까지. 선박 위치 추적, 운임 산출과 청구서 자동 생성.</p></div>
+      <div><h3>WMS — 창고</h3><p>랙·존·층 단위 위치 기반 재고 관리, 입출고 예약과 도크 배정, FIFO·FEFO·LIFO 출고 전략, 창고 레이아웃 시각화와 3D 로케이션 뷰, 재고 조정·실사.</p></div>
+      <div><h3>TMS — 운송</h3><p>운송 주문, 차량·기사 자동 배차, 다중 배송지 경로 최적화, GPS 실시간 추적, 드라이버 앱 전자서명(POD), 거리·중량·유류비 반영 운임 산출.</p></div>
+      <div><h3>ATS — 선적검수</h3><p>항만 선적 화물의 검수 체크리스트, 검수 결과와 불합격 처리, 선적 확인서 자동 발행, 검수자별 실적과 이력, 모바일 스캔 연동.</p></div>
+      <div><h3>현장 모바일</h3><p>입고 검수, 피킹, 출고, 선적 검수를 스마트폰·PDA에서 처리. 바코드·QR 스캔으로 위치와 화물을 확정합니다.</p></div>
+      <div><h3>연계</h3><p>관세청 전자문서, 선사·항공사 스케줄, 고객 ERP와 OpenAPI·EDI로 연계. NF1 공통 기반 위에서 Manager·PM과 같은 권한 체계를 씁니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-body">
+        <h3>창고를 3차원으로 봅니다</h3>
+        <p>로케이션 마스터는 창고·구역·층별 랙을 3D로 그려 빈 칸·사용 중·예약·점검 상태를 색으로 보여 줍니다. 구역별 점유율과 SKU·빈 검색, 랙을 클릭하면 열리는 정면도(Elevation)로 셀 단위 상태까지 확인합니다.</p>
+        <ul><li>구역별 점유율과 가용 위치 실시간 집계</li><li>Top·Front·Side·3D 시점 전환, 랙 회전·스냅</li><li>정면도에서 셀 단위 사용 상태 확인</li></ul>
+      </div>
+      <div class="feature-media"><img src="img/hero-logistics.webp" srcset="img/hero-logistics-960.webp 960w, img/hero-logistics.webp 1920w" sizes="(max-width: 720px) 100vw, 560px" alt="창고 로케이션 3D 뷰 확대" width="1920" height="967" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="feature reverse">
+      <div class="feature-body">
+        <h3>화물 흐름이 모듈을 가로지릅니다</h3>
+        <p>포워딩 주문 한 건이 창고 입고 예약, 운송 배차, 선적 검수까지 같은 화물 키로 이어집니다. 어느 모듈에서 보든 같은 화물의 현재 위치와 다음 단계가 보입니다.</p>
+      </div>
+      <div class="feature-media">
+        <svg viewBox="0 0 560 240" role="img" aria-label="화물 흐름: 포워딩 주문 접수, 창고 입고·보관, 운송 배차·추적, 선적 검수·확인 순서로 같은 화물 키가 이어진다" class="diagram" font-family="Pretendard, system-ui, sans-serif">
+          <defs><marker id="lar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f5eff"/></marker></defs>
+          <line x1="40" y1="120" x2="520" y2="120" stroke="#1f5eff" stroke-width="2" marker-end="url(#lar)"/>
+          <g fill="#fff" stroke="#c9d0db"><rect x="30" y="80" width="110" height="80" rx="10"/><rect x="165" y="80" width="110" height="80" rx="10"/><rect x="300" y="80" width="110" height="80" rx="10"/><rect x="435" y="80" width="100" height="80" rx="10"/></g>
+          <g fill="#1f5eff" font-size="12" font-weight="700" text-anchor="middle"><text x="85" y="104">FMS</text><text x="220" y="104">WMS</text><text x="355" y="104">TMS</text><text x="485" y="104">ATS</text></g>
+          <g fill="#14213d" font-size="13" text-anchor="middle"><text x="85" y="126">주문 접수</text><text x="85" y="144">BL 발행</text><text x="220" y="126">입고 · 보관</text><text x="220" y="144">피킹 · 출고</text><text x="355" y="126">배차 · 추적</text><text x="355" y="144">배송 확인</text><text x="485" y="126">선적 검수</text><text x="485" y="144">확인서 발행</text></g>
+          <text x="280" y="44" text-anchor="middle" fill="#7b8494" font-size="13">같은 화물 키 · 같은 화주 · 같은 위치 기준정보</text>
+          <text x="280" y="206" text-anchor="middle" fill="#7b8494" font-size="13">현장: 바코드 · QR 스캔, 모바일 처리</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight contact-note">
+  <div class="wrap">
+    <div class="contact-note-box">
       <div>
-        <div class="badge-label">Solution Coverage</div>
-        <div class="badge-value">FMS · WMS · TMS · ATS</div>
+        <h2>도입 상담과 문의</h2>
+        <p>솔루션 도입, 시스템 구축, 컨설팅 문의는 대표메일로 받습니다. 대상 업무와 현행 시스템 개요를 함께 적어 주시면 바로 답변을 드릴 수 있습니다.</p>
       </div>
+      <a class="btn btn-primary" href="mailto:andiworks26@andsquare.co.kr?subject=%5B%EB%AC%B8%EC%9D%98%5D%20">메일 보내기</a>
     </div>
   </div>
-</div>
-
-<div class="tab-section">
-  <div class="section-inner">
-    <nav class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('wms',this)">WMS 창고관리</button>
-      <button class="tab-btn" onclick="switchTab('fms',this)">FMS 포워딩</button>
-      <button class="tab-btn" onclick="switchTab('tms',this)">TMS 운송관리</button>
-      <button class="tab-btn" onclick="switchTab('ats',this)">ATS 선적검수</button>
-    </nav>
-
-    <!-- FMS 포워딩 -->
-    <div class="tab-panel" id="tab-fms">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">FMS — 해상 포워딩 관리</span>
-        </div>
-        <div class="screen-body">
-          <!-- KPI -->
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
-            <div class="kpi-mini">
-              <div class="kpi-l">진행 주문</div>
-              <div class="kpi-v" style="--c:#60a5fa;">247</div>
-              <div class="kpi-d">+12 이번주</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">항해중 BL</div>
-              <div class="kpi-v" style="--c:#4ade80;">83</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">도착 예정 (7일)</div>
-              <div class="kpi-v" style="--c:#fbbf24;">31</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">정시 도착률</div>
-              <div class="kpi-v" style="--c:#4ade80;">94%</div>
-            </div>
-          </div>
-          <!-- World Route Map -->
-          <div class="route-map" style="height:232px;background:#010d1e;border-radius:6px;overflow:hidden;">
-            <svg width="100%" height="100%" viewBox="0 0 520 232" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <radialGradient id="ogrd" cx="45%" cy="50%" r="65%">
-                  <stop offset="0%" stop-color="#021535"/>
-                  <stop offset="100%" stop-color="#010b1d"/>
-                </radialGradient>
-                <filter id="ptglow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="2.5" result="b"/>
-                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-              <!-- Ocean -->
-              <rect width="520" height="232" fill="url(#ogrd)"/>
-              <!-- Grid (lat/lon) -->
-              <line x1="0" y1="23" x2="520" y2="23" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="0" y1="62" x2="520" y2="62" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="0" y1="101" x2="520" y2="101" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="0" y1="140" x2="520" y2="140" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="0" y1="179" x2="520" y2="179" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="0" y1="218" x2="520" y2="218" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="17"  y1="0" x2="17"  y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="88"  y1="0" x2="88"  y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="159" y1="0" x2="159" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="230" y1="0" x2="230" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="301" y1="0" x2="301" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="372" y1="0" x2="372" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-              <line x1="444" y1="0" x2="444" y2="232" stroke="rgba(255,255,255,0.032)" stroke-width="0.5"/>
-
-              <!-- === CONTINENTS === -->
-              <!-- Western Europe -->
-              <path d="M 3,0 L 36,0 L 38,12 L 35,22 L 22,28 L 17,36 L 10,42 L 4,38 L 0,28 L 0,14 Z
-                       M 36,22 L 53,17 L 62,24 L 63,38 L 56,52 L 45,56 L 37,48 L 33,34 Z
-                       M 45,56 L 55,58 L 63,70 L 57,83 L 48,85 L 40,76 L 38,62 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.22)" stroke-width="0.5"/>
-              <!-- Iberian Peninsula -->
-              <path d="M 4,62 L 23,56 L 33,66 L 29,81 L 18,85 L 5,81 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
-              <!-- North Africa -->
-              <path d="M 0,84 L 52,82 L 82,82 L 118,81 L 140,80 L 148,85 L 150,102
-                       L 142,115 L 125,119 L 95,121 L 62,119 L 32,115 L 10,112 L 0,110 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
-              <!-- Egypt / Sinai -->
-              <path d="M 116,80 L 142,80 L 142,104 L 132,112 L 116,110 L 110,96 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.15)" stroke-width="0.4"/>
-              <!-- Arabian Peninsula -->
-              <path d="M 142,80 L 162,77 L 188,77 L 208,82 L 225,92 L 230,110
-                       L 226,132 L 215,155 L 200,168 L 184,170 L 168,160
-                       L 154,142 L 148,120 L 145,100 L 142,88 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
-              <!-- Horn of Africa / Somalia -->
-              <path d="M 148,120 L 164,117 L 177,124 L 174,144 L 164,168 L 151,170
-                       L 142,160 L 140,138 L 143,122 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.18)" stroke-width="0.4"/>
-              <!-- Indian Subcontinent -->
-              <path d="M 258,93 L 282,88 L 308,91 L 323,110 L 325,132 L 314,160
-                       L 296,181 L 281,184 L 265,174 L 252,153 L 248,128 L 250,106 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
-              <!-- Sri Lanka -->
-              <path d="M 280,187 L 289,187 L 291,198 L 283,203 L 276,196 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.14)" stroke-width="0.4"/>
-              <!-- Indochina (Myanmar/Thailand/Vietnam) -->
-              <path d="M 330,104 L 360,99 L 377,113 L 382,134 L 374,155
-                       L 360,162 L 344,156 L 330,138 L 325,118 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.18)" stroke-width="0.4"/>
-              <!-- Malay Peninsula -->
-              <path d="M 360,160 L 378,153 L 384,167 L 382,188 L 371,198 L 358,195
-                       L 350,180 L 352,163 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.18)" stroke-width="0.4"/>
-              <!-- Sumatra -->
-              <path d="M 356,200 L 390,203 L 415,211 L 420,222 L 396,228 L 364,225
-                       L 347,212 L 350,201 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.14)" stroke-width="0.4"/>
-              <!-- China + east coast -->
-              <path d="M 383,54 L 422,49 L 450,51 L 466,60 L 477,72 L 480,90
-                       L 473,107 L 456,117 L 432,120 L 408,114 L 390,101 L 380,82 L 378,65 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.2)" stroke-width="0.5"/>
-              <!-- Korean Peninsula (accent) -->
-              <path d="M 458,79 L 471,75 L 479,83 L 477,97 L 465,104 L 454,100
-                       L 449,90 L 451,81 Z"
-                    fill="#0e2a56" stroke="rgba(96,165,250,0.48)" stroke-width="1"/>
-              <!-- Japan (Honshu + Kyushu) -->
-              <path d="M 476,70 L 487,65 L 500,61 L 510,68 L 507,80 L 494,86 L 481,80 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.14)" stroke-width="0.4"/>
-              <path d="M 476,90 L 486,86 L 493,94 L 488,102 L 478,100 Z"
-                    fill="#0d2242" stroke="rgba(59,130,246,0.14)" stroke-width="0.4"/>
-
-              <!-- === SHIPPING ROUTE: Busan → Singapore → Indian Ocean → Suez → Rotterdam === -->
-              <!-- Glow (wide soft) -->
-              <path d="M 468,93 C 461,116 438,178 382,214
-                       C 350,228 295,230 248,222
-                       C 210,215 182,198 165,170
-                       C 149,143 145,118 134,108
-                       C 118,86 72,50 32,30"
-                    stroke="rgba(59,130,246,0.18)" stroke-width="11" fill="none"/>
-              <!-- Main dashed route -->
-              <path d="M 468,93 C 461,116 438,178 382,214
-                       C 350,228 295,230 248,222
-                       C 210,215 182,198 165,170
-                       C 149,143 145,118 134,108
-                       C 118,86 72,50 32,30"
-                    stroke="#3b82f6" stroke-width="1.8" fill="none"
-                    stroke-dasharray="5,3" opacity="0.9"
-                    style="filter:drop-shadow(0 0 3px rgba(59,130,246,0.55))"/>
-
-              <!-- Ships on route -->
-              <text x="380" y="217" font-size="10" fill="#60a5fa" text-anchor="middle">🚢</text>
-              <text x="200" y="204" font-size="8"  fill="rgba(96,165,250,0.62)" text-anchor="middle">🚢</text>
-
-              <!-- Suez Canal marker -->
-              <circle cx="134" cy="108" r="3" fill="#fbbf24" opacity="0.88"
-                      style="filter:drop-shadow(0 0 3px rgba(251,191,36,0.5))"/>
-              <text x="140" y="104" font-size="6.5" fill="rgba(251,191,36,0.75)">Suez</text>
-
-              <!-- === PORT DOTS === -->
-              <!-- Rotterdam -->
-              <circle cx="32" cy="30" r="5" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5" filter="url(#ptglow)"/>
-              <text x="40" y="27" font-size="8" fill="#93c5fd" font-weight="bold">로테르담 (RTM)</text>
-              <!-- Hamburg -->
-              <circle cx="53" cy="23" r="3.5" fill="#fbbf24" stroke="#fde68a" stroke-width="1" filter="url(#ptglow)"/>
-              <text x="60" y="20" font-size="6.5" fill="#fde68a">함부르크</text>
-              <!-- Singapore -->
-              <circle cx="374" cy="212" r="5" fill="#22d3ee" stroke="#a5f3fc" stroke-width="1.5" filter="url(#ptglow)"/>
-              <text x="367" y="207" font-size="8" fill="#a5f3fc" font-weight="bold" text-anchor="end">싱가포르 (SIN)</text>
-              <!-- Busan -->
-              <circle cx="468" cy="93" r="5" fill="#4ade80" stroke="#86efac" stroke-width="1.5" filter="url(#ptglow)"/>
-              <text x="462" y="86" font-size="8" fill="#86efac" font-weight="bold" text-anchor="end">부산 (PUS)</text>
-
-              <!-- Ocean name labels -->
-              <text x="210" y="172" font-size="8" fill="rgba(148,163,184,0.15)" text-anchor="middle"
-                    font-style="italic" letter-spacing="1.5">INDIAN OCEAN</text>
-              <text x="148" y="134" font-size="6.5" fill="rgba(148,163,184,0.12)" text-anchor="middle" font-style="italic">Arabian Sea</text>
-              <text x="416" y="160" font-size="6.5" fill="rgba(148,163,246,0.12)" text-anchor="middle" font-style="italic">South China Sea</text>
-              <text x="62" y="63" font-size="6"   fill="rgba(148,163,184,0.10)" text-anchor="middle" font-style="italic">Mediterranean</text>
-            </svg>
-          </div>
-          <!-- BL list -->
-          <div style="margin-top:6px;">
-            <div class="mock-grid">
-              <div class="mock-grid-head" style="grid-template-columns:1.5fr 1fr 1fr 60px 60px;">
-                <span>BL번호</span><span>출발지</span><span>도착지</span><span>ETD</span><span>상태</span>
-              </div>
-              <div class="mock-grid-row" style="grid-template-columns:1.5fr 1fr 1fr 60px 60px;">
-                <span class="mono">ANBL25030012</span><span>부산</span><span>로테르담</span>
-                <span>03/28</span><span><span class="badge-chip b">항해중</span></span>
-              </div>
-              <div class="mock-grid-row" style="grid-template-columns:1.5fr 1fr 1fr 60px 60px;">
-                <span class="mono">ANBL25030018</span><span>인천</span><span>함부르크</span>
-                <span>04/03</span><span><span class="badge-chip y">접수</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
+          <svg class="ci-mark-svg" viewBox="0 0 330 72" role="img" aria-hidden="true" focusable="false"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="currentColor">AnD square</text></svg>
+        </a>
+        <p class="footer-addr">앤드스퀘어 주식회사<br>경기도 화성시 동탄대로 677-5 비전IT타워 512호<br>사업자등록번호 165-86-03313<br>대표메일 <a href="mailto:andiworks26@andsquare.co.kr">andiworks26@andsquare.co.kr</a></p>
       </div>
-      <div class="panel-desc">
-        <div class="panel-tag">FMS</div>
-        <div class="panel-title">포워딩<br>엔드투엔드 관리</div>
-        <div class="panel-text">
-          주문 접수부터 BL 발행, 컨테이너 배정, 선적 확정, 도착지 서류까지
-          포워딩의 전 과정을 디지털화합니다.
-        </div>
-        <ul class="feature-bullets">
-          <li>수출입 주문 통합 관리 — 화주·포워더·선사 연동</li>
-          <li>BL·HBL·MBL 발행 및 전자 문서화</li>
-          <li>컨테이너 배정 및 적재 계획 (CLP)</li>
-          <li>실시간 항로 추적 — 선박 위치 지도 표시</li>
-          <li>운임 산출 및 청구서 자동 생성</li>
+      <div>
+        <h4>회사</h4>
+        <ul>
+          <li><a href="about.html">회사소개</a></li>
+          <li><a href="about.html#history">연혁</a></li>
+          <li><a href="business.html">사업영역</a></li>
+          <li><a href="projects.html">수행실적</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>솔루션</h4>
+        <ul>
+          <li><a href="sqx.html">SQX 통합 플랫폼</a></li>
+          <li><a href="sqx-nf1.html">SQX NF1 프레임워크</a></li>
+          <li><a href="sqx-manager.html">SQX Manager</a></li>
+          <li><a href="sqx-erd.html">SQX ERD</a></li>
+          <li><a href="sqx-pm.html">SQX PM</a></li>
+          <li><a href="sqx-logistics.html">SQX Logistics</a></li>
+          <li><a href="dbsquare.html">DBsquare</a></li>
         </ul>
       </div>
     </div>
-
-    <!-- WMS 창고관리 -->
-    <div class="tab-panel active" id="tab-wms">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">WMS — 창고 관리</span>
-        </div>
-        <div class="screen-body">
-          <!-- KPI -->
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
-            <div class="kpi-mini">
-              <div class="kpi-l">재고 SKU</div>
-              <div class="kpi-v" style="--c:#60a5fa;">1,842</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">창고 점유율</div>
-              <div class="kpi-v" style="--c:#fbbf24;">73%</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">오늘 입고</div>
-              <div class="kpi-v" style="--c:#4ade80;">48</div>
-              <div class="kpi-d">파렛트</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">오늘 출고</div>
-              <div class="kpi-v" style="--c:#f87171;">31</div>
-              <div class="kpi-d">파렛트</div>
-            </div>
-          </div>
-          <!-- 3D Warehouse visualization -->
-          <div class="warehouse-3d">
-            <div class="mock-section-label" style="margin-bottom:6px;">창고 레이아웃 — Zone A (3층)</div>
-            <!-- Rack visualization -->
-            <div style="display:flex;gap:8px;align-items:flex-end;">
-              <div>
-                <div style="font-size:7px;color:rgba(255,255,255,0.2);margin-bottom:3px;text-align:center;">3F</div>
-                <div class="rack-row">
-                  <div class="rack">
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.4);border-color:rgba(59,130,246,0.6);"></div>
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.3);border-color:rgba(59,130,246,0.5);"></div>
-                    <div class="rack-cell" style="background:rgba(74,222,128,0.3);border-color:rgba(74,222,128,0.5);"></div>
-                  </div>
-                  <div class="rack">
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.5);border-color:rgba(59,130,246,0.7);"></div>
-                    <div class="rack-cell" style="background:rgba(251,191,36,0.4);border-color:rgba(251,191,36,0.6);"></div>
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.2);border-color:rgba(59,130,246,0.4);"></div>
-                  </div>
-                  <div class="rack">
-                    <div class="rack-cell" style="background:rgba(248,113,113,0.3);border-color:rgba(248,113,113,0.5);"></div>
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.4);border-color:rgba(59,130,246,0.6);"></div>
-                    <div class="rack-cell" style="background:rgba(74,222,128,0.4);border-color:rgba(74,222,128,0.6);"></div>
-                  </div>
-                  <div class="rack">
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.15);border-color:rgba(255,255,255,0.1);"></div>
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.4);border-color:rgba(59,130,246,0.6);"></div>
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.5);border-color:rgba(59,130,246,0.7);"></div>
-                  </div>
-                  <div class="rack">
-                    <div class="rack-cell" style="background:rgba(74,222,128,0.3);border-color:rgba(74,222,128,0.5);"></div>
-                    <div class="rack-cell" style="background:rgba(74,222,128,0.4);border-color:rgba(74,222,128,0.6);"></div>
-                    <div class="rack-cell" style="background:rgba(59,130,246,0.3);border-color:rgba(59,130,246,0.5);"></div>
-                  </div>
-                </div>
-              </div>
-              <!-- Legend -->
-              <div style="display:flex;flex-direction:column;gap:4px;margin-left:8px;">
-                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
-                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(59,130,246,0.4);border:1px solid rgba(59,130,246,0.6);"></div>일반재고
-                </div>
-                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
-                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(74,222,128,0.4);border:1px solid rgba(74,222,128,0.6);"></div>냉장
-                </div>
-                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
-                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(251,191,36,0.4);border:1px solid rgba(251,191,36,0.6);"></div>위험물
-                </div>
-                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
-                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(248,113,113,0.3);border:1px solid rgba(248,113,113,0.5);"></div>불량
-                </div>
-                <div style="display:flex;align-items:center;gap:5px;font-size:7.5px;color:rgba(255,255,255,0.45);">
-                  <div style="width:10px;height:10px;border-radius:2px;background:rgba(59,130,246,0.1);border:1px solid rgba(255,255,255,0.1);"></div>공 위치
-                </div>
-              </div>
-              <!-- Stats -->
-              <div style="margin-left:auto;display:flex;flex-direction:column;gap:5px;">
-                <div style="background:rgba(255,255,255,0.04);border-radius:4px;padding:5px 8px;text-align:right;">
-                  <div style="font-size:7px;color:rgba(255,255,255,0.3);font-family:'Outfit',sans-serif;">Zone A 점유</div>
-                  <div style="font-size:14px;font-weight:700;color:#60a5fa;font-family:'Outfit',sans-serif;">73%</div>
-                </div>
-                <div style="background:rgba(255,255,255,0.04);border-radius:4px;padding:5px 8px;text-align:right;">
-                  <div style="font-size:7px;color:rgba(255,255,255,0.3);font-family:'Outfit',sans-serif;">가용 위치</div>
-                  <div style="font-size:14px;font-weight:700;color:#4ade80;font-family:'Outfit',sans-serif;">142</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Inbound queue -->
-          <div style="margin-top:6px;">
-            <div class="mock-section-label">입고 예정 (오늘)</div>
-            <div class="mock-grid" style="margin-top:4px;">
-              <div class="mock-grid-head" style="grid-template-columns:1fr 80px 60px 60px 50px;">
-                <span>화물명</span><span>화주</span><span>수량</span><span>도착예정</span><span>상태</span>
-              </div>
-              <div class="mock-grid-row" style="grid-template-columns:1fr 80px 60px 60px 50px;">
-                <span>전자부품 A-Class 박스</span><span>삼성 SDI</span><span>240 BOX</span><span>14:30</span>
-                <span><span class="badge-chip b">접수</span></span>
-              </div>
-              <div class="mock-grid-row" style="grid-template-columns:1fr 80px 60px 60px 50px;">
-                <span>냉장 식품류 (냉동)</span><span>CJ 프레시</span><span>18 파렛</span><span>16:00</span>
-                <span><span class="badge-chip g">완료</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">WMS</div>
-        <div class="panel-title">스마트 창고<br>실시간 관리</div>
-        <div class="panel-text">
-          창고 내 모든 재고를 위치 기반으로 관리합니다. 입고·출고·재고 조정·재고 실사까지
-          창고 운영의 전 과정을 디지털화하세요.
-        </div>
-        <ul class="feature-bullets">
-          <li>위치 기반 재고 관리 — 랙·존·층 단위 추적</li>
-          <li>입출고 예약 및 도크 배정 스케줄링</li>
-          <li>FIFO/FEFO/LIFO 출고 전략 지원</li>
-          <li>창고 레이아웃 시각화 — 점유율·가용 위치</li>
-          <li>바코드·QR 스캔 연동 — 모바일 앱 지원</li>
-        </ul>
-      </div>
+    <div class="footer-bottom">
+      <span>© 2026 AnD square Inc. All rights reserved.</span>
+      <span>정보화 컨설팅 · 시스템 구축 · 물류 솔루션</span>
     </div>
-
-    <!-- TMS 운송관리 -->
-    <div class="tab-panel" id="tab-tms">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">TMS — 운송 관리</span>
-        </div>
-        <div class="screen-body">
-          <!-- KPI -->
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
-            <div class="kpi-mini">
-              <div class="kpi-l">오늘 배차</div>
-              <div class="kpi-v" style="--c:#60a5fa;">34</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">운행중</div>
-              <div class="kpi-v" style="--c:#4ade80;">21</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">배송완료</div>
-              <div class="kpi-v" style="--c:#fbbf24;">13</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">정시 배송률</div>
-              <div class="kpi-v" style="--c:#4ade80;">96%</div>
-            </div>
-          </div>
-          <!-- Order grid -->
-          <div class="mock-section-label">배차 현황</div>
-          <div class="mock-grid" style="margin-top:4px;">
-            <div class="mock-grid-head" style="grid-template-columns:1.2fr 80px 80px 60px 55px 50px;">
-              <span>운송 번호</span><span>출발지</span><span>도착지</span><span>차량</span><span>기사</span><span>상태</span>
-            </div>
-            <div class="mock-grid-row" style="grid-template-columns:1.2fr 80px 80px 60px 55px 50px;">
-              <span class="mono">TMS250401001</span><span>인천 창고</span><span>강남 물류센터</span>
-              <span style="font-size:8px;">5톤 윙바디</span><span style="font-size:8px;">김철수</span>
-              <span><span class="badge-chip b">운행중</span></span>
-            </div>
-            <div class="mock-grid-row" style="grid-template-columns:1.2fr 80px 80px 60px 55px 50px;">
-              <span class="mono">TMS250401002</span><span>부산 항구</span><span>경기 허브</span>
-              <span style="font-size:8px;">11톤 탑차</span><span style="font-size:8px;">이영호</span>
-              <span><span class="badge-chip g">완료</span></span>
-            </div>
-            <div class="mock-grid-row" style="grid-template-columns:1.2fr 80px 80px 60px 55px 50px;">
-              <span class="mono">TMS250401003</span><span>평택 창고</span><span>서울 배송센터</span>
-              <span style="font-size:8px;">1톤 트럭</span><span style="font-size:8px;">박민수</span>
-              <span><span class="badge-chip y">대기</span></span>
-            </div>
-          </div>
-          <!-- Shipment tracking -->
-          <div style="margin-top:8px;">
-            <div class="mock-section-label">실시간 화물 추적 — TMS250401001</div>
-            <div class="track-timeline" style="margin-top:6px;padding-left:4px;">
-              <div class="track-step">
-                <div class="track-dot" style="background:rgba(74,222,128,0.2);border-color:#4ade80;color:#4ade80;">✓</div>
-                <div class="track-content">
-                  <div class="track-title">인천 창고 출발</div>
-                  <div class="track-meta">09:15 · 인천시 남동구</div>
-                </div>
-              </div>
-              <div class="track-step">
-                <div class="track-dot" style="background:rgba(59,130,246,0.3);border-color:#60a5fa;color:#60a5fa;">●</div>
-                <div class="track-content">
-                  <div class="track-title" style="color:#60a5fa;">서울 외곽순환 진입 (현재)</div>
-                  <div class="track-meta">11:42 · 서울 강서구 · 잔여 23km</div>
-                </div>
-              </div>
-              <div class="track-step">
-                <div class="track-dot" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.2);">○</div>
-                <div class="track-content">
-                  <div class="track-title" style="opacity:.4;">강남 물류센터 도착 예정</div>
-                  <div class="track-meta">13:00 예정</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">TMS</div>
-        <div class="panel-title">운송 배차부터<br>실시간 추적까지</div>
-        <div class="panel-text">
-          운송 주문 접수, 차량·기사 배차, 경로 최적화, 실시간 위치 추적,
-          배송 완료 확인까지 육상 운송 전 과정을 커버합니다.
-        </div>
-        <ul class="feature-bullets">
-          <li>자동 배차 — 차량 유형·적재량·거리 최적화</li>
-          <li>GPS 실시간 추적 — 화물 위치 가시성</li>
-          <li>경로 최적화 — 다중 배송지 순서 계산</li>
-          <li>드라이버 앱 연동 — POD 전자서명 수집</li>
-          <li>운임 자동 산출 — 거리·중량·유류비 반영</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ATS 선적검수 -->
-    <div class="tab-panel" id="tab-ats">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">ATS — 선적 검수 관리</span>
-        </div>
-        <div class="screen-body">
-          <!-- KPI -->
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px;">
-            <div class="kpi-mini">
-              <div class="kpi-l">금일 검수</div>
-              <div class="kpi-v" style="--c:#60a5fa;">142</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">합격</div>
-              <div class="kpi-v" style="--c:#4ade80;">138</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">불합격</div>
-              <div class="kpi-v" style="--c:#f87171;">4</div>
-            </div>
-            <div class="kpi-mini">
-              <div class="kpi-l">합격률</div>
-              <div class="kpi-v" style="--c:#4ade80;">97.2%</div>
-            </div>
-          </div>
-          <!-- 검수 목록 -->
-          <div class="mock-section-label">화물 선적 검수 목록</div>
-          <div style="margin-top:4px;">
-            <div class="mock-grid">
-              <div class="mock-grid-head" style="grid-template-columns:1.2fr 1.4fr 1fr 0.8fr 0.7fr;">
-                <span>선박명</span><span>화물명</span><span>컨테이너</span><span>검수자</span><span>결과</span>
-              </div>
-              <div class="mock-grid-row" style="grid-template-columns:1.2fr 1.4fr 1fr 0.8fr 0.7fr;">
-                <span class="mono">EVER GIVEN</span><span>전자부품 (FCL)</span><span>TCKU382941</span>
-                <span>김검수</span><span><span class="badge-chip g">합격</span></span>
-              </div>
-              <div class="mock-grid-row" style="grid-template-columns:1.2fr 1.4fr 1fr 0.8fr 0.7fr;">
-                <span class="mono">MSC OSCAR</span><span>냉동식품 (RF)</span><span>MSCU719283</span>
-                <span>이검수</span><span><span class="badge-chip r">불합격</span></span>
-              </div>
-              <div class="mock-grid-row" style="grid-template-columns:1.2fr 1.4fr 1fr 0.8fr 0.7fr;">
-                <span class="mono">HMM ALGECIRAS</span><span>화학원료 (DG)</span><span>HMMU554821</span>
-                <span>박검수</span><span><span class="badge-chip b">검수중</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">ATS</div>
-        <div class="panel-title">항만 화물<br>선적 검수 관리</div>
-        <div class="panel-text">
-          항만에서 선박에 선적되는 화물의 검수 작업을 디지털화합니다.
-          검수 결과 기록, 불합격 처리, 선적 확인서 발행까지 일원화합니다.
-        </div>
-        <ul class="feature-bullets">
-          <li>화물 선적 검수 체크리스트 관리</li>
-
-          <li>선적 확인서(Shipping Order) 자동 발행</li>
-          <li>검수자별 실적 및 이력 관리</li>
-          <li>바코드·QR 스캔 연동 — 모바일 앱 지원</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<footer class="sqx-footer">
-  <div class="footer-inner">
-    <span>COPYRIGHT © ANDSQUARE INC. ALL RIGHTS RESERVED.</span>
-    <a href="./nf1.html">← 솔루션 목록으로</a>
   </div>
 </footer>
-
-<script src="./js/sqx-common.js"></script>
 </body>
 </html>

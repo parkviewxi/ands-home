@@ -1,0 +1,11 @@
+# 민감 자료·작업 파일은 저장소에 올리지 않음
+*.pdf
+*.xlsx
+*.hwp
+*.pptx
+*.docx
+docs/
+raw/
+node_modules/
+.DS_Store
+Thumbs.db

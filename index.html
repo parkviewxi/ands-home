@@ -1,606 +1,241 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>AndSquare</title>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+KR&family=Outfit&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="./css/common.css"/>
-        <script type="text/javascript" src="./js/common.js"></script>
-        <style>
-          /* ── Floating Solution Button ── */
-          .float-sol-btn {
-            position: fixed;
-            right: 32px; bottom: 36px;
-            z-index: 9999;
-            display: flex; align-items: center; gap: 8px;
-            background: #06b6d4;
-            color: #fff;
-            text-decoration: none;
-            font-family: 'Outfit', sans-serif;
-            font-size: 14px; font-weight: 700;
-            padding: 13px 22px;
-            border-radius: 50px;
-            box-shadow: 0 8px 32px rgba(6,182,212,0.45), 0 2px 8px rgba(0,0,0,0.25);
-            letter-spacing: 0.3px;
-            transition: all 0.22s;
-          }
-          .float-sol-btn:hover {
-            background: #22d3ee;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(6,182,212,0.55);
-          }
-          .float-sol-btn .f-icon { font-size: 16px; }
-          .float-sol-btn .f-pulse {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: #fff; opacity: 0.9;
-            animation: fpulse 1.8s infinite;
-          }
-          @keyframes fpulse { 0%,100%{opacity:.9;transform:scale(1)} 50%{opacity:.4;transform:scale(0.7)} }
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>분석과 설계로 완성하는 정보화 컨설팅·시스템 구축 | 앤드스퀘어</title>
+<meta name="description" content="앤드스퀘어는 관세·항공화물·물류 분야 정보시스템을 분석·설계·구축하는 전문기업입니다. ISMP 컨설팅, 화물터미널·통관 시스템, SQX 통합 물류 플랫폼.">
+<link rel="canonical" href="https://www.andsquare.co.kr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="앤드스퀘어">
+<meta property="og:title" content="분석과 설계로 완성하는 정보화 컨설팅·시스템 구축 | 앤드스퀘어">
+<meta property="og:description" content="앤드스퀘어는 관세·항공화물·물류 분야 정보시스템을 분석·설계·구축하는 전문기업입니다. ISMP 컨설팅, 화물터미널·통관 시스템, SQX 통합 물류 플랫폼.">
+<meta property="og:image" content="https://www.andsquare.co.kr/img/hero-logistics-960.webp">
+<meta property="og:url" content="https://www.andsquare.co.kr/">
+<meta name="theme-color" content="#0d1e3d">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/woff2/Pretendard-Bold.subset.0.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/pretendard.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="js/site.js" defer></script>
+</head>
+<body class="">
+<a class="sr-only" href="#main">본문으로 건너뛰기</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
+      <svg class="ci-mark-svg" viewBox="0 0 330 72" role="img" aria-hidden="true" focusable="false"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="currentColor">AnD square</text></svg>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    <nav class="nav" id="site-nav" aria-label="주 메뉴">
+      <a href="about.html" data-nav="about">회사소개</a>
+      <a href="business.html" data-nav="business">사업영역</a>
+      <a href="sqx.html" data-nav="solution">솔루션</a>
+      <a href="projects.html" data-nav="projects">수행실적</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1><small>정보화 컨설팅 · 시스템 구축 전문기업</small>분석과 설계로<br>물류 시스템을 완성합니다</h1>
+      <p class="lead">관세행정과 항공·항만 화물 현장에서 쌓은 수행 경험으로 정보화 마스터플랜 수립부터 시스템 구축, 운영까지 책임집니다.</p>
+      <div class="hero-actions">
+        <a class="btn btn-light" href="business.html">사업영역 보기</a>
+        <a class="btn btn-ghost-light" href="projects.html">수행실적</a>
+      </div>
+      <div class="hero-marks">
+        <div><strong>30년+</strong>관세·물류 정보화 수행 경력</div>
+        <div><strong>4개국</strong>해외 관세행정 현대화</div>
+        <div><strong>SQX</strong>자체 통합 물류 플랫폼</div>
+      </div>
+    </div>
+    <figure class="hero-screen">
+      <img src="img/hero-logistics.webp" srcset="img/hero-logistics-960.webp 960w, img/hero-logistics.webp 1920w" sizes="(max-width: 1024px) 100vw, 620px" alt="SQX Logistics 창고관리 화면: 창고 로케이션을 3차원으로 표시한 실제 운영 화면" width="1920" height="967" fetchpriority="high">
+      <figcaption>SQX Logistics 창고 로케이션 3D 뷰 — 실제 운영 화면</figcaption>
+    </figure>
+  </div>
+</section>
 
-          /* ── CI Section: split layout ── */
-          .ci-section {
-            --bg-img: none !important;
-            background: none !important;
-            position: relative;
-            overflow: hidden;
-            padding: 0 !important;
-          }
-          /* Two-tone background: left dark / right white */
-          .ci-section::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(to right, #0d1e3d 50%, #f8fafc 50%);
-            z-index: 0;
-          }
-          .ci-section .section-inner {
-            align-items: stretch;
-            position: relative;
-            z-index: 1;
-            gap: 0;
-            padding: 0;
-            width: 100%; min-width: 100%;
-          }
-
-          /* Left dark panel */
-          .ci-left {
-            flex: 1; display: flex; flex-direction: column;
-            justify-content: center; gap: 24px;
-            padding: 60px 64px;
-            background: linear-gradient(135deg, #0a1628 0%, #0f1f3d 100%);
-            position: relative; overflow: hidden;
-          }
-          .ci-left::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse 600px 400px at 80% 30%, rgba(6,182,212,0.08) 0%, transparent 65%);
-            pointer-events: none;
-          }
-          .ci-headline {
-            font-family: 'Outfit', sans-serif;
-            font-size: 10px; font-weight: 700;
-            color: #06b6d4; letter-spacing: 2.5px; text-transform: uppercase;
-            margin-bottom: 2px;
-          }
-          .ci-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 34px; font-weight: 800;
-            color: #fff; line-height: 1.2;
-            letter-spacing: -0.5px; margin: 0 0 4px;
-          }
-          .ci-desc {
-            font-size: 14px; color: rgba(255,255,255,0.52);
-            line-height: 1.85; margin: 0;
-          }
-          /* Info grid */
-          .ci-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-          .ci-info-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 9px; padding: 12px 16px;
-          }
-          .ci-info-label {
-            font-family: 'Outfit', sans-serif;
-            font-size: 9px; font-weight: 700; color: #06b6d4;
-            letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;
-          }
-          .ci-info-value { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; }
-          /* Methodology */
-          .ci-method-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 10px; font-weight: 700;
-            color: #06b6d4; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px;
-          }
-          .ci-method-items { display: flex; flex-direction: column; gap: 7px; }
-          .ci-method-item {
-            display: flex; align-items: center; gap: 10px;
-            background: rgba(6,182,212,0.06);
-            border: 1px solid rgba(6,182,212,0.14);
-            border-radius: 8px; padding: 10px 14px;
-          }
-          .ci-method-icon {
-            width: 26px; height: 26px; border-radius: 6px;
-            background: rgba(6,182,212,0.15);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; flex-shrink: 0;
-          }
-          .ci-method-text { font-size: 12px; color: rgba(255,255,255,0.72); line-height: 1.5; }
-
-          /* Right white panel */
-          .ci-right {
-            flex: 1; display: flex; flex-direction: column;
-            justify-content: center; gap: 22px;
-            padding: 60px 64px;
-            background: #f8fafc;
-          }
-          .ci-right-eyebrow {
-            font-family: 'Outfit', sans-serif;
-            font-size: 10px; font-weight: 700; color: #1e40af;
-            letter-spacing: 2.5px; text-transform: uppercase;
-          }
-          .ci-right-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 30px; font-weight: 800; color: #0f172a;
-            letter-spacing: -0.3px; margin: 0;
-          }
-          .ci-logo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-          .ci-logo-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px; padding: 20px;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-          }
-          .ci-logo-lang {
-            font-family: 'Outfit', sans-serif;
-            font-size: 9px; font-weight: 700; color: #94a3b8;
-            letter-spacing: 1.5px; text-transform: uppercase; align-self: flex-start;
-          }
-          .ci-logo-card img { width: 72%; height: auto; }
-          /* CI meaning list */
-          .ci-meaning-list { display: flex; flex-direction: column; gap: 8px; }
-          .ci-meaning-item {
-            display: flex; align-items: flex-start; gap: 9px;
-            font-size: 12px; color: #475569; line-height: 1.65;
-          }
-          .ci-meaning-dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: #06b6d4; flex-shrink: 0; margin-top: 5px;
-          }
-
-          @media screen and (max-width: 1600px) {
-            .ci-left, .ci-right { padding: 44px 40px; }
-            .ci-title { font-size: 24px; }
-            .ci-desc { font-size: 12px; }
-            .ci-right-title { font-size: 22px; }
-            .ci-meaning-item { font-size: 11px; }
-            .ci-logo-card { padding: 14px; }
-            .float-sol-btn { font-size: 12px; padding: 11px 18px; right: 20px; bottom: 24px; }
-          }
-
-          @media screen and (max-width: 768px) {
-            .ci-section::after {
-              background: #f8fafc !important;
-            }
-            .ci-left, .ci-right {
-              padding: 32px 20px !important;
-              flex: none !important;
-              width: 100% !important;
-            }
-            .ci-title {
-              font-size: 20px !important;
-            }
-            .ci-desc {
-              font-size: 12px !important;
-              line-height: 1.6 !important;
-            }
-            .ci-info-grid {
-              grid-template-columns: 1fr !important;
-              gap: 6px !important;
-            }
-            .ci-info-card {
-              padding: 10px 12px !important;
-            }
-            .ci-right-title {
-              font-size: 20px !important;
-            }
-            .ci-logo-row {
-              grid-template-columns: 1fr !important;
-              gap: 8px !important;
-            }
-            .ci-logo-card {
-              padding: 12px !important;
-            }
-            .ci-meaning-item {
-              font-size: 11px !important;
-              line-height: 1.5 !important;
-            }
-            .float-sol-btn {
-              font-size: 11px !important;
-              padding: 10px 16px !important;
-              right: 16px !important;
-              bottom: 16px !important;
-            }
-          }
-        </style>
-    </head>
-    <body>
-        <!-- Floating Solution Button -->
-        <a href="./nf1.html" class="float-sol-btn">
-            <span class="f-pulse"></span>
-            <span class="f-icon">🚀</span>
-            NF1 솔루션 보기 →
-        </a>
-
-        <div class="snap-container">
-            <!-- 인트로 섹션 -->
-            <section class="content-section snap-child section-bg introBg">
-                <div class="section-inner">
-                    <div class="section-text">
-                        <img src="./img/logo.png" alt="로고 이미지"/>
-                        <p class="desc">
-                            혁신적이고 효율적인 IT 솔루션을 제공하는<br/>
-                            전문가 그룹 앤드스퀘어는,<br/>
-                            고객 시스템 구현의 핵심 요소인<br/>
-                            분석과 설계를 중심으로<br/>
-                            소프트웨어 개발 및 시스템 구축을 위해<br/>
-                            설립되었습니다.
-                        </p>
-                        <p class="slogan">
-                            <em>What begins with your needs becomes</em><br/>
-                            <strong>INNOVATION, GROWTH, ANDSQUARE.</strong>
-                        </p>
-                    </div>
-                    <div class="section-image">
-                        <img src="./img/introImg.png" alt="인트로 이미지" class="intro-image"/>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CI 소개 섹션 -->
-            <section class="content-section snap-child section-bg ci-section">
-                <div class="section-inner">
-
-                    <!-- 왼쪽 회사 정보 -->
-                    <div class="section-text ci-left">
-                        <div>
-                            <div class="ci-headline">About AnDsquare</div>
-                            <h2 class="ci-title">앤드스퀘어는</h2>
-                            <p class="ci-desc">
-                                해당 분야의 25년 이상 경력을 가진 전문가로 구성되어,<br>
-                                시스템 구축을 위한 보다 효율적이고 합리적인 방법론을 제시하며,<br>
-                                고객사의 Needs 충족 및 경쟁력 확보에 중점을 두는<br>
-                                믿음직한 IT 파트너입니다.
-                            </p>
-                        </div>
-
-                        <!-- 회사 정보 카드 그리드 -->
-                        <div>
-                            <div class="ci-method-title">회사 정보</div>
-                            <div class="ci-info-grid">
-                                <div class="ci-info-card">
-                                    <div class="ci-info-label">법인명</div>
-                                    <div class="ci-info-value">앤드스퀘어 주식회사</div>
-                                </div>
-                                <div class="ci-info-card">
-                                    <div class="ci-info-label">설립일</div>
-                                    <div class="ci-info-value">2024년 3월 4일</div>
-                                </div>
-                                <div class="ci-info-card" style="grid-column:1/-1;">
-                                    <div class="ci-info-label">주소</div>
-                                    <div class="ci-info-value">경기도 화성시 동탄대로 677-5 비전IT타워 512호</div>
-                                </div>
-                                <div class="ci-info-card" style="grid-column:1/-1;">
-                                    <div class="ci-info-label">대표메일</div>
-                                    <div class="ci-info-value">andiworks26@andsquare.co.kr</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 방법론 -->
-                        <div>
-                            <div class="ci-method-title">앤드스퀘어 방법론</div>
-                            <div class="ci-method-items">
-                                <div class="ci-method-item">
-                                    <div class="ci-method-icon">🔗</div>
-                                    <div class="ci-method-text">분석 · 설계 · 구현을 일원화하는 단일 방법론 제시</div>
-                                </div>
-                                <div class="ci-method-item">
-                                    <div class="ci-method-icon">⚡</div>
-                                    <div class="ci-method-text">최신 오픈소스 기반 엔터프라이즈급 시스템 구현</div>
-                                </div>
-                                <div class="ci-method-item">
-                                    <div class="ci-method-icon">🏗️</div>
-                                    <div class="ci-method-text">고객의 기술적 부채를 근본적으로 해소하는 아키텍처</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 오른쪽 CI 정보 (white panel) -->
-                    <div class="section-image ci-right">
-                        <div>
-                            <div class="ci-right-eyebrow">Corporate Identity</div>
-                            <h2 class="ci-right-title">About CI</h2>
-                        </div>
-
-                        <!-- CI 로고 2열 -->
-                        <div class="ci-logo-row">
-                            <div class="ci-logo-card">
-                                <div class="ci-logo-lang">영문 CI</div>
-                                <img src="./img/aboutCiEn.png" alt="영문 CI 이미지"/>
-                            </div>
-                            <div class="ci-logo-card">
-                                <div class="ci-logo-lang">국문 CI</div>
-                                <img src="./img/aboutCiKr.png" alt="한글 CI 이미지"/>
-                            </div>
-                        </div>
-
-                        <!-- CI 의미 -->
-                        <div class="ci-meaning-list">
-                            <div class="ci-meaning-item">
-                                <div class="ci-meaning-dot"></div>
-                                영문 <strong style="color:#1e40af;margin:0 3px;">’A’</strong>는 Analysis의 약자로 고객의 요구사항을 정의하고 업무를 분석한다는 의미
-                            </div>
-                            <div class="ci-meaning-item">
-                                <div class="ci-meaning-dot"></div>
-                                영문 <strong style="color:#1e40af;margin:0 3px;">’D’</strong>는 Design의 약자로 분석된 내용을 바탕으로 시스템을 설계한다는 의미
-                            </div>
-                            <div class="ci-meaning-item">
-                                <div class="ci-meaning-dot" style="background:#3b82f6;"></div>
-                                <strong style="color:#1d4ed8;margin-right:4px;">’푸른색의 사각형’</strong>은 분석과 설계의 장소(스퀘어)를 의미
-                            </div>
-                            <div class="ci-meaning-item">
-                                <div class="ci-meaning-dot" style="background:#6366f1;"></div>
-                                사각형의 열린 형태는 스퀘어의 유무형을 막론한 확장성과 협력의 상징
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <!-- VISION & MISSION 섹션 (공통 애니메이션 반영) -->
-            <section class="content-section snap-child section-bg missionBg">
-                <div class="section-inner position-relative height100vh">
-                    <div class="section-image missionWrap">
-                        <h2 class="missionTitle">
-                            <span>VISION &</span><br>
-                            MISSION</h2>
-                        <div class="missionContantsWrap desc01">
-                            <img src="./img/visionIcon.png" alt="비전 아이콘">
-                            <div>
-                                <h3>VISION</h3>
-                                <p class="missionContantsDesc">혁신적이고 효율적인 IT 솔루션을 제공하는 전문가 그룹</p>
-                            </div>
-                        </div>
-
-                        <div class="missionContantsWrap desc02">
-                            <img src="./img/missionIcon.png" alt="미션 아이콘">
-                            <div>
-                                <h3>MISSION</h3>
-                                <ul class="missionContantsDesc missionContantsDesc-li">
-                                    <li>01.고객의 업무를 정확하고 체계적으로 분석하며,</li>
-                                    <li>02.보다 효율적인 시스템을 구현하기 위하여 설계하며,</li>
-                                    <li>03.고객의 가치를 높이는 최고의 서비스를 구현하며,</li>
-                                    <li>04.IT 솔루션의 연속성과 가치창조를 추구한다</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="missionContantsWrap desc03">
-                            <img src="./img/valueIcon.png" alt="핵심가치 아이콘">
-                            <div class="flex1">
-                                <h3>CORE VALUE</h3>
-                                <div class="missionBoxWrap">
-                                    <div class="flex1">
-                                        <p>Innovation</p>
-                                        <p>나, 우리 그리고 고객의<br>가치창조를 위한, 혁신을<br>멈추지 않습니다</p>
-                                    </div>
-                                    <div class="divide-vertical-line-small"></div>
-                                    <div class="flex1">
-                                        <p>Open-mind</p>
-                                        <p>고객과 시장의 목소리에<br>열린 마음으로 귀를<br>기울입니다</p>
-                                    </div>
-                                    <div class="divide-vertical-line-small"></div>
-                                    <div class="flex1">
-                                        <p>Professionalism</p>
-                                        <p>전문가로서의 자부심을<br>가지고 결과에 책임을<br>집니다</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            <!-- 경쟁력 섹션 -->
-            <section class="content-section snap-child section-bg competitiveBg">
-                <div class="section-inner">
-                    <div class="section-text compatativeWrap">
-                        <h2>앤드스퀘어 경쟁력</h2>
-                        <p>앤드스퀘어는 전문 인력, 전략적 파트너십, 풍부한 프로젝트 경험을 바탕으로 최적의 정보시스템 구축과 현장 맞춤형 솔루션을 안정적으로 제공합니다.</p>
-
-                        <div class="compatativeWrapFlex">
-                            <!-- 박스 1 -->
-                            <div class="section-text">
-                                <img src="./img/proIcon.png" alt="정보시스템 아이콘">
-                                <h3>정보시스템분야<br>전문인력 보유</h3>
-                                <ul>
-                                    <li>
-                                        <span>01</span>
-                                        정보시스템 분야의 특급기술자로 임직원 구성</li>
-                                    <li>
-                                        <span>02</span>
-                                        업무 분석 및 시스템 설계, 구현 및 테스트의 전체 구축 과정 컨트롤</li>
-                                    <li>
-                                        <span>03</span>
-                                        대형 프로젝트의 기술적 리딩과 구현을 통제할 수 있는 전문인력의 보유</li>
-                                </ul>
-                            </div>
-
-                            <!-- 박스 2 -->
-                            <div class="section-text">
-                                <img src="./img/partnerIcon.png" alt="파트너십 아이콘">
-                                <h3>파트너쉽 &<br>기반 지식 확보</h3>
-                                <ul >
-                                    <li>
-                                        <span>01</span>
-                                        물류, 무역 관련 컨설팅 전문인력 보유</li>
-                                    <li>
-                                        <span>02</span>
-                                        유관기관, 기업의 튠너쉽으로 최대의 시너지 기대</li>
-                                    <li>
-                                        <span>03</span>
-                                        협업의 Needs를 구체화하는 최적의 방법론 적용</li>
-                                </ul>
-                            </div>
-
-                            <!-- 박스 3 -->
-                            <div class="section-text"><img src="./img/projectIcon.png" alt="프로젝트 경험 아이콘">
-                                <h3>다수의 프로젝트 경험</h3>
-                                <ul >
-                                    <li>
-                                        <span>01</span>
-                                        정부기관 IT 용역사업의 충분한 사업 참여</li>
-                                    <li>
-                                        <span>02</span>
-                                        국내/외 시스템 설계 및 구축사업 참여 경험</li>
-                                    <li>
-                                        <span>03</span>
-                                        정부기관 종합정보시스템 및 내부시스템의 유지보수 경험</li>
-                                    <li>
-                                        <span>04</span>
-                                        다수의 정부 연구과제 수행 경험</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section snap-child section-bg consultBg">
-                <div class="section-inner">
-                    <div class="section-text consultWrap">
-                        <h2 class="contants-title-38">정보화 컨설팅 및 시스템 설계</h2>
-
-                        <p class="contants-desc-34">
-                            <span class="contants-title-36 fontWhite">정보화 컨설팅</span><br>
-                            평균 20년 이상의 경력을 바탕으로 고객의 환경을 고려한 환경분석, 현황분석, 실행계획, 미래모형을 제시하며 정보화 수행을 위한 역량 교육 등
-                            향후 유지 가능한 효율적인 방안을 제공합니다.
-                        </p>
-
-                        <p class="contants-desc-34">
-                            <span class="contants-title-36 fontWhite">정보시스템 설계</span><br>
-                            고객이 필요로 하는 정보시스템에 대한 기획부터 개발과 구축, 운영까지의 모든 서비스, 즉 시스템 통합(SI) 서비스를 제공합니다.
-                        </p>
-                    </div>
-                    <div class="section-image"></div>
-                </div>
-            </section>
-
-            <section class="content-section snap-child section-bg logisticBg">
-                <div class="section-inner alignItemCenter">
-                    <div class="section-image">
-                        <img src="./img/browserImg.png" alt="물류 솔루션 이미지"/>
-                    </div>
-
-                    <div class="section-text logisticWrap">
-                        <h2 class="contants-title-38 marginTop0 lineheight1">물류 솔루션 구축</h2>
-                        <p class="contants-desc-32 paddingL0">
-                            물류에 특화된 IT 전문가 그룹으로서 고객사의 물류 솔루션을 새롭게 기획하거나,<br>
-                            기존의 물류 솔루션을 개선하기 위한 리빌딩까지, 물류 솔루션 구축의 전 범위를 사업영역으로 합니다.
-                        </p>
-
-                        <h3 class="contants-title-36 paddingL10 marginBottom0">통합 물류 솔루션</h3>
-                        <p class="contants-desc-32  marginTop0">
-                            해운, 항공, 운송, 창고, 특송 및 통관 처리의 기능을<br>
-                            클라우드 기반 SaaS 형태로 구축
-                        </p>
-
-                        <h3 class="contants-title-36 paddingL10 marginBottom0">항만 물류서비스</h3>
-                        <p class="contants-desc-32 marginBottom0 marginTop0">
-                            현업 전문가와의 파트너쉽을 기반으로 항만의 물류 프로세스 혁신
-                        </p>
-
-                        <a href="./nf1.html" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:14px 28px;background:#06b6d4;color:#fff;text-decoration:none;border-radius:8px;font-size:18px;font-weight:700;font-family:'Outfit',sans-serif;letter-spacing:0.5px;transition:background 0.2s;" onmouseover="this.style.background='#22d3ee'" onmouseout="this.style.background='#06b6d4'">
-                            NF1 솔루션 자세히 보기 →
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section snap-child section-bg factoryBg">
-                <div class="section-inner">
-                    <div class="section-text factoryWrap">
-                        <h2 class="contants-title-38">스마트팩토리 솔루션</h2>
-
-                        <p class="contants-desc-34">
-                            변화하는 기술트렌드와 다변화되는 현장 제조 공정에 맞추어 새로운 사업진출을 모색하고 있습니다.<br>
-                            디지털화와 자동화를 통해 생산 효율성을 극대화하는 스마트 팩토리 솔루션을 구축하고자 하며, 생산 데이터 실시간 모니터링 MES(제조실행시스템),
-                            ERP, SCM을 통합하는 등 제조 경쟁력을 높일 수 있는 스마트 제조 환경을 만들겠습니다
-                        </p>
-                    </div>
-                    <div class="section-image"></div>
-                </div>
-            </section>
-
-            <section
-                class="content-section snap-child section-bg maintenanceBg position-relative">
-                <div class="section-inner marginBottom100">
-                    <!-- 왼쪽 텍스트 영역 -->
-                    <div class="section-text">
-                        <h2 class="contants-title-38">IT 서비스 유지 & 보수</h2>
-                        <p class="contants-desc-32 maintenanceDescWrap">
-                            정부기관의 대형 서비스를 설계 및 구축하고, 서비스 오픈부터 운영까지 경험한 당사의 유지 & 보수 노하우로 고객의 서비스 유지 뿐만 아니라 운영
-                            중에서 발생될 수 있는 문제의 해결과 시스템 업데이트의 선순환을 보장합니다.
-                        </p>
-                    </div>
-
-                    <!-- 오른쪽 카드 3개 영역 -->
-                    <div class="section-image card-wrap">
-                        <!-- 카드 1 -->
-                        <div>
-                            <img src="./img/errorImg.png" alt="장애 대응">
-                            <div>
-                                <h3>신속한 장애 대응</h3>
-                                <p>
-                                    24시간 모니터링과 신속한 문제 해결로 고객의 정보시스템이 지속적으로 안정적으로 운영될 수 있도록 지원합니다.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- 카드 2 -->
-                        <div>
-                            <img src="./img/maintenanceImg.png" alt="체계적 관리">
-                            <div>
-                                <h3>체계적인 관리</h3>
-                                <p>
-                                    정기점검과 체계적인 유지보수로 잠재적인 문제를 사전에 예방하여 시스템 가용성을 극대화합니다.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- 카드 3 -->
-                        <div>
-                            <img src="./img/slaImg.png" alt="맞춤형 SLA">
-                            <div>
-                                <h3>맞춤형 SLA</h3>
-                                <p>
-                                    고객의 요구사항에 맞춰 맞춤형 서비스 수준 협약(SLA)을 체결하여 안정적인 서비스 제공을 약속합니다.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bottom">
-                    COPYRIGHT (C) ANDSQUARE INC. ALL RIGHTS RESERVED.
-                </div>
-            </section>
-
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>최근 수행</h2>
+      <p class="lead">2026년 수행한 사업과 현재 운영 중인 플랫폼입니다.</p>
+    </div>
+    <div class="recent-grid">
+      <article class="recent-card">
+        <div class="thumb"><img src="img/consultBg-960.webp" alt="" width="960" height="486" loading="lazy"></div>
+        <div class="body">
+          <time>2026년 7월 ~ 10월</time>
+          <h3>화물관리시스템 전면 재구축 ISMP</h3>
+          <p>관세·무역 분야 공공기관의 전국 지사·지정장치장 화물관리시스템을 진단하고 웹 기반 통합 플랫폼으로 재구축하기 위한 마스터플랜과 RFP를 수립했습니다.</p>
         </div>
-    </body>
+      </article>
+      <article class="recent-card">
+        <div class="thumb"><img src="img/introImg.webp" alt="" width="543" height="721" loading="lazy"></div>
+        <div class="body">
+          <time>2026년 5월 ~ 6월</time>
+          <h3>물류관리 모바일 플랫폼 개발</h3>
+          <p>창고·운송 등 물류관리 기능을 현장 작업자가 스마트폰에서 바로 처리할 수 있도록 모바일 플랫폼으로 구현했습니다.</p>
+        </div>
+      </article>
+      <article class="recent-card">
+        <div class="thumb"><img src="img/browserImg.webp" alt="" width="765" height="645" loading="lazy"></div>
+        <div class="body">
+          <time>2024년 ~ 2025년</time>
+          <h3>광양 산업단지 스마트물류플랫폼</h3>
+          <p>항만 선석·선박 현황과 화물 적재 정보를 한 화면에서 관리하는 산업단지 물류 플랫폼을 기획·설계·개발했습니다.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>사업영역</h2>
+      <p class="lead">정보화 컨설팅에서 구축, 운영까지 시스템 생명주기 전체를 한 회사가 맡습니다.</p>
+    </div>
+    <div class="area-list">
+      <div class="area-row">
+        <h3>정보화 컨설팅 · ISMP</h3>
+        <p>현행 시스템 진단, 목표 모델 설계, 이행계획과 발주 가능한 RFP까지. TTA 규모산정과 기능점수 기반 대가산정으로 예산 근거를 만듭니다.</p>
+        <a class="link" href="business.html#consulting">자세히</a>
+      </div>
+      <div class="area-row">
+        <h3>시스템 구축(SI)</h3>
+        <p>웹 3-Tier 표준 아키텍처와 오픈소스 기반으로 업무 시스템을 설계·개발하고, 단위·통합·인수시험을 거쳐 안정화까지 수행합니다.</p>
+        <a class="link" href="business.html#si">자세히</a>
+      </div>
+      <div class="area-row">
+        <h3>항공화물 터미널 · 통관 시스템</h3>
+        <p>수출·수입·환적 터미널 프로세스, 적하목록 전자문서 중계, 관세청·항공사·조업사 연계를 2011년부터 직접 설계·구축해 왔습니다.</p>
+        <a class="link" href="business.html#aircargo">자세히</a>
+      </div>
+      <div class="area-row">
+        <h3>물류 · 항만 솔루션</h3>
+        <p>포워딩·창고·운송·선적검수를 아우르는 SQX Logistics와 항만 운영 플랫폼으로 물류 현장을 디지털화합니다.</p>
+        <a class="link" href="business.html#logistics">자세히</a>
+      </div>
+      <div class="area-row">
+        <h3>IT 서비스 유지 · 보수</h3>
+        <p>24시간 장애 대응, 정기 점검과 예방 정비, 고객 맞춤 SLA로 구축 이후의 운영을 책임집니다.</p>
+        <a class="link" href="business.html#maintenance">자세히</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="stat-grid">
+      <div class="stat"><strong>30<em>년+</em></strong><span>관세·물류 정보화 수행 경력</span></div>
+      <div class="stat"><strong>4<em>개국</em></strong><span>해외 관세행정 현대화 컨설팅·구축</span></div>
+      <div class="stat"><strong>2<em>종</em></strong><span>자체 솔루션 SQX · DBsquare</span></div>
+      <div class="stat"><strong>연속 흑자</strong><span>2024년 설립 첫 회계연도부터</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>솔루션</h2>
+      <p class="lead">분석·설계·구현·운영을 하나의 플랫폼으로 잇는 SQX와, 데이터베이스 운영을 위한 DBsquare를 자체 개발해 보유하고 있습니다.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-media">
+        <img src="img/hero-nf1.webp" alt="SQX NF1 역할별 메뉴 권한 관리 화면" width="1600" height="721" loading="lazy">
+      </div>
+      <div class="feature-body">
+        <h3>SQX 통합 플랫폼</h3>
+        <p>멀티테넌트 공통 프레임워크 위에 운영 관리, 스키마 분석, 프로젝트 관리, 물류 업무 제품을 올린 엔터프라이즈 플랫폼입니다. 고객 인프라에 맞춰 Next.js·React·Vue·Spring Boot·FastAPI 기반 풀스택 프레임워크 가운데 선택해 구축합니다.</p>
+        <ul>
+          <li>프레임워크: NF1 · NF2 · NS2 · VS1</li>
+          <li>제품: Manager · ERD · PM · Logistics</li>
+          <li>클라우드와 온프레미스 모두 배포 가능</li>
+        </ul>
+        <p class="mt-24"><a class="btn btn-primary" href="sqx.html">SQX 자세히 보기</a></p>
+      </div>
+    </div>
+    <div class="product-grid">
+      <a class="product-card" href="sqx-manager.html">
+        <div class="thumb"><img src="img/hero-manager.webp" alt="" width="1600" height="792" loading="lazy"></div>
+        <div class="body"><h3>SQX Manager</h3><p>컨테이너 배포, 서버·DB·API 모니터링, 실시간 로그를 한 콘솔에서</p></div>
+      </a>
+      <a class="product-card" href="sqx-erd.html">
+        <div class="thumb"><img src="img/hero-erd.webp" alt="" width="1600" height="738" loading="lazy"></div>
+        <div class="body"><h3>SQX ERD</h3><p>DB 구조를 시각화하고 AI에게 관계와 쿼리를 묻는 스키마 분석 도구</p></div>
+      </a>
+      <a class="product-card" href="sqx-pm.html">
+        <div class="thumb"><img src="img/sqx/spm-dashboard.webp" alt="" width="825" height="595" loading="lazy"></div>
+        <div class="body"><h3>SQX PM</h3><p>요구사항부터 산출물·QA·변경관리, ITSM까지 프로젝트 전 과정 관리</p></div>
+      </a>
+      <a class="product-card" href="sqx-logistics.html">
+        <div class="thumb"><img src="img/hero-logistics-960.webp" alt="" width="960" height="483" loading="lazy"></div>
+        <div class="body"><h3>SQX Logistics</h3><p>포워딩·창고·운송·선적검수를 통합한 물류 플랫폼</p></div>
+      </a>
+    </div>
+    <p class="mt-28 muted">데이터베이스 운영을 위한 <a class="link" href="dbsquare.html">DBsquare</a>는 별도 솔루션으로 제공합니다.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>일하는 방식</h2>
+      <p class="lead">고객의 업무를 정확하고 체계적으로 분석하고, 더 효율적인 시스템을 구현하기 위해 설계하며, 고객의 가치를 높이는 최고의 서비스를 구현합니다.</p>
+    </div>
+    <div class="value-grid">
+      <div class="value"><h3><span>Innovation</span>혁신</h3><p>나, 우리 그리고 고객의 가치 창조를 위한 혁신을 멈추지 않습니다.</p></div>
+      <div class="value"><h3><span>Open-mind</span>열린 자세</h3><p>고객과 시장의 목소리에 열린 마음으로 귀를 기울입니다.</p></div>
+      <div class="value"><h3><span>Professionalism</span>전문성</h3><p>전문가로서의 자부심을 가지고 결과에 책임을 집니다.</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
+          <svg class="ci-mark-svg" viewBox="0 0 330 72" role="img" aria-hidden="true" focusable="false"><g fill="none" stroke="#1c7fff" stroke-width="4"><path d="M3 1v70"/><path d="M1 3h144"/><path d="M1 69h326"/></g><text x="25" y="54" font-family="Outfit, Pretendard, system-ui, sans-serif" font-size="50" font-weight="400" letter-spacing="0.5" fill="currentColor">AnD square</text></svg>
+        </a>
+        <p class="footer-addr">앤드스퀘어 주식회사<br>경기도 화성시 동탄대로 677-5 비전IT타워 512호<br>사업자등록번호 165-86-03313<br>대표메일 <a href="mailto:andiworks26@andsquare.co.kr">andiworks26@andsquare.co.kr</a></p>
+      </div>
+      <div>
+        <h4>회사</h4>
+        <ul>
+          <li><a href="about.html">회사소개</a></li>
+          <li><a href="about.html#history">연혁</a></li>
+          <li><a href="business.html">사업영역</a></li>
+          <li><a href="projects.html">수행실적</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>솔루션</h4>
+        <ul>
+          <li><a href="sqx.html">SQX 통합 플랫폼</a></li>
+          <li><a href="sqx-nf1.html">SQX NF1 프레임워크</a></li>
+          <li><a href="sqx-manager.html">SQX Manager</a></li>
+          <li><a href="sqx-erd.html">SQX ERD</a></li>
+          <li><a href="sqx-pm.html">SQX PM</a></li>
+          <li><a href="sqx-logistics.html">SQX Logistics</a></li>
+          <li><a href="dbsquare.html">DBsquare</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AnD square Inc. All rights reserved.</span>
+      <span>정보화 컨설팅 · 시스템 구축 · 물류 솔루션</span>
+    </div>
+  </div>
+</footer>
+</body>
 </html>
