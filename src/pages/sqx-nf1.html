@@ -1,0 +1,111 @@
+---
+title: SQX NF1 프레임워크
+description: SQX NF1은 멀티테넌트 SaaS 아키텍처 기반의 풀스택 공통 프레임워크입니다. 대시보드, 회원사·사용자, 역할·권한, 메뉴, 공통코드·채번을 기본 제공합니다.
+nav: solution
+ogimage: img/hero-nf1.webp
+---
+<section class="page-hero product-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a><span>/</span><a href="sqx.html">솔루션</a><span>/</span><span>NF1</span></nav>
+    <div class="product-hero-copy">
+      <span class="kicker">SQX NF1 · 프레임워크</span>
+      <h1>모든 업무 시스템의<br>토대가 되는 공통 프레임워크</h1>
+      <p class="lead">멀티테넌트 SaaS 아키텍처 기반의 풀스택 프레임워크입니다. 회원사·사용자, 역할·권한, 메뉴, 공통코드, 채번처럼 어떤 시스템에나 필요한 기반을 갖추고 있어 업무 기능 개발에만 집중할 수 있습니다.</p>
+      <div class="modules"><span>Next.js</span><span>React</span><span>FastAPI</span><span>PostgreSQL</span><span>JWT 인증</span></div>
+    </div>
+    <figure class="product-hero-screen">
+      <img src="img/hero-nf1.webp" alt="SQX NF1 역할별 메뉴 권한 관리 화면 — 역할 목록과 구독 솔루션별 메뉴 권한 트리" width="1600" height="721" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+<nav class="product-nav" aria-label="솔루션 메뉴">
+  <div class="wrap">
+    <a href="sqx.html">SQX 개요</a>
+    <a href="sqx-nf1.html" aria-current="page">NF1 프레임워크</a>
+    <a href="sqx-manager.html">Manager</a>
+    <a href="sqx-erd.html">ERD</a>
+    <a href="sqx-pm.html">PM</a>
+    <a href="sqx-logistics.html">Logistics</a>
+    <a href="dbsquare.html">DBsquare</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>기본 제공 기능</h2>
+      <p class="lead">로그인 후 첫 화면부터 권한별 메뉴, 공통코드까지 — 구축 프로젝트마다 다시 만들던 것들이 처음부터 들어 있습니다.</p>
+    </div>
+    <div class="spec">
+      <div><h3>대시보드</h3><p>경영 현황 KPI와 추이 차트를 역할별로 자동 구성. Recharts 기반 실시간 차트, 한국어·영어 지원.</p></div>
+      <div><h3>회원사 · 사용자 관리</h3><p>멀티테넌트 구조로 회사별 독립 데이터 공간. 회원사 등록·승인·정지 워크플로우, 사용자 계정 일괄 관리, 이력 보존.</p></div>
+      <div><h3>역할 · 권한</h3><p>역할 단위로 메뉴·기능별 조회·수정·삭제 권한을 설정. 사용자-역할 다대다, 솔루션 단위 역할 분리, JWT 기반 인증.</p></div>
+      <div><h3>메뉴 관리</h3><p>트리 구조 메뉴를 DB에서 동적으로 로드. 배포 없이 추가·수정·순서 변경, 역할별 노출 메뉴 자동 필터, 다국어 메뉴명.</p></div>
+      <div><h3>공통코드 · 채번</h3><p>전사 공통 코드와 자동 채번 규칙(접두어·년월일·자릿수·리셋 주기)을 중앙에서 관리. 변경 즉시 전체 시스템 반영.</p></div>
+      <div><h3>시스템 환경설정</h3><p>암호화 정책, 업무 필드 커스터마이징, 시스템 메시지 관리.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-body">
+        <h3>멀티테넌트 구조</h3>
+        <p>하나의 설치로 여러 회사가 독립된 데이터 공간을 씁니다. 회원사 코드는 채번 서비스가 자동 생성하고, 모든 테이블은 사업장·회원사 키와 표준 감사(Audit) 컬럼을 가집니다. 삭제는 Soft Delete로 처리해 이력이 남습니다.</p>
+        <ul>
+          <li>사업장(house) · 회원사(company) 2단계 테넌트 키</li>
+          <li>등록·수정 사용자와 시각을 기록하는 표준 감사 컬럼</li>
+          <li>역할별 데이터 자동 필터링</li>
+        </ul>
+      </div>
+      <div class="feature-media">
+        <svg viewBox="0 0 560 360" role="img" aria-label="멀티테넌트 구조: 하나의 SQX 설치 아래 여러 회원사가 각자의 데이터 공간과 역할을 가진다" class="diagram" font-family="Pretendard, system-ui, sans-serif">
+          <rect x="40" y="28" width="480" height="60" rx="10" fill="#0d1e3d"/>
+          <text x="280" y="56" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">SQX NF1 (단일 설치)</text>
+          <text x="280" y="76" text-anchor="middle" fill="#9fb3d9" font-size="12">공통 기반 · 인증 · 메뉴 · 공통코드 · 채번</text>
+          <g stroke="#c9d0db" stroke-width="1.5" fill="none"><path d="M120 88v40"/><path d="M280 88v40"/><path d="M440 88v40"/></g>
+          <g fill="#f3f5f8" stroke="#c9d0db">
+            <rect x="48" y="128" width="144" height="190" rx="10"/><rect x="208" y="128" width="144" height="190" rx="10"/><rect x="368" y="128" width="144" height="190" rx="10"/>
+          </g>
+          <g fill="#14213d" font-size="14" font-weight="700" text-anchor="middle">
+            <text x="120" y="156">회원사 A</text><text x="280" y="156">회원사 B</text><text x="440" y="156">회원사 C</text>
+          </g>
+          <g fill="#fff" stroke="#1f5eff">
+            <rect x="62" y="172" width="116" height="30" rx="6"/><rect x="62" y="210" width="116" height="30" rx="6"/><rect x="62" y="248" width="116" height="30" rx="6"/>
+            <rect x="222" y="172" width="116" height="30" rx="6"/><rect x="222" y="210" width="116" height="30" rx="6"/><rect x="222" y="248" width="116" height="30" rx="6"/>
+            <rect x="382" y="172" width="116" height="30" rx="6"/><rect x="382" y="210" width="116" height="30" rx="6"/><rect x="382" y="248" width="116" height="30" rx="6"/>
+          </g>
+          <g fill="#1543c4" font-size="12" text-anchor="middle">
+            <text x="120" y="192">사용자 · 역할</text><text x="120" y="230">업무 데이터</text><text x="120" y="268">메뉴 · 설정</text>
+            <text x="280" y="192">사용자 · 역할</text><text x="280" y="230">업무 데이터</text><text x="280" y="268">메뉴 · 설정</text>
+            <text x="440" y="192">사용자 · 역할</text><text x="440" y="230">업무 데이터</text><text x="440" y="268">메뉴 · 설정</text>
+          </g>
+          <text x="280" y="344" text-anchor="middle" fill="#7b8494" font-size="12">회원사 간 데이터는 테넌트 키로 격리됩니다</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>NF1 위에 올라가는 제품</h2>
+      <p class="lead">Manager, ERD, PM, Logistics는 모두 NF1의 회원·권한·메뉴 체계를 그대로 씁니다. 한 번 로그인하면 권한이 있는 제품 메뉴가 함께 보입니다.</p>
+    </div>
+    <div class="product-grid">
+      <a class="product-card" href="sqx-manager.html"><div class="thumb"><img src="img/hero-manager.webp" alt="" width="1600" height="792" loading="lazy"></div><div class="body"><h3>SQX Manager</h3><p>운영 인프라 통합 관리</p></div></a>
+      <a class="product-card" href="sqx-erd.html"><div class="thumb"><img src="img/hero-erd.webp" alt="" width="1600" height="738" loading="lazy"></div><div class="body"><h3>SQX ERD</h3><p>AI 기반 스키마 분석</p></div></a>
+      <a class="product-card" href="sqx-pm.html"><div class="thumb"><img src="img/sqx/spm-dashboard.webp" alt="" width="825" height="595" loading="lazy"></div><div class="body"><h3>SQX PM</h3><p>프로젝트 · ITSM 관리</p></div></a>
+      <a class="product-card" href="sqx-logistics.html"><div class="thumb"><img src="img/hero-logistics-960.webp" alt="" width="960" height="483" loading="lazy"></div><div class="body"><h3>SQX Logistics</h3><p>통합 물류 플랫폼</p></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div><h2>NF1으로 구축을 시작하세요</h2><p>고객 인프라가 자바·Vue 환경이면 NS2·VS1 프레임워크로 같은 기반을 제공합니다.</p></div>
+    <a class="btn btn-light" href="contact.html">문의하기</a>
+  </div>
+</section>

@@ -1,0 +1,81 @@
+---
+title: SQX Manager 운영 관리
+description: SQX Manager는 Docker 배포, 서버·DB 쿼리 모니터링, API 응답 추적, 실시간 로그, N8N 워크플로우 자동화를 하나의 임베디드 콘솔로 제공하는 운영 관리 제품입니다.
+nav: solution
+ogimage: img/hero-manager.webp
+---
+<section class="page-hero product-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a><span>/</span><a href="sqx.html">솔루션</a><span>/</span><span>Manager</span></nav>
+    <div class="product-hero-copy">
+      <span class="kicker">SQX Manager · 운영 관리</span>
+      <h1>인프라와 운영을<br>하나의 콘솔에서</h1>
+      <p class="lead">Docker 컨테이너 배포 상태부터 DB 쿼리 분석, API 상태, 실시간 로그 스트림까지. 운영팀에 필요한 도구를 업무 시스템 안에 임베드된 콘솔로 제공합니다.</p>
+      <div class="modules"><span>Docker 배포</span><span>서버 모니터링</span><span>DB 쿼리</span><span>API 매니저</span><span>Backsight 로그</span><span>N8N 자동화</span></div>
+    </div>
+    <figure class="product-hero-screen">
+      <img src="img/hero-manager.webp" alt="SQX Manager 운영 콘솔 화면" width="1600" height="792" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+<nav class="product-nav" aria-label="솔루션 메뉴">
+  <div class="wrap">
+    <a href="sqx.html">SQX 개요</a>
+    <a href="sqx-nf1.html">NF1 프레임워크</a>
+    <a href="sqx-manager.html" aria-current="page">Manager</a>
+    <a href="sqx-erd.html">ERD</a>
+    <a href="sqx-pm.html">PM</a>
+    <a href="sqx-logistics.html">Logistics</a>
+    <a href="dbsquare.html">DBsquare</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>다섯 가지 운영 도구</h2>
+      <p class="lead">배포 → 서버 → API → 로그 → 자동화. 장애가 났을 때 운영자가 따라가는 순서대로 도구가 이어집니다.</p>
+    </div>
+    <div class="spec">
+      <div><h3>Docker 배포 대시보드</h3><p>컨테이너 상태·업타임을 실시간으로 보고, GitHub Actions 배포 이력을 프런트·백엔드로 나눠 커밋별 성공·실패를 확인합니다. Job별 로그는 슬라이드 패널로 봅니다.</p></div>
+      <div><h3>서버 · DB 쿼리 모니터링</h3><p>CPU·메모리·디스크와 함께 10초 간격으로 쿼리를 수집합니다. 그래프에서 구간을 드래그하면 그 시점의 슬로우 쿼리 Top 10과 평균·표준편차·버퍼 히트율·임시 블록 지표를 바로 보여 줍니다.</p></div>
+      <div><h3>API 매니저</h3><p>모든 엔드포인트의 호출 현황과 응답시간을 추적하고 4xx·5xx 오류를 즉시 감지합니다. REST 원칙 준수와 JWT 인증 상태를 점검합니다.</p></div>
+      <div><h3>Backsight 로그</h3><p>서버 로그를 실시간 스트리밍하고 INFO·WARN·ERROR·DEBUG 레벨로 필터합니다. 에러 원인과 해결 방법을 AI 분석 패널에서 바로 묻습니다.</p></div>
+      <div><h3>N8N 워크플로우 자동화</h3><p>비주얼 워크플로우 빌더를 시스템에 임베드해 주문 접수 알림, 이상 감지 경보, 정기 보고서 발송을 코드 없이 구성합니다. Webhook·Slack·이메일·DB 연동, 스케줄 실행, 단일 로그인.</p></div>
+      <div><h3>어디서나 같은 콘솔</h3><p>클라우드와 온프레미스 어디에 설치해도 같은 콘솔입니다. NF1 권한 체계로 운영자·개발자·관리자 역할을 나눕니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-body">
+        <h3>장애 대응 흐름</h3>
+        <p>알림이 오면 배포 대시보드에서 최근 변경을 확인하고, 서버 모니터링에서 문제 구간을 드래그해 슬로우 쿼리를 찾고, API 매니저에서 영향 받은 엔드포인트를 확인한 뒤, Backsight에서 에러 로그와 AI 분석으로 원인을 좁힙니다. 재발 방지 알림은 N8N 플로우로 등록합니다.</p>
+      </div>
+      <div class="feature-media">
+        <svg viewBox="0 0 560 300" role="img" aria-label="장애 대응 흐름: 알림, 배포 확인, 쿼리 분석, API 확인, 로그 원인 분석, 자동화 등록의 여섯 단계" class="diagram" font-family="Pretendard, system-ui, sans-serif">
+          <defs><marker id="mar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c9d0db"/></marker></defs>
+          <g fill="#f3f5f8" stroke="#c9d0db"><rect x="30" y="40" width="150" height="70" rx="10"/><rect x="205" y="40" width="150" height="70" rx="10"/><rect x="380" y="40" width="150" height="70" rx="10"/><rect x="30" y="190" width="150" height="70" rx="10"/><rect x="205" y="190" width="150" height="70" rx="10"/><rect x="380" y="190" width="150" height="70" rx="10"/></g>
+          <g fill="none" stroke="#c9d0db" stroke-width="1.5" marker-end="url(#mar)"><path d="M180 75h25"/><path d="M355 75h25"/><path d="M455 110v40c0 10-8 16-18 16H110c-10 0-18 6-18 16v8"/><path d="M180 225h25"/><path d="M355 225h25"/></g>
+          <g fill="#14213d" font-size="14" font-weight="700" text-anchor="middle">
+            <text x="105" y="70">알림 수신</text><text x="280" y="70">배포 대시보드</text><text x="455" y="70">서버 · DB 쿼리</text>
+            <text x="105" y="220">API 매니저</text><text x="280" y="220">Backsight 로그</text><text x="455" y="220">N8N 플로우</text>
+          </g>
+          <g fill="#7b8494" font-size="12" text-anchor="middle">
+            <text x="105" y="92">Slack · 이메일</text><text x="280" y="92">최근 변경 확인</text><text x="455" y="92">구간 드래그, Top 10</text>
+            <text x="105" y="242">영향 엔드포인트</text><text x="280" y="242">AI 원인 분석</text><text x="455" y="242">재발 방지 알림 등록</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div><h2>운영 콘솔을 직접 보시겠습니까</h2><p>실제 운영 환경에서 Manager 콘솔을 시연해 드립니다.</p></div>
+    <a class="btn btn-light" href="contact.html">데모 요청</a>
+  </div>
+</section>

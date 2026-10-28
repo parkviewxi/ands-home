@@ -1,0 +1,83 @@
+---
+title: SQX ERD 스키마 분석
+description: SQX ERD는 DB 테이블을 자동 배치해 FK 관계를 시각화하고, AI에게 관계·설계·쿼리 최적화를 묻고, 스냅샷으로 스키마 변경 이력을 추적하는 인터랙티브 ERD 뷰어입니다.
+nav: solution
+ogimage: img/hero-erd.webp
+---
+<section class="page-hero product-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a><span>/</span><a href="sqx.html">솔루션</a><span>/</span><span>ERD</span></nav>
+    <div class="product-hero-copy">
+      <span class="kicker">SQX ERD · 스키마 분석</span>
+      <h1>DB 구조를 그리고<br>AI에게 묻습니다</h1>
+      <p class="lead">인터랙티브 ERD 뷰어와 AI 분석이 결합된 스키마 탐색 도구입니다. 복잡한 테이블 관계를 시각화하고, 선택한 테이블을 맥락으로 AI와 대화하며 DB 구조를 이해합니다.</p>
+      <div class="modules"><span>ERD 뷰어</span><span>AI 분석</span><span>FK 경로 탐색</span><span>스냅샷</span><span>DDL 확인</span></div>
+    </div>
+    <figure class="product-hero-screen">
+      <img src="img/hero-erd.webp" alt="SQX ERD 스키마 뷰어 화면 — 테이블과 FK 관계선" width="1600" height="738" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+<nav class="product-nav" aria-label="솔루션 메뉴">
+  <div class="wrap">
+    <a href="sqx.html">SQX 개요</a>
+    <a href="sqx-nf1.html">NF1 프레임워크</a>
+    <a href="sqx-manager.html">Manager</a>
+    <a href="sqx-erd.html" aria-current="page">ERD</a>
+    <a href="sqx-pm.html">PM</a>
+    <a href="sqx-logistics.html">Logistics</a>
+    <a href="dbsquare.html">DBsquare</a>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>기능</h2>
+      <p class="lead">DB에 연결하면 스키마를 읽어 자동으로 그립니다. 그 다음은 보고, 묻고, 추적하는 일입니다.</p>
+    </div>
+    <div class="spec">
+      <div><h3>ERD 뷰어</h3><p>테이블을 도메인별로 자동 클러스터링하고 FK 관계를 선으로 잇습니다. 드래그로 배치를 조정하고, 클릭으로 PK·FK·타입 등 컬럼 상세를 봅니다. 스키마가 바뀌면 즉시 반영됩니다.</p></div>
+      <div><h3>AI 분석</h3><p>선택한 테이블의 컨텍스트를 자동으로 넣어 AI에게 묻습니다. 관계 설명, 컬럼 용도, 설계 의도, 인덱스 추천을 포함한 쿼리 최적화 제안, 멀티 테이블 JOIN 경로 생성. 대화 이력은 팀과 공유합니다.</p></div>
+      <div><h3>FK 경로 탐색</h3><p>시작 테이블에서 목표 테이블까지 FK 경로를 BFS로 탐색하고 복수 경로를 모두 보여 줍니다. 선택한 경로의 JOIN 쿼리를 자동 생성하고, 순환 참조를 감지해 경고합니다.</p></div>
+      <div><h3>스냅샷</h3><p>릴리즈·마이그레이션 기준으로 스키마 상태를 저장하고 버전 간 추가·삭제·변경 컬럼을 비교합니다. CI 파이프라인과 연동한 자동 스냅샷을 지원합니다.</p></div>
+      <div><h3>DDL 확인</h3><p>테이블을 클릭하면 CREATE TABLE 구문을 신택스 하이라이팅과 함께 보여 줍니다. 원클릭 복사, 다중 테이블 일괄 내보내기, 스냅샷 간 DDL diff, NF1 표준 감사 컬럼 자동 검증.</p></div>
+      <div><h3>어디에 쓰나</h3><p>레거시 시스템 분석, 재구축 설계, 신규 투입 인력의 온보딩, 데이터 표준화 점검. ISMP 현행 분석 단계에서도 씁니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-body">
+        <h3>FK 경로에서 JOIN 쿼리까지</h3>
+        <p>주문에서 컨테이너까지 어떻게 이어지는지 묻는 일은 레거시 분석에서 매일 생깁니다. SQX ERD는 최단 경로와 대안 경로를 찾아 주고, 그 경로대로 JOIN 쿼리를 만들어 바로 복사하게 합니다.</p>
+        <ul><li>최단 경로와 대안 경로를 홉 수와 함께 표시</li><li>경로 저장과 팀 공유</li><li>생성된 쿼리는 그대로 실행 가능</li></ul>
+      </div>
+      <div class="feature-media">
+        <svg viewBox="0 0 560 300" role="img" aria-label="FK 경로 탐색 예시: 주문 테이블에서 BL 테이블을 거쳐 컨테이너 테이블로 이어지는 2홉 최단 경로와, 경로·패킹을 거치는 3홉 대안 경로" class="diagram" font-family="Pretendard, system-ui, sans-serif">
+          <defs><marker id="ear" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f5eff"/></marker><marker id="ear2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c9d0db"/></marker></defs>
+          <text x="30" y="40" fill="#1f5eff" font-size="13" font-weight="700">최단 경로 · 2홉</text>
+          <g fill="#fff" stroke="#1f5eff" stroke-width="1.5"><rect x="30" y="56" width="130" height="54" rx="8"/><rect x="215" y="56" width="130" height="54" rx="8"/><rect x="400" y="56" width="130" height="54" rx="8"/></g>
+          <g fill="none" stroke="#1f5eff" stroke-width="1.5" marker-end="url(#ear)"><path d="M160 83h55"/><path d="M345 83h55"/></g>
+          <g fill="#14213d" font-size="14" font-weight="700" text-anchor="middle"><text x="95" y="79">tss_order</text><text x="280" y="79">tss_bl</text><text x="465" y="79">tss_cntr</text></g>
+          <g fill="#7b8494" font-size="11" text-anchor="middle"><text x="95" y="98">PK order_no</text><text x="280" y="98">FK order_no</text><text x="465" y="98">FK bl_no</text></g>
+          <text x="30" y="160" fill="#7b8494" font-size="13" font-weight="700">대안 경로 · 3홉</text>
+          <g fill="#f3f5f8" stroke="#c9d0db"><rect x="30" y="176" width="100" height="46" rx="8"/><rect x="163" y="176" width="100" height="46" rx="8"/><rect x="296" y="176" width="100" height="46" rx="8"/><rect x="430" y="176" width="100" height="46" rx="8"/></g>
+          <g fill="none" stroke="#c9d0db" stroke-width="1.5" marker-end="url(#ear2)"><path d="M130 199h33"/><path d="M263 199h33"/><path d="M396 199h34"/></g>
+          <g fill="#4b5567" font-size="13" text-anchor="middle"><text x="80" y="204">tss_order</text><text x="213" y="204">tss_route</text><text x="346" y="204">tss_packing</text><text x="480" y="204">tss_cntr</text></g>
+          <rect x="30" y="246" width="500" height="34" rx="6" fill="#0d1e3d"/>
+          <text x="44" y="268" fill="#dbe6ff" font-size="12" font-family="ui-monospace, Menlo, Consolas, monospace">SELECT o.order_no, b.bl_no, c.cntr_no FROM tss_order o JOIN tss_bl b ON b.order_no = o.order_no JOIN tss_cntr c ON c.bl_no = b.bl_no;</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div><h2>운영 중인 DB로 바로 시연합니다</h2><p>읽기 전용 접속만 있으면 됩니다. 대표메일로 요청해 주세요.</p></div>
+    <a class="btn btn-light" href="contact.html">데모 요청</a>
+  </div>
+</section>

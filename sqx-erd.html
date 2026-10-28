@@ -1,502 +1,160 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SQX ERD — Schema Lens | 앤드스퀘어</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="./css/sqx-common.css"/>
-  <style>
-    :root {
-      --accent: #06b6d4; --accent-em-start: #22d3ee; --accent-em-mid: #60a5fa;
-      --accent-glow: rgba(6,182,212,0.15);
-      --accent-dim: rgba(6,182,212,0.08);
-    }
-    .nav-product-tag { background: rgba(6,182,212,0.12); color: #06b6d4; border-color: rgba(6,182,212,0.3); }
-
-    /* ERD viewer mockup */
-    .erd-canvas { position:relative; height:220px; background:radial-gradient(ellipse at center,rgba(30,64,175,0.06) 0%,transparent 70%); border-radius:6px; overflow:hidden; }
-    .erd-line { position:absolute; background:none; }
-
-    /* AI panel */
-    .ai-panel { background:var(--slate-800); border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px; }
-    .ai-msg { font-size:9px; padding:6px 8px; border-radius:4px; line-height:1.6; }
-    .ai-msg.user { background:rgba(30,64,175,0.25); color:rgba(255,255,255,0.7); align-self:flex-end; max-width:80%; }
-    .ai-msg.bot { background:rgba(6,182,212,0.1); color:rgba(255,255,255,0.65); border-left:2px solid #06b6d4; }
-
-    /* FK path */
-    .fk-path { background:var(--slate-800); border-radius:6px; padding:10px; }
-    .fk-node { display:inline-flex; align-items:center; gap:4px; background:rgba(30,64,175,0.2); border:1px solid rgba(30,64,175,0.4); border-radius:4px; padding:3px 8px; font-size:9px; color:rgba(255,255,255,0.7); }
-    .fk-arrow { color:rgba(6,182,212,0.7); font-size:10px; margin:0 3px; }
-    .fk-row { display:flex; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:6px; }
-
-    /* DDL */
-    .ddl-block { background:#0a0f1a; border-radius:6px; padding:10px; font-family:monospace; font-size:8.5px; line-height:1.9; color:rgba(255,255,255,0.5); overflow:hidden; }
-    .kw { color:#c084fc; }
-    .tb { color:#60a5fa; }
-    .cm { color:#4ade80; }
-    .cn { color:#fbbf24; }
-    .ty { color:#fb923c; }
-
-    /* Snapshot grid */
-    .snap-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
-    .snap-card { background:var(--slate-800); border-radius:5px; overflow:hidden; }
-    .snap-header { background:#0a0f1a; padding:5px 8px; display:flex; justify-content:space-between; align-items:center; }
-    .snap-title { font-size:8px; color:rgba(255,255,255,0.4); font-family:'Outfit',sans-serif; }
-    .snap-date { font-size:7px; color:rgba(255,255,255,0.2); }
-    .snap-body { padding:6px 8px; }
-    .snap-mini-tbl { display:flex; flex-direction:column; gap:2px; }
-    .snap-row { display:flex; gap:4px; font-size:7.5px; color:rgba(255,255,255,0.4); }
-    .snap-col { width:6px; height:6px; border-radius:1px; background:rgba(6,182,212,0.4); flex-shrink:0; margin-top:1px; }
-
-    @media screen and (max-width: 768px) {
-      .erd-canvas {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
-      }
-      .erd-canvas svg {
-        width: 520px !important;
-        height: 220px !important;
-      }
-      .erd-canvas .erd-tbl {
-        position: absolute !important; /* Retain absolute positioning inside scroll container */
-      }
-      #tab-ai .screen-body {
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-      }
-      .snap-grid {
-        grid-template-columns: 1fr !important;
-      }
-      .ddl-block {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>SQX ERD 스키마 분석 | 앤드스퀘어</title>
+<meta name="description" content="SQX ERD는 DB 테이블을 자동 배치해 FK 관계를 시각화하고, AI에게 관계·설계·쿼리 최적화를 묻고, 스냅샷으로 스키마 변경 이력을 추적하는 인터랙티브 ERD 뷰어입니다.">
+<link rel="canonical" href="https://www.andsquare.co.kr/sqx-erd.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="앤드스퀘어">
+<meta property="og:title" content="SQX ERD 스키마 분석 | 앤드스퀘어">
+<meta property="og:description" content="SQX ERD는 DB 테이블을 자동 배치해 FK 관계를 시각화하고, AI에게 관계·설계·쿼리 최적화를 묻고, 스냅샷으로 스키마 변경 이력을 추적하는 인터랙티브 ERD 뷰어입니다.">
+<meta property="og:image" content="https://www.andsquare.co.kr/img/hero-erd.webp">
+<meta property="og:url" content="https://www.andsquare.co.kr/sqx-erd.html">
+<meta name="theme-color" content="#0d1e3d">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/woff2/Pretendard-Bold.subset.0.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/pretendard.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="js/site.js" defer></script>
 </head>
-<body>
-
-<nav class="nav">
-  <div class="nav-left">
-    <a href="./index.html" class="nav-back">ANDSQUARE</a>
-    <span class="nav-sep">/</span>
-    <a href="./nf1.html" class="nav-back">NF1 Solutions</a>
-    <span class="nav-sep">/</span>
-    <span class="nav-product-tag">SQX ERD</span>
+<body class="">
+<a class="sr-only" href="#main">본문으로 건너뛰기</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
+      <svg viewBox="0 0 176 34" role="img" aria-hidden="true" focusable="false"><path d="M2 32V2h172" fill="none" stroke="#3aa0ff" stroke-width="3" stroke-linecap="square"/><text x="14" y="26.5" font-family="Pretendard, system-ui, sans-serif" font-size="21" font-weight="700" letter-spacing="-0.4" fill="currentColor">AnD square</text></svg>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
+    <nav class="nav" id="site-nav" aria-label="주 메뉴">
+      <a href="about.html" data-nav="about">회사소개</a>
+      <a href="business.html" data-nav="business">사업영역</a>
+      <a href="sqx.html" data-nav="solution" aria-current="page">솔루션</a>
+      <a href="projects.html" data-nav="projects">수행실적</a>
+      <a href="contact.html" data-nav="contact">문의</a>
+    </nav>
+    <a class="btn btn-primary header-cta" href="contact.html">문의하기</a>
   </div>
-  <a href="./nf1.html" class="nav-home">← 솔루션 목록</a>
+</header>
+<main id="main">
+<section class="page-hero product-hero">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="현재 위치"><a href="index.html">홈</a><span>/</span><a href="sqx.html">솔루션</a><span>/</span><span>ERD</span></nav>
+    <div class="product-hero-copy">
+      <span class="kicker">SQX ERD · 스키마 분석</span>
+      <h1>DB 구조를 그리고<br>AI에게 묻습니다</h1>
+      <p class="lead">인터랙티브 ERD 뷰어와 AI 분석이 결합된 스키마 탐색 도구입니다. 복잡한 테이블 관계를 시각화하고, 선택한 테이블을 맥락으로 AI와 대화하며 DB 구조를 이해합니다.</p>
+      <div class="modules"><span>ERD 뷰어</span><span>AI 분석</span><span>FK 경로 탐색</span><span>스냅샷</span><span>DDL 확인</span></div>
+    </div>
+    <figure class="product-hero-screen">
+      <img src="img/hero-erd.webp" alt="SQX ERD 스키마 뷰어 화면 — 테이블과 FK 관계선" width="1600" height="738" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+<nav class="product-nav" aria-label="솔루션 메뉴">
+  <div class="wrap">
+    <a href="sqx.html">SQX 개요</a>
+    <a href="sqx-nf1.html">NF1 프레임워크</a>
+    <a href="sqx-manager.html">Manager</a>
+    <a href="sqx-erd.html" aria-current="page">ERD</a>
+    <a href="sqx-pm.html">PM</a>
+    <a href="sqx-logistics.html">Logistics</a>
+    <a href="dbsquare.html">DBsquare</a>
+  </div>
 </nav>
 
-<div class="product-hero">
-  <div class="product-hero-shot"><img src="img/hero-erd.png" alt=""></div>
-  <div class="product-hero-orb" style="background:conic-gradient(from 200deg,rgba(6,182,212,0.3) 0%,rgba(34,211,238,0.25) 40%,rgba(96,165,250,0.2) 70%,rgba(6,182,212,0.3) 100%);"></div><div class="product-hero-orb-ring"></div><div class="product-hero-inner">
-    <div class="product-hero-text">
-      <div class="product-eyebrow">SQX ERD — Schema Lens</div>
-      <h1>DB 구조를 그리고<br><em>AI에게 묻다</em></h1>
-      <p>인터랙티브 ERD 뷰어와 AI 분석이 결합된 차세대 스키마 탐색 도구.<br>
-        복잡한 테이블 관계를 시각화하고, AI와 대화하며 DB 구조를 이해합니다.</p>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>기능</h2>
+      <p class="lead">DB에 연결하면 스키마를 읽어 자동으로 그립니다. 그 다음은 보고, 묻고, 추적하는 일입니다.</p>
     </div>
-    <div class="product-hero-badge">
-      <div class="badge-icon">🔍</div>
+    <div class="spec">
+      <div><h3>ERD 뷰어</h3><p>테이블을 도메인별로 자동 클러스터링하고 FK 관계를 선으로 잇습니다. 드래그로 배치를 조정하고, 클릭으로 PK·FK·타입 등 컬럼 상세를 봅니다. 스키마가 바뀌면 즉시 반영됩니다.</p></div>
+      <div><h3>AI 분석</h3><p>선택한 테이블의 컨텍스트를 자동으로 넣어 AI에게 묻습니다. 관계 설명, 컬럼 용도, 설계 의도, 인덱스 추천을 포함한 쿼리 최적화 제안, 멀티 테이블 JOIN 경로 생성. 대화 이력은 팀과 공유합니다.</p></div>
+      <div><h3>FK 경로 탐색</h3><p>시작 테이블에서 목표 테이블까지 FK 경로를 BFS로 탐색하고 복수 경로를 모두 보여 줍니다. 선택한 경로의 JOIN 쿼리를 자동 생성하고, 순환 참조를 감지해 경고합니다.</p></div>
+      <div><h3>스냅샷</h3><p>릴리즈·마이그레이션 기준으로 스키마 상태를 저장하고 버전 간 추가·삭제·변경 컬럼을 비교합니다. CI 파이프라인과 연동한 자동 스냅샷을 지원합니다.</p></div>
+      <div><h3>DDL 확인</h3><p>테이블을 클릭하면 CREATE TABLE 구문을 신택스 하이라이팅과 함께 보여 줍니다. 원클릭 복사, 다중 테이블 일괄 내보내기, 스냅샷 간 DDL diff, NF1 표준 감사 컬럼 자동 검증.</p></div>
+      <div><h3>어디에 쓰나</h3><p>레거시 시스템 분석, 재구축 설계, 신규 투입 인력의 온보딩, 데이터 표준화 점검. ISMP 현행 분석 단계에서도 씁니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-gray">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-body">
+        <h3>FK 경로에서 JOIN 쿼리까지</h3>
+        <p>주문에서 컨테이너까지 어떻게 이어지는지 묻는 일은 레거시 분석에서 매일 생깁니다. SQX ERD는 최단 경로와 대안 경로를 찾아 주고, 그 경로대로 JOIN 쿼리를 만들어 바로 복사하게 합니다.</p>
+        <ul><li>최단 경로와 대안 경로를 홉 수와 함께 표시</li><li>경로 저장과 팀 공유</li><li>생성된 쿼리는 그대로 실행 가능</li></ul>
+      </div>
+      <div class="feature-media">
+        <svg viewBox="0 0 560 300" role="img" aria-label="FK 경로 탐색 예시: 주문 테이블에서 BL 테이블을 거쳐 컨테이너 테이블로 이어지는 2홉 최단 경로와, 경로·패킹을 거치는 3홉 대안 경로" class="diagram" font-family="Pretendard, system-ui, sans-serif">
+          <defs><marker id="ear" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f5eff"/></marker><marker id="ear2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c9d0db"/></marker></defs>
+          <text x="30" y="40" fill="#1f5eff" font-size="13" font-weight="700">최단 경로 · 2홉</text>
+          <g fill="#fff" stroke="#1f5eff" stroke-width="1.5"><rect x="30" y="56" width="130" height="54" rx="8"/><rect x="215" y="56" width="130" height="54" rx="8"/><rect x="400" y="56" width="130" height="54" rx="8"/></g>
+          <g fill="none" stroke="#1f5eff" stroke-width="1.5" marker-end="url(#ear)"><path d="M160 83h55"/><path d="M345 83h55"/></g>
+          <g fill="#14213d" font-size="14" font-weight="700" text-anchor="middle"><text x="95" y="79">tss_order</text><text x="280" y="79">tss_bl</text><text x="465" y="79">tss_cntr</text></g>
+          <g fill="#7b8494" font-size="11" text-anchor="middle"><text x="95" y="98">PK order_no</text><text x="280" y="98">FK order_no</text><text x="465" y="98">FK bl_no</text></g>
+          <text x="30" y="160" fill="#7b8494" font-size="13" font-weight="700">대안 경로 · 3홉</text>
+          <g fill="#f3f5f8" stroke="#c9d0db"><rect x="30" y="176" width="100" height="46" rx="8"/><rect x="163" y="176" width="100" height="46" rx="8"/><rect x="296" y="176" width="100" height="46" rx="8"/><rect x="430" y="176" width="100" height="46" rx="8"/></g>
+          <g fill="none" stroke="#c9d0db" stroke-width="1.5" marker-end="url(#ear2)"><path d="M130 199h33"/><path d="M263 199h33"/><path d="M396 199h34"/></g>
+          <g fill="#4b5567" font-size="13" text-anchor="middle"><text x="80" y="204">tss_order</text><text x="213" y="204">tss_route</text><text x="346" y="204">tss_packing</text><text x="480" y="204">tss_cntr</text></g>
+          <rect x="30" y="246" width="500" height="34" rx="6" fill="#0d1e3d"/>
+          <text x="44" y="268" fill="#dbe6ff" font-size="12" font-family="ui-monospace, Menlo, Consolas, monospace">SELECT o.order_no, b.bl_no, c.cntr_no FROM tss_order o JOIN tss_bl b ON b.order_no = o.order_no JOIN tss_cntr c ON c.bl_no = b.bl_no;</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div><h2>운영 중인 DB로 바로 시연합니다</h2><p>읽기 전용 접속만 있으면 됩니다. 대표메일로 요청해 주세요.</p></div>
+    <a class="btn btn-light" href="contact.html">데모 요청</a>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
       <div>
-        <div class="badge-label">Core Capability</div>
-        <div class="badge-value">AI-Powered ERD Analysis</div>
+        <a class="logo" href="index.html" aria-label="앤드스퀘어 홈">
+          <svg viewBox="0 0 176 34" role="img" aria-hidden="true" focusable="false"><path d="M2 32V2h172" fill="none" stroke="#3aa0ff" stroke-width="3" stroke-linecap="square"/><text x="14" y="26.5" font-family="Pretendard, system-ui, sans-serif" font-size="21" font-weight="700" letter-spacing="-0.4" fill="currentColor">AnD square</text></svg>
+        </a>
+        <p class="footer-addr">앤드스퀘어 주식회사<br>경기도 화성시 동탄대로 677-5 비전IT타워 512호<br>사업자등록번호 165-86-03313<br>대표메일 <a href="mailto:andiworks26@andsquare.co.kr">andiworks26@andsquare.co.kr</a></p>
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="tab-section">
-  <div class="section-inner">
-    <nav class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('erd',this)">ERD 뷰어</button>
-      <button class="tab-btn" onclick="switchTab('ai',this)">AI 분석</button>
-      <button class="tab-btn" onclick="switchTab('fk',this)">FK 경로탐색</button>
-      <button class="tab-btn" onclick="switchTab('snap',this)">스냅샷</button>
-      <button class="tab-btn" onclick="switchTab('ddl',this)">DDL 확인</button>
-    </nav>
-
-    <!-- ERD 뷰어 -->
-    <div class="tab-panel active" id="tab-erd">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">Schema Lens — ERD Viewer</span>
-        </div>
-        <div class="screen-body">
-          <!-- toolbar -->
-          <div style="display:flex;gap:6px;margin-bottom:8px;align-items:center;">
-            <div style="display:flex;gap:3px;background:rgba(255,255,255,0.05);border-radius:4px;padding:3px 6px;">
-              <span style="font-size:8px;color:#06b6d4;cursor:pointer;">전체</span>
-              <span style="font-size:8px;color:rgba(255,255,255,0.3);padding:0 3px;">|</span>
-              <span style="font-size:8px;color:rgba(255,255,255,0.4);cursor:pointer;">물류</span>
-              <span style="font-size:8px;color:rgba(255,255,255,0.3);padding:0 3px;">|</span>
-              <span style="font-size:8px;color:rgba(255,255,255,0.4);cursor:pointer;">회원</span>
-            </div>
-            <div class="mock-input" style="flex:1;height:22px;font-size:8px;color:rgba(255,255,255,0.4);display:flex;align-items:center;padding:0 8px;">테이블 검색...</div>
-            <span style="font-size:8px;color:#06b6d4;cursor:pointer;background:rgba(6,182,212,0.1);padding:3px 8px;border-radius:3px;">⚙ 레이아웃</span>
-          </div>
-          <!-- ERD canvas -->
-          <div class="erd-canvas">
-            <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
-              <!-- FK lines -->
-              <line x1="165" y1="70" x2="220" y2="50" stroke="rgba(6,182,212,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
-              <line x1="165" y1="90" x2="220" y2="135" stroke="rgba(6,182,212,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
-              <line x1="330" y1="55" x2="390" y2="50" stroke="rgba(96,165,250,0.35)" stroke-width="1" stroke-dasharray="3,2"/>
-              <line x1="330" y1="145" x2="390" y2="130" stroke="rgba(96,165,250,0.35)" stroke-width="1" stroke-dasharray="3,2"/>
-              <line x1="165" y1="80" x2="55" y2="100" stroke="rgba(251,191,36,0.3)" stroke-width="1" stroke-dasharray="3,2"/>
-            </svg>
-
-            <!-- Center: 주문 table (primary) -->
-            <div class="erd-tbl" style="left:65px;top:25px;">
-              <div class="erd-tbl-head" style="background:#1e40af;">📦 tss_order</div>
-              <div class="erd-tbl-row"><span class="epk">PK</span> order_no</div>
-              <div class="erd-tbl-row"><span class="efk">FK</span> com_cd</div>
-              <div class="erd-tbl-row" style="color:#06b6d4;">order_dt</div>
-              <div class="erd-tbl-row">status_cd</div>
-              <div class="erd-tbl-row">cargo_wt</div>
-            </div>
-
-            <!-- Right top: 화주 -->
-            <div class="erd-tbl" style="left:220px;top:10px;">
-              <div class="erd-tbl-head">🏢 tpa020m</div>
-              <div class="erd-tbl-row"><span class="epk">PK</span> com_cd</div>
-              <div class="erd-tbl-row">com_nm</div>
-              <div class="erd-tbl-row">country_cd</div>
-            </div>
-
-            <!-- Right bottom: BL -->
-            <div class="erd-tbl" style="left:220px;top:110px;">
-              <div class="erd-tbl-head">📋 tss_bl</div>
-              <div class="erd-tbl-row"><span class="epk">PK</span> bl_no</div>
-              <div class="erd-tbl-row"><span class="efk">FK</span> order_no</div>
-              <div class="erd-tbl-row">vessel_nm</div>
-              <div class="erd-tbl-row">etd</div>
-            </div>
-
-            <!-- Far right: 컨테이너 -->
-            <div class="erd-tbl" style="left:390px;top:15px;">
-              <div class="erd-tbl-head">📦 tss_cntr</div>
-              <div class="erd-tbl-row"><span class="epk">PK</span> cntr_no</div>
-              <div class="erd-tbl-row"><span class="efk">FK</span> bl_no</div>
-              <div class="erd-tbl-row">cntr_type</div>
-            </div>
-
-            <!-- Far right bottom: 포워더 -->
-            <div class="erd-tbl" style="left:390px;top:105px;">
-              <div class="erd-tbl-head">🚢 tss_port</div>
-              <div class="erd-tbl-row"><span class="epk">PK</span> port_cd</div>
-              <div class="erd-tbl-row"><span class="efk">FK</span> bl_no</div>
-              <div class="erd-tbl-row">port_nm</div>
-            </div>
-
-            <!-- Left: 코드 -->
-            <div class="erd-tbl" style="left:0px;top:68px;">
-              <div class="erd-tbl-head">🏷 tpa010m</div>
-              <div class="erd-tbl-row"><span class="epk">PK</span> code_cd</div>
-              <div class="erd-tbl-row">code_nm</div>
-            </div>
-          </div>
-        </div>
+      <div>
+        <h4>회사</h4>
+        <ul>
+          <li><a href="about.html">회사소개</a></li>
+          <li><a href="about.html#history">연혁</a></li>
+          <li><a href="business.html">사업영역</a></li>
+          <li><a href="projects.html">수행실적</a></li>
+          <li><a href="contact.html">문의</a></li>
+        </ul>
       </div>
-      <div class="panel-desc">
-        <div class="panel-tag">ERD Viewer</div>
-        <div class="panel-title">인터랙티브<br>스키마 시각화</div>
-        <div class="panel-text">
-          DB 전체 테이블을 자동으로 그룹화하고, FK 관계를 선으로 연결합니다.
-          드래그로 레이아웃을 조정하고, 클릭으로 컬럼 상세를 확인하세요.
-        </div>
-        <ul class="feature-bullets">
-          <li>테이블 자동 배치 — 도메인별 클러스터링</li>
-          <li>FK 관계선 하이라이트 — 연관 테이블 추적</li>
-          <li>컬럼 상세 토글 — PK/FK/타입 표시</li>
-          <li>그룹 필터 — 물류, 회원, 코드 등 도메인별 필터</li>
-          <li>실시간 동기화 — DB 스키마 변경 즉시 반영</li>
+      <div>
+        <h4>솔루션</h4>
+        <ul>
+          <li><a href="sqx.html">SQX 통합 플랫폼</a></li>
+          <li><a href="sqx-nf1.html">SQX NF1 프레임워크</a></li>
+          <li><a href="sqx-manager.html">SQX Manager</a></li>
+          <li><a href="sqx-erd.html">SQX ERD</a></li>
+          <li><a href="sqx-pm.html">SQX PM</a></li>
+          <li><a href="sqx-logistics.html">SQX Logistics</a></li>
+          <li><a href="dbsquare.html">DBsquare</a></li>
         </ul>
       </div>
     </div>
-
-    <!-- AI 분석 -->
-    <div class="tab-panel" id="tab-ai">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">Schema Lens — AI Analysis</span>
-        </div>
-        <div class="screen-body" style="display:grid;grid-template-columns:1.2fr 1fr;gap:8px;">
-          <!-- ERD mini -->
-          <div>
-            <div class="mock-section-label" style="margin-bottom:4px;">선택된 테이블 컨텍스트</div>
-            <div class="erd-canvas" style="height:120px;">
-              <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
-                <line x1="130" y1="50" x2="185" y2="35" stroke="rgba(6,182,212,0.5)" stroke-width="1.5"/>
-                <line x1="130" y1="70" x2="185" y2="90" stroke="rgba(6,182,212,0.5)" stroke-width="1.5"/>
-              </svg>
-              <div class="erd-tbl" style="left:10px;top:22px;border-color:#06b6d4;box-shadow:0 0 8px rgba(6,182,212,0.3);">
-                <div class="erd-tbl-head" style="background:#0e7490;">📦 tss_order</div>
-                <div class="erd-tbl-row"><span class="epk">PK</span> order_no</div>
-                <div class="erd-tbl-row"><span class="efk">FK</span> com_cd</div>
-              </div>
-              <div class="erd-tbl" style="left:185px;top:8px;">
-                <div class="erd-tbl-head" style="font-size:8px;">tpa020m</div>
-                <div class="erd-tbl-row"><span class="epk">PK</span> com_cd</div>
-              </div>
-              <div class="erd-tbl" style="left:185px;top:70px;">
-                <div class="erd-tbl-head" style="font-size:8px;">tss_bl</div>
-                <div class="erd-tbl-row"><span class="efk">FK</span> order_no</div>
-              </div>
-            </div>
-          </div>
-          <!-- AI Chat -->
-          <div>
-            <div class="mock-section-label" style="margin-bottom:4px;">AI 대화</div>
-            <div class="ai-panel" style="height:120px;overflow:hidden;justify-content:flex-end;">
-              <div class="ai-msg user">tss_order와 연결된 테이블이 뭐야?</div>
-              <div class="ai-msg bot">tss_order는 총 4개 테이블과 연결됩니다: <span style="color:#06b6d4;">tpa020m</span>(화주·FK com_cd), <span style="color:#06b6d4;">tss_bl</span>(BL·참조됨), <span style="color:#06b6d4;">tss_charge</span>(운임·참조됨), <span style="color:#06b6d4;">tpa010m</span>(공통코드·조인).</div>
-            </div>
-          </div>
-          <!-- Query input -->
-          <div style="grid-column:1/-1;">
-            <div style="display:flex;gap:6px;align-items:center;">
-              <div class="mock-input" style="flex:1;height:28px;display:flex;align-items:center;padding:0 10px;font-size:9px;color:rgba(255,255,255,0.3);">DB 스키마에 대해 질문하세요...</div>
-              <div style="height:28px;width:52px;border-radius:4px;background:rgba(6,182,212,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;color:#06b6d4;">전송</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">AI Analysis</div>
-        <div class="panel-title">스키마를<br>AI와 대화하다</div>
-        <div class="panel-text">
-          선택한 테이블 컨텍스트와 함께 AI에게 질문하면, 관계·설계·쿼리 최적화까지
-          즉각적인 인사이트를 제공합니다.
-        </div>
-        <ul class="feature-bullets">
-          <li>선택 테이블 컨텍스트 자동 주입 — 정확도 향상</li>
-          <li>관계 설명, 컬럼 용도, 설계 의도 분석</li>
-          <li>쿼리 최적화 제안 — 인덱스 추천 포함</li>
-          <li>멀티 테이블 JOIN 경로 자동 생성</li>
-          <li>대화 이력 저장 — 팀 공유 가능</li>
-        </ul>
-      </div>
+    <div class="footer-bottom">
+      <span>© 2026 AnD square Inc. All rights reserved.</span>
+      <span>정보화 컨설팅 · 시스템 구축 · 물류 솔루션</span>
     </div>
-
-    <!-- FK 경로탐색 -->
-    <div class="tab-panel" id="tab-fk">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">Schema Lens — FK Path Explorer</span>
-        </div>
-        <div class="screen-body">
-          <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;">
-            <div style="font-size:8px;color:rgba(255,255,255,0.35);width:40px;">시작</div>
-            <div class="mock-input" style="flex:1;height:22px;display:flex;align-items:center;padding:0 8px;font-size:9px;color:#06b6d4;">tss_order</div>
-            <div style="font-size:8px;color:rgba(255,255,255,0.35);width:40px;">목표</div>
-            <div class="mock-input" style="flex:1;height:22px;display:flex;align-items:center;padding:0 8px;font-size:9px;color:#06b6d4;">tss_cntr</div>
-            <div style="height:22px;padding:0 8px;border-radius:3px;background:rgba(6,182,212,0.2);display:flex;align-items:center;font-size:8px;color:#06b6d4;">탐색</div>
-          </div>
-          <div class="fk-path">
-            <div class="mock-section-label">발견된 경로 (2개)</div>
-            <div style="margin-top:6px;display:flex;flex-direction:column;gap:8px;">
-              <div>
-                <div style="font-size:7px;color:#4ade80;margin-bottom:4px;">✓ 최단 경로 (2 홉)</div>
-                <div class="fk-row">
-                  <span class="fk-node">tss_order<br/><span style="color:#fbbf24;font-size:7px;">PK: order_no</span></span>
-                  <span class="fk-arrow">→</span>
-                  <span class="fk-node">tss_bl<br/><span style="color:#06b6d4;font-size:7px;">FK: order_no</span></span>
-                  <span class="fk-arrow">→</span>
-                  <span class="fk-node">tss_cntr<br/><span style="color:#06b6d4;font-size:7px;">FK: bl_no</span></span>
-                </div>
-              </div>
-              <div>
-                <div style="font-size:7px;color:rgba(255,255,255,0.3);margin-bottom:4px;">대안 경로 (3 홉)</div>
-                <div class="fk-row">
-                  <span class="fk-node" style="opacity:.6;">tss_order</span>
-                  <span class="fk-arrow" style="opacity:.5;">→</span>
-                  <span class="fk-node" style="opacity:.6;">tss_route</span>
-                  <span class="fk-arrow" style="opacity:.5;">→</span>
-                  <span class="fk-node" style="opacity:.6;">tss_packing</span>
-                  <span class="fk-arrow" style="opacity:.5;">→</span>
-                  <span class="fk-node" style="opacity:.6;">tss_cntr</span>
-                </div>
-              </div>
-            </div>
-            <div style="margin-top:8px;background:#0a0f1a;border-radius:4px;padding:7px;font-family:monospace;font-size:8px;color:#4ade80;line-height:1.9;">
-              <span style="color:rgba(255,255,255,0.3);">-- 생성된 JOIN 쿼리</span><br/>
-              <span style="color:#c084fc;">SELECT</span> o.order_no, b.bl_no, c.cntr_no<br/>
-              <span style="color:#c084fc;">FROM</span> tss_order o<br/>
-              <span style="color:#60a5fa;">JOIN</span> tss_bl b <span style="color:#c084fc;">ON</span> b.order_no = o.order_no<br/>
-              <span style="color:#60a5fa;">JOIN</span> tss_cntr c <span style="color:#c084fc;">ON</span> c.bl_no = b.bl_no;
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">FK Path Explorer</div>
-        <div class="panel-title">테이블 간<br>최단 경로 탐색</div>
-        <div class="panel-text">
-          시작 테이블에서 목표 테이블까지의 FK 경로를 자동으로 탐색하고,
-          JOIN 쿼리를 즉시 생성합니다. 복잡한 관계도 3초 안에 파악하세요.
-        </div>
-        <ul class="feature-bullets">
-          <li>BFS 알고리즘 기반 최단 FK 경로 탐색</li>
-          <li>복수 경로 발견 시 모두 표시 — 선택 가능</li>
-          <li>JOIN 쿼리 자동 생성 — 복사해서 바로 사용</li>
-          <li>순환 참조 감지 및 경고</li>
-          <li>경로 저장 및 팀 공유</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- 스냅샷 -->
-    <div class="tab-panel" id="tab-snap">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">Schema Lens — Snapshots</span>
-        </div>
-        <div class="screen-body">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <div class="mock-section-label">스냅샷 목록</div>
-            <div style="font-size:8px;color:#06b6d4;background:rgba(6,182,212,0.1);padding:3px 8px;border-radius:3px;cursor:pointer;">+ 현재 상태 저장</div>
-          </div>
-          <div class="snap-grid">
-            <div class="snap-card">
-              <div class="snap-header">
-                <div class="snap-title">v2.4 릴리즈 스냅샷</div>
-                <div class="snap-date">2025-03-15</div>
-              </div>
-              <div class="snap-body">
-                <div style="display:flex;gap:6px;margin-bottom:5px;">
-                  <div style="font-size:8px;color:#4ade80;background:rgba(74,222,128,0.1);padding:1px 6px;border-radius:3px;">+12 테이블</div>
-                  <div style="font-size:8px;color:#f87171;background:rgba(248,113,113,0.1);padding:1px 6px;border-radius:3px;">-3 컬럼</div>
-                </div>
-                <div class="snap-mini-tbl">
-                  <div class="snap-row"><div class="snap-col"></div>tss_order (12 cols)</div>
-                  <div class="snap-row"><div class="snap-col" style="background:rgba(74,222,128,0.4)"></div>tss_route <span style="color:#4ade80">NEW</span></div>
-                  <div class="snap-row"><div class="snap-col"></div>tpa020m (8 cols)</div>
-                </div>
-              </div>
-            </div>
-            <div class="snap-card" style="border:1px solid rgba(6,182,212,0.3);">
-              <div class="snap-header" style="background:rgba(6,182,212,0.05);">
-                <div class="snap-title" style="color:#06b6d4;">현재 (라이브)</div>
-                <div class="snap-date">2025-04-01</div>
-              </div>
-              <div class="snap-body">
-                <div style="display:flex;gap:6px;margin-bottom:5px;">
-                  <div style="font-size:8px;color:rgba(255,255,255,0.4);">테이블 147개</div>
-                  <div style="font-size:8px;color:rgba(255,255,255,0.4);">컬럼 1,203개</div>
-                </div>
-                <div class="snap-mini-tbl">
-                  <div class="snap-row"><div class="snap-col" style="background:#06b6d4;"></div>tss_order (14 cols)</div>
-                  <div class="snap-row"><div class="snap-col" style="background:#06b6d4;"></div>tss_bl (9 cols)</div>
-                  <div class="snap-row"><div class="snap-col" style="background:#06b6d4;"></div>tss_cntr (7 cols)</div>
-                </div>
-              </div>
-            </div>
-            <div class="snap-card">
-              <div class="snap-header">
-                <div class="snap-title">v2.0 마이그레이션 전</div>
-                <div class="snap-date">2024-12-01</div>
-              </div>
-              <div class="snap-body">
-                <div style="display:flex;gap:6px;margin-bottom:5px;">
-                  <div style="font-size:8px;color:rgba(255,255,255,0.3);">테이블 98개</div>
-                </div>
-                <div class="snap-mini-tbl">
-                  <div class="snap-row"><div class="snap-col" style="opacity:.4;"></div><span style="opacity:.5;">legacy_order</span></div>
-                  <div class="snap-row"><div class="snap-col" style="opacity:.4;"></div><span style="opacity:.5;">legacy_shipment</span></div>
-                </div>
-              </div>
-            </div>
-            <div class="snap-card" style="border:1px dashed rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;">
-              <div style="text-align:center;">
-                <div style="font-size:18px;color:rgba(255,255,255,0.15);">+</div>
-                <div style="font-size:8px;color:rgba(255,255,255,0.2);margin-top:2px;">새 스냅샷</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">Snapshots</div>
-        <div class="panel-title">스키마 변경<br>이력 추적</div>
-        <div class="panel-text">
-          DB 스키마 상태를 시점별로 저장하고, 버전 간 차이를 비교합니다.
-          마이그레이션 전후 변화를 한눈에 파악하세요.
-        </div>
-        <ul class="feature-bullets">
-          <li>시점별 스냅샷 저장 — 릴리즈·마이그레이션 기준점</li>
-          <li>버전 간 diff — 추가/삭제/변경 컬럼 표시</li>
-          <li>스냅샷 비교 뷰 — 나란히 보기</li>
-          <li>팀원 공유 링크 생성</li>
-          <li>자동 스냅샷 — CI 파이프라인 연동</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- DDL 확인 -->
-    <div class="tab-panel" id="tab-ddl">
-      <div class="panel-screen">
-        <div class="screen-bar">
-          <div class="screen-dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="screen-title">Schema Lens — DDL Viewer</span>
-        </div>
-        <div class="screen-body">
-          <div style="display:flex;gap:6px;margin-bottom:8px;align-items:center;">
-            <div class="mock-input" style="flex:1;height:22px;display:flex;align-items:center;padding:0 8px;font-size:9px;color:#06b6d4;">tss_order</div>
-            <div style="height:22px;padding:0 8px;border-radius:3px;background:rgba(6,182,212,0.15);display:flex;align-items:center;font-size:8px;color:#06b6d4;">복사</div>
-            <div style="height:22px;padding:0 8px;border-radius:3px;background:rgba(255,255,255,0.06);display:flex;align-items:center;font-size:8px;color:rgba(255,255,255,0.4);">내보내기</div>
-          </div>
-          <div class="ddl-block">
-<span class="kw">CREATE TABLE</span> <span class="tb">tss_order</span> (<br/>
-&nbsp;&nbsp;<span class="cn">house_cd</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ty">VARCHAR(10)</span>&nbsp;&nbsp;<span class="kw">NOT NULL</span>,&nbsp;&nbsp;&nbsp;<span class="cm">-- 사업장</span><br/>
-&nbsp;&nbsp;<span class="cn">com_cd</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ty">VARCHAR(10)</span>&nbsp;&nbsp;<span class="kw">NOT NULL</span>,&nbsp;&nbsp;&nbsp;<span class="cm">-- 회원사</span><br/>
-&nbsp;&nbsp;<span class="cn">order_no</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ty">VARCHAR(20)</span>&nbsp;&nbsp;<span class="kw">NOT NULL</span>,&nbsp;&nbsp;&nbsp;<span class="cm">-- 주문번호 PK</span><br/>
-&nbsp;&nbsp;<span class="cn">order_dt</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ty">DATE</span>,<br/>
-&nbsp;&nbsp;<span class="cn">status_cd</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ty">VARCHAR(4)</span>,<br/>
-&nbsp;&nbsp;<span class="cn">cargo_wt</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ty">NUMERIC(12,3)</span>,<br/>
-&nbsp;&nbsp;<span class="cn">del_yn</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ty">CHAR(1)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">DEFAULT</span> <span class="cm">'N'</span>,<br/>
-&nbsp;&nbsp;<span class="cn">frst_usr_id</span>&nbsp;&nbsp;<span class="ty">VARCHAR(20)</span>,<br/>
-&nbsp;&nbsp;<span class="cn">frst_rgst_dttm</span> <span class="ty">TIMESTAMP</span>,<br/>
-&nbsp;&nbsp;<span class="cn">lst_chg_usr_id</span> <span class="ty">VARCHAR(20)</span>,<br/>
-&nbsp;&nbsp;<span class="cn">lst_chg_dttm</span>&nbsp;<span class="ty">TIMESTAMP</span>,<br/>
-&nbsp;&nbsp;<span class="kw">PRIMARY KEY</span> (house_cd, com_cd, order_no),<br/>
-&nbsp;&nbsp;<span class="kw">FOREIGN KEY</span> (com_cd) <span class="kw">REFERENCES</span> <span class="tb">tpa020m</span>(com_cd)<br/>
-);
-          </div>
-        </div>
-      </div>
-      <div class="panel-desc">
-        <div class="panel-tag">DDL Viewer</div>
-        <div class="panel-title">실제 DDL<br>즉시 확인</div>
-        <div class="panel-text">
-          테이블을 클릭하면 실제 CREATE TABLE 구문을 신택스 하이라이팅과 함께 표시합니다.
-          복사, 내보내기, 비교까지 한 화면에서 처리하세요.
-        </div>
-        <ul class="feature-bullets">
-          <li>신택스 하이라이팅 — 키워드·타입·컬럼 구분</li>
-          <li>원클릭 복사 — 클립보드로 즉시 전달</li>
-          <li>스냅샷 간 DDL diff — 변경 이력 추적</li>
-          <li>다중 테이블 DDL 일괄 내보내기</li>
-          <li>NF1 표준 Audit 컬럼 자동 검증</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<footer class="sqx-footer">
-  <div class="footer-inner">
-    <span>COPYRIGHT © ANDSQUARE INC. ALL RIGHTS RESERVED.</span>
-    <a href="./nf1.html">← 솔루션 목록으로</a>
   </div>
 </footer>
-
-<script src="./js/sqx-common.js"></script>
 </body>
 </html>
