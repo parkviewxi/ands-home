@@ -429,9 +429,9 @@ button { font: inherit; }
 @media (max-width: 720px) { .ci-cards { grid-template-columns: 1fr; } }
 
 /* ---------- 수행실적 모노그램 타일 ---------- */
-.proj .mono { aspect-ratio: 16 / 10; position: relative; overflow: hidden; color: #fff; padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between; }
-.proj .mono small { font-size: 13px; opacity: .78; letter-spacing: .01em; }
-.proj .mono b { display: block; font-size: clamp(28px, 2.6vw, 36px); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
-.proj .mono span { display: block; font-size: 14px; opacity: .85; margin-top: 4px; }
-.proj .mono i { position: absolute; right: -30px; bottom: -30px; width: 140px; height: 140px; border: 3px solid rgba(255, 255, 255, .16); border-radius: 18px; transform: rotate(12deg); }
+.proj .mono, .recent-card .mono { aspect-ratio: 16 / 10; position: relative; overflow: hidden; color: #fff; padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between; }
+.proj .mono small, .recent-card .mono small { font-size: 13px; opacity: .78; letter-spacing: .01em; }
+.recent-card .mono b, .proj .mono b { display: block; font-size: clamp(28px, 2.6vw, 36px); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
+.proj .mono span, .recent-card .mono span { display: block; font-size: 14px; opacity: .85; margin-top: 4px; }
+.proj .mono i, .recent-card .mono i { position: absolute; right: -30px; bottom: -30px; width: 140px; height: 140px; border: 3px solid rgba(255, 255, 255, .16); border-radius: 18px; transform: rotate(12deg); }
 .m-navy { background: #0d1e3d; } .m-blue { background: #1543c4; } .m-teal { background: #0f5f73; } .m-slate { background: #3a4a66; } .m-ink { background: #1b2a4a; }
